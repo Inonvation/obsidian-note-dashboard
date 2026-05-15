@@ -7,6 +7,7 @@
     <td><img src="https://github.com/user-attachments/assets/179abf20-b509-42b0-b927-f0054648fdfb" width="240"></td>
   </tr>
 </table>
+<img width="1920" height="1030" alt="image" src="https://github.com/user-attachments/assets/6cae2aa5-905b-4bf3-8171-2f65adaffb1a" />
 
 
 ## 功能
