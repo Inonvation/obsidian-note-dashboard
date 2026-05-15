@@ -1,7 +1,8 @@
 # Obsidian Note Dashboard
 
 一个基于 DataviewJS 的笔记统计看板。GitHub 风格热力图 + 写作统计 + 文件夹排行 + 待办聚合，全部写在一个 `.md` 文件里。
-<img width="1080" height="3904" alt="微信图片_20260515160913_325_3" src="https://github.com/user-attachments/assets/904f89e0-c521-4f76-831a-485677bde1db" />
+<img width="1080" height="2400" alt="0bf6f1655ba69a867ad0a17d53306748" src="https://github.com/user-attachments/assets/48f67b85-aa4a-4857-9d1c-9e96945a0655" /><img width="1080" height="2400" alt="ed42b89130f58ebf633db11a3c62b358" src="https://github.com/user-attachments/assets/179abf20-b509-42b0-b927-f0054648fdfb" />
+
 
 ## 功能
 
