@@ -8,7 +8,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Obsidian-7C3AED?style=flat&logo=obsidian&logoColor=white">
   <img src="https://img.shields.io/badge/DataviewJS-FF6B6B?style=flat&logo=javascript&logoColor=white">
-  <img src="https://img.shields.io/github/stars/Inonvation/obsidian-note-dashboard?style=flat&logo=github&label=stars">
   <img src="https://img.shields.io/badge/license-MIT-blue">
 </p>
 
