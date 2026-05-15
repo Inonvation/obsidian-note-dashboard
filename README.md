@@ -11,12 +11,17 @@
 ## 效果预览
 
 <p align="center">
-  <table>
-    <tr>
-      <td><img src="https://github.com/user-attachments/assets/48f67b85-aa4a-4857-9d1c-9e96945a0655" width="360"></td>
-      <td><img src="https://github.com/user-attachments/assets/179abf20-b509-42b0-b927-f0054648fdfb" width="360"></td>
-    </tr>
-  </table>
+  <strong>📱 移动端预览</strong>
+  <br><br>
+  <img src="https://github.com/user-attachments/assets/48f67b85-aa4a-4857-9d1c-9e96945a0655" width="300">
+  &nbsp;&nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/179abf20-b509-42b0-b927-f0054648fdfb" width="300">
+</p>
+
+<p align="center">
+  <strong>💻 电脑端预览</strong>
+  <br><br>
+  <img src="https://github.com/user-attachments/assets/6cae2aa5-905b-4bf3-8171-2f65adaffb1a" width="800">
 </p>
 
 <p align="center">
