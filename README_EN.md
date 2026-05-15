@@ -8,12 +8,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Obsidian-7C3AED?style=flat&logo=obsidian&logoColor=white">
   <img src="https://img.shields.io/badge/DataviewJS-FF6B6B?style=flat&logo=javascript&logoColor=white">
-  <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat&label=release">
-  <img src="https://img.shields.io/github/stars/Inonvation/obsidian-note-dashboard?style=flat&logo=github&label=stars">
-  <img src="https://img.shields.io/github/last-commit/Inonvation/obsidian-note-dashboard?style=flat&logo=git&label=updated">
-  <img src="https://img.shields.io/github/issues/Inonvation/obsidian-note-dashboard?style=flat&logo=github&label=issues">
   <img src="https://img.shields.io/badge/license-MIT-blue">
-  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat&logo=github">
 </p>
 
 <p align="center">
