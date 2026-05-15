@@ -13,7 +13,6 @@
   <img src="https://img.shields.io/github/last-commit/Inonvation/obsidian-note-dashboard?style=flat&logo=git&label=更新">
   <img src="https://img.shields.io/github/issues/Inonvation/obsidian-note-dashboard?style=flat&logo=github&label=issues">
   <img src="https://img.shields.io/badge/license-MIT-blue">
-  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat&logo=github">
 </p>
 
 <p align="center">
