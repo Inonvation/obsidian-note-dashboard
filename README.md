@@ -8,10 +8,10 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Obsidian-7C3AED?style=flat&logo=obsidian&logoColor=white">
   <img src="https://img.shields.io/badge/DataviewJS-FF6B6B?style=flat&logo=javascript&logoColor=white">
-  <img src="https://img.shields.io/github/v/release/你的用户名/obsidian-note-dashboard?style=flat&label=release">
-  <img src="https://img.shields.io/github/stars/你的用户名/obsidian-note-dashboard?style=flat&logo=github&label=stars">
-  <img src="https://img.shields.io/github/last-commit/你的用户名/obsidian-note-dashboard?style=flat&logo=git&label=更新">
-  <img src="https://img.shields.io/github/issues/你的用户名/obsidian-note-dashboard?style=flat&logo=github&label=issues">
+  <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat&label=release">
+  <img src="https://img.shields.io/github/stars/Inonvation/obsidian-note-dashboard?style=flat&logo=github&label=stars">
+  <img src="https://img.shields.io/github/last-commit/Inonvation/obsidian-note-dashboard?style=flat&logo=git&label=更新">
+  <img src="https://img.shields.io/github/issues/Inonvation/obsidian-note-dashboard?style=flat&logo=github&label=issues">
   <img src="https://img.shields.io/badge/license-MIT-blue">
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat&logo=github">
 </p>
@@ -160,7 +160,7 @@ const D = { e:'#2d333b', c1:'#1a5435', c2:'#2b7448', c3:'#409660', c4:'#57ab76' 
 
 欢迎任何形式的贡献！
 
-- 🐛 提交 [Issue](https://github.com/你的用户名/obsidian-note-dashboard/issues) 报告 Bug 或提出功能建议
+- 🐛 提交 [Issue](https://github.com/Inonvation/obsidian-note-dashboard/issues) 报告 Bug 或提出功能建议
 - 🔀 提交 Pull Request 改进代码
 - ⭐ 点亮 Star 让更多人看到这个项目
 
@@ -168,7 +168,7 @@ const D = { e:'#2d333b', c1:'#1a5435', c2:'#2b7448', c3:'#409660', c4:'#57ab76' 
 
 ## ⭐ Star 历史
 
-[![Star History Chart](https://api.star-history.com/svg?repos=你的用户名/obsidian-note-dashboard&type=Date)](https://star-history.com/#你的用户名/obsidian-note-dashboard&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=Inonvation/obsidian-note-dashboard&type=Date)](https://star-history.com/#Inonvation/obsidian-note-dashboard&Date)
 
 ---
 
