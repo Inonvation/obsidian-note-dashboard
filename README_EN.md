@@ -1,7 +1,3 @@
----
-
-**`README_EN.md`**
-
 # Obsidian Note Dashboard
 
 <p align="center">
