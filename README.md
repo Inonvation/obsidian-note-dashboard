@@ -12,22 +12,20 @@
 
 <p align="center">
   <strong>📱 移动端预览</strong>
-  <br><br>
+</p>
+
+<p align="center">
   <img src="https://github.com/user-attachments/assets/48f67b85-aa4a-4857-9d1c-9e96945a0655" width="300">
-  &nbsp;&nbsp;&nbsp;
+  &emsp;
   <img src="https://github.com/user-attachments/assets/179abf20-b509-42b0-b927-f0054648fdfb" width="300">
 </p>
 
 <p align="center">
   <strong>💻 电脑端预览</strong>
-  <br><br>
-  <img src="https://github.com/user-attachments/assets/6cae2aa5-905b-4bf3-8171-2f65adaffb1a" width="800">
 </p>
 
 <p align="center">
-  <img src=<img width="1920" height="1030" alt="image" src="https://github.com/user-attachments/assets/1393c600-5c11-422b-be10-76a8c90cf553" />
-  <br>
-  <sub>完整看板一览（数据随使用动态更新）</sub>
+  <img src="https://github.com/user-attachments/assets/6cae2aa5-905b-4bf3-8171-2f65adaffb1a" width="800">
 </p>
 
 ## 功能
