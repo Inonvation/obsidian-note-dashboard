@@ -8,7 +8,8 @@
 
 一个基于 DataviewJS 的笔记统计看板。GitHub 风格热力图 + 写作统计 + 文件夹排行 + 待办聚合，全部写在一个 `.md` 文件里。
 
-##效果预览
+## 效果预览
+
 <p align="center">
   <table>
     <tr>
@@ -16,6 +17,12 @@
       <td><img src="https://github.com/user-attachments/assets/179abf20-b509-42b0-b927-f0054648fdfb" width="360"></td>
     </tr>
   </table>
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6cae2aa5-905b-4bf3-8171-2f65adaffb1a" width="800">
+  <br>
+  <sub>完整看板一览（数据随使用动态更新）</sub>
 </p>
 
 ## 功能
@@ -106,4 +113,3 @@ const D = { e:'#2d333b', c1:'#1a5435', c2:'#2b7448', c3:'#409660', c4:'#57ab76' 
 <p align="center">
   <sub>Built with ❤️ for the Obsidian community · MIT License</sub>
 </p>
-```
