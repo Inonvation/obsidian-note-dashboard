@@ -179,10 +179,3 @@ This project is licensed under the MIT License — see the [LICENSE](./LICENSE) 
   <br>
 </p>
 ```
-
-直接复制，替换你仓库里 `README_EN.md` 的全部内容。现在两边都修好了：
-
-| 文件 | English badge → | 中文 badge → |
-|---|---|---|
-| `README.md`（中文版） | `README_EN.md` | `#`（当前页） |
-| `README_EN.md`（英文版） | `#`（当前页） | `README.md` |
