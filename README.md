@@ -1,8 +1,8 @@
 # Obsidian Note Dashboard
 
 <p align="center">
-  <a href="README.md"><img src="https://img.shields.io/badge/English-1982d2?style=flat&logo=readme&logoColor=white"></a>
-  <a href="README_CN.md"><img src="https://img.shields.io/badge/中文-d63031?style=flat&logo=readme&logoColor=white"></a>
+  <a href="README_EN.md"><img src="https://img.shields.io/badge/English-1982d2?style=flat&logo=readme&logoColor=white"></a>
+  <a href="#"><img src="https://img.shields.io/badge/中文-d63031?style=flat&logo=readme&logoColor=white"></a>
 </p>
 
 <p align="center">
@@ -179,6 +179,5 @@ const D = { e:'#2d333b', c1:'#1a5435', c2:'#2b7448', c3:'#409660', c4:'#57ab76' 
 <p align="center">
   <sub>为 Obsidian 社区用心打造 ❤️</sub>
   <br>
-  <sub>如果这个看板对你有帮助，欢迎 <a href="https://ko-fi.com/你的链接">请我喝杯咖啡 ☕</a></sub>
 </p>
 ```
