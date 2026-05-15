@@ -25,7 +25,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/6cae2aa5-905b-4bf3-8171-2f65adaffb1a" width="800">
+  <img src=<img width="1920" height="1030" alt="image" src="https://github.com/user-attachments/assets/1393c600-5c11-422b-be10-76a8c90cf553" />
   <br>
   <sub>完整看板一览（数据随使用动态更新）</sub>
 </p>
