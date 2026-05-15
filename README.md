@@ -1,19 +1,27 @@
 # Obsidian Note Dashboard
 
-一个基于 DataviewJS 的笔记统计看板。GitHub 风格热力图 + 写作统计 + 文件夹排行 + 待办聚合，全部写在一个 `.md` 文件里。
-<table>
-  <tr>
-    <td><img src="https://github.com/user-attachments/assets/48f67b85-aa4a-4857-9d1c-9e96945a0655" width="240"></td>
-    <td><img src="https://github.com/user-attachments/assets/179abf20-b509-42b0-b927-f0054648fdfb" width="240"></td>
-  </tr>
-</table>
-<img width="1920" height="1030" alt="image" src="https://github.com/user-attachments/assets/6cae2aa5-905b-4bf3-8171-2f65adaffb1a" />
+<p align="center">
+  <img src="https://img.shields.io/badge/Obsidian-7C3AED?style=flat&logo=obsidian&logoColor=white">
+  <img src="https://img.shields.io/badge/DataviewJS-FF6B6B?style=flat">
+  <img src="https://img.shields.io/badge/license-MIT-blue">
+</p>
 
+一个基于 DataviewJS 的笔记统计看板。GitHub 风格热力图 + 写作统计 + 文件夹排行 + 待办聚合，全部写在一个 `.md` 文件里。
+
+##效果预览
+<p align="center">
+  <table>
+    <tr>
+      <td><img src="https://github.com/user-attachments/assets/48f67b85-aa4a-4857-9d1c-9e96945a0655" width="360"></td>
+      <td><img src="https://github.com/user-attachments/assets/179abf20-b509-42b0-b927-f0054648fdfb" width="360"></td>
+    </tr>
+  </table>
+</p>
 
 ## 功能
 
 **🔥 近一年贡献热力图**
-按每日写入字数着色（5级绿色），月份标签左侧冻结，支持横向滚动。响应明暗主题切换。
+按每日写入字数着色（5级绿色），月份标签左侧冻结，支持横向滚动。自动适配浅色/深色主题。
 
 **📊 统计总览**
 6张卡片 + 本月活跃进度条：笔记总数、总字数、活跃天数、今日已写字数、当前连续天数、文件夹数。
@@ -27,18 +35,36 @@
 **📋 待办看板**
 聚合所有未完成任务，按所在文件分组，≤6项的组默认展开，超过则折叠。
 
-## 使用方法
-
-1. 安装 [Dataview](https://github.com/blacksmithgu/obsidian-dataview) 插件，确保设置中 **Enable JavaScript Queries** 已开启
-2. 下载 `📊-我的笔记看板.md`（或你重命名的文件），放入 Obsidian 库任意位置
-3. 在 Obsidian 中打开该文件，等待 Dataview 索引完成即可
+**📱 全平台适配**
+表格布局在手机、平板、桌面端自适应排版，热力图在移动端支持触控横向滚动。
 
 ## 依赖
 
-- Obsidian 本体
-- [Dataview](https://github.com/blacksmithgu/obsidian-dataview) 插件（必需，JavaScript查询模式）
+| 软件 | 版本要求 | 说明 |
+|---|---|---|
+| [Obsidian](https://obsidian.md) | 0.15+ | 笔记软件本体 |
+| [Dataview](https://github.com/blacksmithgu/obsidian-dataview) | 0.5+ | 必需，**JavaScript Queries** 需在设置中开启 |
 
-无其他外部依赖或 API 密钥。
+无其他外部依赖、API 密钥或付费服务。
+
+## 使用方法
+
+### 安装 Dataview 插件
+
+1. 打开 Obsidian → 设置 → 社区插件 → 浏览
+2. 搜索 **Dataview** 并安装
+3. 启用后，进入 Dataview 设置页，勾选 **"Enable JavaScript Queries"**
+
+### 添加看板文件
+
+4. 下载 `📊-我的笔记看板.md` 到你的 Obsidian 库任意位置（根目录或子文件夹均可）
+5. 在 Obsidian 中打开该文件，等待几秒让 Dataview 完成索引
+6. 若首次打开显示空白，执行一次 `Dataview: Force refresh all views`（命令面板中搜索）
+
+### 可选：添加到主页
+
+7. 如果你用 Obsidian 自带的"新建笔记"作为启动页，在设置中将其设为默认启动文件
+8. 或使用其它主页插件嵌入该文件
 
 ## 自定义
 
@@ -75,6 +101,9 @@ const D = { e:'#2d333b', c1:'#1a5435', c2:'#2b7448', c3:'#409660', c4:'#57ab76' 
 
 如果你在 `planning/成长计划.md` 中维护了带 `- [x]` / `- [ ]` 格式的任务清单，统计总览区域会自动读取并显示完成进度条。
 
-## License
+---
 
-MIT
+<p align="center">
+  <sub>Built with ❤️ for the Obsidian community · MIT License</sub>
+</p>
+```
