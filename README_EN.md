@@ -8,10 +8,10 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Obsidian-7C3AED?style=flat&logo=obsidian&logoColor=white">
   <img src="https://img.shields.io/badge/DataviewJS-FF6B6B?style=flat&logo=javascript&logoColor=white">
-  <img src="https://img.shields.io/github/v/release/你的用户名/obsidian-note-dashboard?style=flat&label=release">
-  <img src="https://img.shields.io/github/stars/你的用户名/obsidian-note-dashboard?style=flat&logo=github&label=stars">
-  <img src="https://img.shields.io/github/last-commit/你的用户名/obsidian-note-dashboard?style=flat&logo=git&label=updated">
-  <img src="https://img.shields.io/github/issues/你的用户名/obsidian-note-dashboard?style=flat&logo=github&label=issues">
+  <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat&label=release">
+  <img src="https://img.shields.io/github/stars/Inonvation/obsidian-note-dashboard?style=flat&logo=github&label=stars">
+  <img src="https://img.shields.io/github/last-commit/Inonvation/obsidian-note-dashboard?style=flat&logo=git&label=updated">
+  <img src="https://img.shields.io/github/issues/Inonvation/obsidian-note-dashboard?style=flat&logo=github&label=issues">
   <img src="https://img.shields.io/badge/license-MIT-blue">
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat&logo=github">
 </p>
@@ -158,7 +158,7 @@ Maintain a task list with `- [x]` / `- [ ]` format in `planning/成长计划.md`
 
 Contributions are welcome! Feel free to:
 
-- 🐛 [Open an issue](https://github.com/你的用户名/obsidian-note-dashboard/issues) for bugs or feature requests
+- 🐛 [Open an issue](https://github.com/Inonvation/obsidian-note-dashboard/issues) for bugs or feature requests
 - 🔀 Submit a pull request to improve the code
 - ⭐ Star the repo if you find it useful
 
@@ -166,7 +166,7 @@ Contributions are welcome! Feel free to:
 
 ## ⭐ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=你的用户名/obsidian-note-dashboard&type=Date)](https://star-history.com/#你的用户名/obsidian-note-dashboard&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=Inonvation/obsidian-note-dashboard&type=Date)](https://star-history.com/#Inonvation/obsidian-note-dashboard&Date)
 
 ---
 
