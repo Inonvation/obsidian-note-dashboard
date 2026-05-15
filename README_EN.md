@@ -1,8 +1,8 @@
 # Obsidian Note Dashboard
 
 <p align="center">
-  <a href="README.md"><img src="https://img.shields.io/badge/English-1982d2?style=flat&logo=readme&logoColor=white"></a>
-  <a href="README_CN.md"><img src="https://img.shields.io/badge/中文-d63031?style=flat&logo=readme&logoColor=white"></a>
+  <a href="#"><img src="https://img.shields.io/badge/English-1982d2?style=flat&logo=readme&logoColor=white"></a>
+  <a href="README.md"><img src="https://img.shields.io/badge/中文-d63031?style=flat&logo=readme&logoColor=white"></a>
 </p>
 
 <p align="center">
@@ -177,6 +177,12 @@ This project is licensed under the MIT License — see the [LICENSE](./LICENSE) 
 <p align="center">
   <sub>Built with ❤️ for the Obsidian community</sub>
   <br>
-  <sub>If this dashboard helps you, consider <a href="https://ko-fi.com/你的链接">buying me a coffee ☕</a></sub>
 </p>
 ```
+
+直接复制，替换你仓库里 `README_EN.md` 的全部内容。现在两边都修好了：
+
+| 文件 | English badge → | 中文 badge → |
+|---|---|---|
+| `README.md`（中文版） | `README_EN.md` | `#`（当前页） |
+| `README_EN.md`（英文版） | `#`（当前页） | `README.md` |
