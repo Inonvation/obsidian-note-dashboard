@@ -1,6 +1,10 @@
 # Obsidian Note Dashboard
 
 <p align="center">
+  <a href="README_EN.md">🇬🇧 English</a>
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/Obsidian-7C3AED?style=flat&logo=obsidian&logoColor=white">
   <img src="https://img.shields.io/badge/DataviewJS-FF6B6B?style=flat">
   <img src="https://img.shields.io/badge/license-MIT-blue">
@@ -40,10 +44,10 @@
 每月笔记数 + 字数进度条，当前月份高亮标记，支持12个月数据展示。
 
 **📁 文件夹排行榜**
-按字数降序排列，每条带百分比进度条和🥇🥈🥉标记，一眼看出哪个文件夹最活跃。
+按字数降序排列，每条带百分比进度条和🥇🥈🥉标记。
 
 **📋 待办看板**
-聚合所有未完成任务，按所在文件分组，≤6项的组默认展开，超过则折叠。
+聚合所有未完成任务，按所在文件分组，≤6项的组默认展开。
 
 **📱 全平台适配**
 表格布局在手机、平板、桌面端自适应排版，热力图在移动端支持触控横向滚动。
@@ -67,13 +71,13 @@
 
 ### 添加看板文件
 
-4. 下载 `📊-我的笔记看板.md` 到你的 Obsidian 库任意位置（根目录或子文件夹均可）
+4. 下载 `📊-我的笔记看板.md` 到你的 Obsidian 库任意位置
 5. 在 Obsidian 中打开该文件，等待几秒让 Dataview 完成索引
-6. 若首次打开显示空白，执行一次 `Dataview: Force refresh all views`（命令面板中搜索）
+6. 若首次打开显示空白，执行一次 `Dataview: Force refresh all views`
 
 ### 可选：添加到主页
 
-7. 如果你用 Obsidian 自带的"新建笔记"作为启动页，在设置中将其设为默认启动文件
+7. 在 Obsidian 设置中将其设为默认启动文件
 8. 或使用其它主页插件嵌入该文件
 
 ## 自定义
@@ -90,17 +94,11 @@
 
 ### 排除特定文件夹
 
-在 3 个 `dataviewjs` 代码块的开头都有这行：
-
 ```javascript
 const EXCLUDE = ['附件', '模板', 'copilot'];
 ```
 
-按需增删即可。
-
 ### 修改热力图颜色
-
-找到 `L`（浅色）和 `D`（深色）对象，替换色值：
 
 ```javascript
 const L = { e:'#ebedf0', c1:'#c8e6d0', c2:'#6cc085', c3:'#3a9d5e', c4:'#1f6e3a' };
@@ -109,10 +107,11 @@ const D = { e:'#2d333b', c1:'#1a5435', c2:'#2b7448', c3:'#409660', c4:'#57ab76' 
 
 ### 启用成长计划
 
-如果你在 `planning/成长计划.md` 中维护了带 `- [x]` / `- [ ]` 格式的任务清单，统计总览区域会自动读取并显示完成进度条。
+在 `planning/成长计划.md` 中维护 `- [x]` / `- [ ]` 格式的任务清单，看板会自动读取并显示完成进度条。
 
 ---
 
 <p align="center">
   <sub>Built with ❤️ for the Obsidian community · MIT License</sub>
 </p>
+```
