@@ -13,7 +13,7 @@
 
 <p align="center">
   <b>📊 A single-file note-taking dashboard built with DataviewJS</b><br>
-  <sub>GitHub-style heatmap · Writing statistics · Folder ranking · Task aggregation · All in one `.md` file</sub>
+  <sub>GitHub-style heatmap · Writing statistics · Folder ranking · Task aggregation · </sub>
 </p>
 
 ---
