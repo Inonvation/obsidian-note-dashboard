@@ -1,7 +1,3 @@
-# obsidian-note-dashboard
-A single-file Obsidian dashboard built with DataviewJS — contribution heatmap, writing stats, folder ranking, and task board
-
-
 # Obsidian Note Dashboard
 
 一个基于 DataviewJS 的笔记统计看板。GitHub 风格热力图 + 写作统计 + 文件夹排行 + 待办聚合，全部写在一个 `.md` 文件里。
