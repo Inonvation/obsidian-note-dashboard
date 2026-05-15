@@ -13,7 +13,7 @@
 
 <p align="center">
   <b>📊 一个基于 DataviewJS 的笔记统计看板</b><br>
-  <sub>GitHub 风格热力图 · 写作统计 · 文件夹排行 · 待办聚合 · 全部写在一个 `.md` 文件里</sub>
+  <sub>GitHub 风格热力图 · 写作统计 · 文件夹排行 · 待办聚合 ·</sub>
 </p>
 
 ---
