@@ -56,7 +56,7 @@
 <table align="center">
   <tr>
     <td align="center" width="50%" style="padding:8px;">
-      <img src="https://github.com/user-attachments/assets/64a56c53-7fac-4f8f-ae34-29862aa27923" 
+      <img src="https://github.com/user-attachments/assets/6f818cd4-b9c5-47f3-95fd-49ddf4c7a327" 
            width="100%"
            style="border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.1);">
     </td>
@@ -73,7 +73,7 @@
            style="border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.1);">
     </td>
     <td align="center" width="50%" style="padding:8px;">
-      <img src="https://github.com/user-attachments/assets/ae2a689f-d967-4924-b2d9-9beae2ff446e" 
+      <img src="https://github.com/user-attachments/assets/ce4e9d7c-c580-4513-9625-22b9a7b6b615" 
            width="100%"
            style="border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.1);">
     </td>
