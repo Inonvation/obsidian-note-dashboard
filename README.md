@@ -1,20 +1,15 @@
 # Obsidian Note Dashboard
 
 <p align="center">
-  <a href="README_EN.md"><img src="https://img.shields.io/badge/English-1982d2?style=flat&logo=readme&logoColor=white"></a>
-  <a href="#"><img src="https://img.shields.io/badge/中文-d63031?style=flat&logo=readme&logoColor=white"></a>
+  <img src="https://img.shields.io/badge/Obsidian-0.15+-%23483699?style=flat-square">
+  <img src="https://img.shields.io/badge/Dataview-0.5+-%234a9c6d?style=flat-square">
+  <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square">
+  <img src="https://img.shields.io/badge/release-v1.2.0-orange?style=flat-square">
+  <img src="https://img.shields.io/badge/single--file-481%20lines-brightgreen?style=flat-square">
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Obsidian-7C3AED?style=flat&logo=obsidian&logoColor=white">
-  <img src="https://img.shields.io/badge/DataviewJS-FF6B6B?style=flat&logo=javascript&logoColor=white">
-  <img src="https://img.shields.io/badge/license-MIT-blue">
-</p>
-
-<p align="center">
-  <b>📊 一个基于 DataviewJS 的笔记统计看板</b><br>
-  <sub>GitHub 风格热力图 · 写作统计 · 文件夹排行 · 待办聚合 ·</sub>
-</p>
+📊 **一个基于 DataviewJS 的笔记统计看板**  
+GitHub 风格热力图 · 写作统计 · 文件夹排行 · 待办聚合 · 全平台适配
 
 ---
 
@@ -55,23 +50,39 @@
 
 ## ✨ 功能介绍
 
-**🔥 近一年贡献热力图**
-按每日写入字数着色（5级绿色渐变），月份标签左侧冻结，支持横向滚动。自动适配浅色/深色主题。
+**🔥 近一年贡献热力图**  
+按每日写入字数着色（5级绿色渐变），月份标签左侧冻结，支持横向滚动。自动适配浅色/深色主题。打开时自动滚动到最新日期。从左到右逐列淡入入场，像水波纹一样展开。
 
-**📊 统计总览**
-6张统计卡片 + 本月活跃进度条：笔记总数、总字数、活跃天数、今日已写字数、当前连续天数、文件夹数。
+**📊 统计总览**  
+6张小卡片 + 本月活跃进度条：笔记总数、总词数、活跃天数、今日已写词数、当前连续天数、文件夹数。小卡片逐个淡入，数字带缩放弹入效果。
 
-**📆 月度统计**
-每月笔记数 + 字数进度条，当前月份高亮标记，最多支持 12 个月数据展示。
+**📆 月度统计**  
+每月笔记数 + 词数进度条，当前月份高亮标记并附带「本月」标签（脉冲高亮3次），最多支持12个月数据展示。进度条从左侧缓缓滑动入场。
 
-**📁 文件夹排行榜**
-按总字数降序排列，每条带百分比进度条和 🥇🥈🥉 奖牌标记，一眼看出哪个文件夹最活跃。
+**📁 文件夹排行榜**  
+按总词数降序排列，每条带百分比进度条和 🥇🥈🥉 奖牌标记。进度条滑动入场。
 
-**📋 待办看板**
-聚合所有未完成任务，按所在文件分组。≤6 项的组默认展开，超过则折叠，保持页面清爽。
+**📋 待办看板**  
+聚合所有未完成任务，按所在文件分组。≤6项的组默认展开，超过则折叠。所有任务完成时显示「🎉 所有任务已完成！」。
 
-**📱 全平台适配**
-响应式表格布局在手机、平板、桌面端均可正常显示，热力图在移动端支持触控横向滚动。
+**🌱 成长计划**  
+自动读取 `planning/成长计划.md` 中的任务清单，显示完成进度条（带光泽闪烁动画）。
+
+**🎬 入场动画体系**  
+- 四张主卡片分别带上滑、3D旋转、缩放弹出、左滑四种入场效果，错开时间依次出现
+- 进度条统一延迟900ms后从左侧滑动展开
+- 热力图逐列淡入，不扎堆
+- 统计数据带缩放弹入
+- 「本月」标签脉冲高亮三次
+
+**🔄 自动阅读模式**  
+打开看板自动切换到阅读模式，切到其他笔记再回来也不受影响，多面板环境兼容。
+
+**⚡ 内容缓存**  
+基于文件路径+大小+修改时间生成缓存键，相同内容不重复加载。第二次打开秒开。
+
+**📱 全平台适配**  
+响应式布局在手机、平板、桌面端均可正常显示。
 
 ---
 
@@ -82,7 +93,7 @@
 | [Obsidian](https://obsidian.md) | 0.15+ | 笔记软件本体 |
 | [Dataview](https://github.com/blacksmithgu/obsidian-dataview) | 0.5+ | 必需，**JavaScript Queries** 需在设置中开启 |
 
-> ✅ 无外部 API、无需 API 密钥、无付费服务。
+> ✅ 无外部 API、无需 API 密钥、无付费服务。单文件 481 行，开箱即用。
 
 ---
 
@@ -96,13 +107,17 @@ Obsidian → 设置 → 社区插件 → 浏览 → 搜索 "Dataview" → 安装
 
 进入 Dataview 设置页，勾选 **"Enable JavaScript Queries"**。
 
-### 2. 添加看板文件
+### 2. 下载看板文件
 
-将 `📊-我的笔记看板.md` 下载到你的 Obsidian 库任意位置（根目录或子文件夹均可，代码会自动适配路径）。在 Obsidian 中打开该文件，等待几秒让 Dataview 完成索引。
+从 [最新 Release](https://github.com/Inonvation/obsidian-note-dashboard/releases) 下载 `📊-我的笔记看板.md`，放到你的 Obsidian 库任意位置（根目录或子文件夹均可，代码会自动适配路径）。
+
+### 3. 打开看板
+
+在 Obsidian 中打开该文件，等待几秒让 Dataview 完成索引。看板会自动切换到阅读模式，展示完整数据。
 
 > 💡 **首次打开显示空白？** 在命令面板（Ctrl/Cmd + P）中执行 `Dataview: Force refresh all views` 即可。
 
-### 3. （可选）设为主页
+### 4. （可选）设为主页
 
 在 Obsidian 设置中将其设为默认启动文件，或使用 [Homepage](https://github.com/mirnovs/obsidian-homepage) 等主页插件嵌入该文件。
 
@@ -110,34 +125,42 @@ Obsidian → 设置 → 社区插件 → 浏览 → 搜索 "Dataview" → 安装
 
 ## 🎨 自定义
 
-所有可调参数集中在各个 `dataviewjs` 代码块的顶部：
+所有可调参数统一集中在 `📊-我的笔记看板.md` 顶部 `C` 对象中，一目了然：
 
-| 参数 | 位置 | 说明 |
-|---|---|---|
-| `EXCLUDE` | 3 个代码块开头 | 排除的文件夹名，默认排除 `附件`、`模板`、`copilot` |
-| `L` / `D`（各 4 个颜色） | 热力图代码块 | 浅色/深色主题的 5 级颜色色板 |
-| `COLORS` | 统计总览代码块 | 月度进度条的 8 色数组 |
-| `C` / `G` / `R` | 热力图代码块 | 格子大小/间距/圆角半径（像素） |
-| `DAYS` | 热力图代码块 | 左侧星期标签，默认只显示一、三、五 |
+```javascript
+const C = {
+    exclude: ['附件', '模板', 'copilot'],   // 排除的文件夹
+    days: ['', '一', '', '三', '', '五', ''], // 星期标签（空字符串不显示）
+    colors: ['#6366f1','#8b5cf6','#a78bfa','#c4b5fd','#a5b4fc','#818cf8','#6d28d9','#4f46e5'], // 月度进度条配色
+    heatColors: {
+        light: { e:'#ebedf0', c1:'#c8e6d0', c2:'#6cc085', c3:'#3a9d5e', c4:'#1f6e3a' },
+        dark:  { e:'#2d333b', c1:'#1a5435', c2:'#2b7448', c3:'#409660', c4:'#57ab76' }
+    }
+};
+```
 
 ### 排除特定文件夹
 
 ```javascript
-const EXCLUDE = ['附件', '模板', 'copilot'];
+C.exclude = ['附件', '模板', '日记']; // 按需修改
 ```
-
-按需增删即可。
 
 ### 修改热力图颜色
 
 ```javascript
-const L = { e:'#ebedf0', c1:'#c8e6d0', c2:'#6cc085', c3:'#3a9d5e', c4:'#1f6e3a' };
-const D = { e:'#2d333b', c1:'#1a5435', c2:'#2b7448', c3:'#409660', c4:'#57ab76' };
+C.heatColors.light = { e:'#ebedf0', c1:'#c8e6d0', c2:'#6cc085', c3:'#3a9d5e', c4:'#1f6e3a' };
+C.heatColors.dark  = { e:'#2d333b', c1:'#1a5435', c2:'#2b7448', c3:'#409660', c4:'#57ab76' };
+```
+
+### 修改月度进度条配色
+
+```javascript
+C.colors = ['#6366f1','#8b5cf6','#a78bfa','#c4b5fd','#a5b4fc','#818cf8','#6d28d9','#4f46e5'];
 ```
 
 ### 启用成长计划
 
-如果 `planning/成长计划.md` 中存在 `- [x]` / `- [ ]` 格式的任务清单，看板会自动读取并显示完成进度条。
+在库中创建 `planning/成长计划.md`，写入 `- [x]` / `- [ ]` 格式的任务清单，看板会自动检测并显示完成进度条。
 
 ---
 
@@ -146,8 +169,26 @@ const D = { e:'#2d333b', c1:'#1a5435', c2:'#2b7448', c3:'#409660', c4:'#57ab76' 
 | 项目 | 差异 |
 |---|---|
 | [vran-dev/obsidian-contribution-graph](https://github.com/vran-dev/obsidian-contribution-graph) ⭐432 | 独立插件，热力图交互更强，但不含统计 Dashboard |
-| [InlitX/Obsidian-Dashboard-Gallery](https://github.com/InlitX/Obsidian-Dashboard-Gallery) | 侧重视觉设计和布局，不统计字数/文件夹分布 |
+| [InlitX/Obsidian-Dashboard-Gallery](https://github.com/InlitX/Obsidian-Dashboard-Gallery) | 侧重视觉设计和布局，不统计词数/文件夹分布 |
 | [yirsi/obsidian-habit-heatmap](https://github.com/yirsi/obsidian-habit-heatmap) | 带游戏化系统的习惯追踪，与笔记写作统计不同方向 |
+
+---
+
+## 📦 更新日志
+
+### v1.2.0（2026-05-16）
+- ✨ 自动切换阅读模式，多面板兼容
+- 🎨 **动画重做**：4种卡片入场、进度条滑动、热力图逐列淡入、数字弹入、标签脉冲
+- ⚡ 内容缓存机制，二次打开秒开
+- 📉 代码从 521 行精简到 481 行
+- 🐛 修复多面板/热力图滚动/进度条跳动等 Bug
+
+### v1.1.0（2026-05-16）
+- 🔧 全局配置统一到 `C` 对象
+- 📝 词数统计优化（中文按字、英文按空格分词）
+- 🎨 卡片入场动画 + hover 上浮交互
+- 📐 全局 `nd-` 前缀 CSS 类名，渲染更干净
+- 🐛 自动回正预览模式，隔离全局变量冲突
 
 ---
 
@@ -171,8 +212,7 @@ const D = { e:'#2d333b', c1:'#1a5435', c2:'#2b7448', c3:'#409660', c4:'#57ab76' 
 
 本项目基于 MIT 许可证开源，详情见 [LICENSE](./LICENSE) 文件。
 
-<p align="center">
-  <sub>为 Obsidian 社区用心打造 ❤️</sub>
-  <br>
-</p>
+---
+
+<p align="center">为 Obsidian 社区用心打造 ❤️</p>
 ```
