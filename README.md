@@ -27,13 +27,13 @@
       <img src="https://github.com/user-attachments/assets/48f67b85-aa4a-4857-9d1c-9e96945a0655" 
            width="90%" 
            style="border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,0.12);">
-      <br><em>统计总览 · 文件夹排行</em>
+      <br><em>热力图 · 文件夹排行</em>
     </td>
     <td align="center" width="50%">
       <img src="https://github.com/user-attachments/assets/179abf20-b509-42b0-b927-f0054648fdfb" 
            width="90%"
            style="border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,0.12);">
-      <br><em>热力图 · 待办看板</em>
+      <br><em>统计概览 · 待办看板</em>
     </td>
   </tr>
 </table>
