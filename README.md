@@ -13,7 +13,7 @@
 
 ## 📖 目录
 
-[效果预览](#-效果预览) · [功能介绍](#-功能介绍) · [依赖](#-依赖) · [使用方法](#-使用方法) · [自定义](#-自定义) · [相似项目](#-相似项目) · [参与贡献](#-参与贡献) · [许可证](#-许可证)
+[效果预览](#-效果预览) · [🎬 动画效果](#-动画效果) · [功能介绍](#-功能介绍) · [依赖](#-依赖) · [使用方法](#-使用方法) · [自定义](#-自定义) · [相似项目](#-相似项目) · [参与贡献](#-参与贡献) · [许可证](#-许可证)
 
 ---
 
@@ -47,11 +47,38 @@
   <br><em>全功能看板 · 阅读模式展示</em>
 </p>
 
-## 动画
-https://github.com/user-attachments/assets/21d30276-e9ef-4fa9-93a7-ba487a2801af
-https://github.com/user-attachments/assets/cf9b9c6a-727b-42f4-9f93-57c011ea19e4
-https://github.com/user-attachments/assets/22379ab5-dc90-4203-b7a6-9bd4a6eb9283
-<img width="1080" height="540" alt="统计概览动画" src="https://github.com/user-attachments/assets/0a460c25-2c3f-4ba7-9645-78c2826ac8eb" />
+---
+
+## 🎬 动画效果
+
+看板在 v1.2.0 中全面重做了动效系统，所有动画在打开时依次触发。
+
+<table align="center">
+  <tr>
+    <td align="center" width="50%" style="padding:8px;">
+      <img src="https://github.com/user-attachments/assets/64a56c53-7fac-4f8f-ae34-29862aa27923" 
+           width="100%"
+           style="border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.1);">
+    </td>
+    <td align="center" width="50%" style="padding:8px;">
+      <img src="https://github.com/user-attachments/assets/0788e99f-acc3-46d8-8b25-1fba15a4ab23" 
+           width="100%"
+           style="border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.1);">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%" style="padding:8px;">
+      <img src="https://github.com/user-attachments/assets/5b123292-a1bc-4a20-af0c-0d8b02e1987d" 
+           width="100%"
+           style="border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.1);">
+    </td>
+    <td align="center" width="50%" style="padding:8px;">
+      <img src="https://github.com/user-attachments/assets/ae2a689f-d967-4924-b2d9-9beae2ff446e" 
+           width="100%"
+           style="border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.1);">
+    </td>
+  </tr>
+</table>
 
 ---
 
