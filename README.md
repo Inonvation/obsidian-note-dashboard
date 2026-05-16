@@ -47,6 +47,12 @@
   <br><em>全功能看板 · 阅读模式展示</em>
 </p>
 
+## 动画
+https://github.com/user-attachments/assets/21d30276-e9ef-4fa9-93a7-ba487a2801af
+https://github.com/user-attachments/assets/cf9b9c6a-727b-42f4-9f93-57c011ea19e4
+https://github.com/user-attachments/assets/22379ab5-dc90-4203-b7a6-9bd4a6eb9283
+<img width="1080" height="540" alt="统计概览动画" src="https://github.com/user-attachments/assets/0a460c25-2c3f-4ba7-9645-78c2826ac8eb" />
+
 ---
 
 ## ✨ 功能介绍
