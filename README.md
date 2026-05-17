@@ -88,10 +88,9 @@
       <br><span style="color:#586069;font-size:13px;">从零填满 · ease-out · 600ms</span>
     </td>
     <td align="center" width="50%" style="padding:12px;">
-      <div style="border:1px solid #e1e4e8; border-radius:8px; padding:24px 12px; background:#f6f8fa;">
-        <p style="font-size:24px; margin:0;">🔢</p>
-        <p style="font-size:18px; font-weight:600; margin:8px 0 0;">0 → 1,234</p>
-      </div>
+      <img src="https://github.com/user-attachments/assets/d8d13cd9-9101-4e72-a58c-986c7e3ddb6c" 
+           width="100%"
+           style="border:1px solid #e1e4e8; border-radius:8px;">
       <br><strong>④ 数字弹入</strong>
       <br><span style="color:#586069;font-size:13px;">从 0 递增 · 缩放脉冲 · 800ms</span>
     </td>
