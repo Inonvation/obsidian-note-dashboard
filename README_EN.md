@@ -32,15 +32,15 @@
 <table align="center">
   <tr>
     <td align="center" width="50%" style="padding:8px;">
-      <a href="asset/gif/mobile-heatmap.png">
-        <img src="asset/gif/mobile-heatmap.png" width="90%" style="border:1px solid #e1e4e8; border-radius:10px;">
+      <a href="mobile-heatmap.png">
+        <img src="mobile-heatmap.png" width="90%" style="border:1px solid #e1e4e8; border-radius:10px;">
       </a>
       <br><strong>🔥 Heatmap · 📁 Folder Ranking</strong>
       <br><span style="color:#586069;font-size:13px;">Yearly contribution · Word count ranking</span>
     </td>
     <td align="center" width="50%" style="padding:8px;">
-      <a href="asset/gif/mobile-folder.png">
-        <img src="asset/gif/mobile-folder.png" width="90%" style="border:1px solid #e1e4e8; border-radius:10px;">
+      <a href="mobile-folder.png">
+        <img src="mobile-folder.png" width="90%" style="border:1px solid #e1e4e8; border-radius:10px;">
       </a>
       <br><strong>📊 Stats Overview · 📋 Task Board</strong>
       <br><span style="color:#586069;font-size:13px;">Total notes · Active days · Task aggregation</span>
@@ -51,7 +51,7 @@
 ### 💻 Desktop
 
 <p align="center">
-  <img src="asset/gif/desktop-full.png" 
+  <img src="desktop-full.png" 
        width="90%"
        style="border:1px solid #e1e4e8; border-radius:10px; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
   <br><em>Full dashboard · Reading view</em>
@@ -66,14 +66,14 @@ The animation system was completely rewritten in v1.2.0. All animations trigger 
 <table align="center">
   <tr>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="asset/gif/heatmap.gif" 
+      <img src="heatmap.gif" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
       <br><strong>① Heatmap</strong>
       <br><span style="color:#586069;font-size:13px;">Column fade-in · old to new · 30ms interval</span>
     </td>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="asset/gif/card-entrance.gif" 
+      <img src="card-entrance.gif" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
       <br><strong>② Card Entrance</strong>
@@ -82,14 +82,14 @@ The animation system was completely rewritten in v1.2.0. All animations trigger 
   </tr>
   <tr>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="asset/gif/progress-bar.gif" 
+      <img src="progress-bar.gif" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
       <br><strong>③ Progress Bars</strong>
       <br><span style="color:#586069;font-size:13px;">Fill from 0% · ease-out · 600ms</span>
     </td>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="asset/gif/number-pop.gif" 
+      <img src="number-pop.gif" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
       <br><strong>④ Counter Pop</strong>

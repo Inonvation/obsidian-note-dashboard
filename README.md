@@ -31,15 +31,15 @@
 <table align="center">
   <tr>
     <td align="center" width="50%" style="padding:8px;">
-      <a href="asset/gif/mobile-heatmap.png">
-        <img src="asset/gif/mobile-heatmap.png" width="90%" style="border:1px solid #e1e4e8; border-radius:10px;">
+      <a href="mobile-heatmap.png">
+        <img src="mobile-heatmap.png" width="90%" style="border:1px solid #e1e4e8; border-radius:10px;">
       </a>
       <br><strong>🔥 热力图 · 📁 文件夹排行</strong>
       <br><span style="color:#586069;font-size:13px;">近一年贡献 · 词数奖牌排行</span>
     </td>
     <td align="center" width="50%" style="padding:8px;">
-      <a href="asset/gif/mobile-folder.png">
-        <img src="asset/gif/mobile-folder.png" width="90%" style="border:1px solid #e1e4e8; border-radius:10px;">
+      <a href="mobile-folder.png">
+        <img src="mobile-folder.png" width="90%" style="border:1px solid #e1e4e8; border-radius:10px;">
       </a>
       <br><strong>📊 统计总览 · 📋 待办看板</strong>
       <br><span style="color:#586069;font-size:13px;">笔记总数 · 活跃天数 · 待办聚合</span>
@@ -50,7 +50,7 @@
 ### 💻 桌面端
 
 <p align="center">
-  <img src="asset/gif/desktop-full.png" 
+  <img src="desktop-full.png" 
        width="90%"
        style="border:1px solid #e1e4e8; border-radius:10px; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
   <br><em>全功能看板 · 阅读模式展示</em>
@@ -65,14 +65,14 @@
 <table align="center">
   <tr>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="asset/gif/heatmap.gif" 
+      <img src="heatmap.gif" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
       <br><strong>① 热力图</strong>
       <br><span style="color:#586069;font-size:13px;">逐列淡入 · 从旧到新 · 间隔 30ms</span>
     </td>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="asset/gif/card-entrance.gif" 
+      <img src="card-entrance.gif" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
       <br><strong>② 卡片入场</strong>
@@ -81,14 +81,14 @@
   </tr>
   <tr>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="asset/gif/progress-bar.gif" 
+      <img src="progress-bar.gif" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
       <br><strong>③ 进度条滑动</strong>
       <br><span style="color:#586069;font-size:13px;">从零填满 · ease-out · 600ms</span>
     </td>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="asset/gif/number-pop.gif" 
+      <img src="number-pop.gif" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
       <br><strong>④ 数字弹入</strong>
