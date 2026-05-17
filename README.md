@@ -31,16 +31,16 @@
 <table align="center">
   <tr>
     <td align="center" width="50%" style="padding:8px;">
-      <a href="mobile-heatmap.png">
-        <img src="mobile-heatmap.png" width="90%" style="border:1px solid #e1e4e8; border-radius:10px;">
-      </a>
+      <img src="https://github.com/user-attachments/assets/48f67b85-aa4a-4857-9d1c-9e96945a0655" 
+           width="90%"
+           style="border:1px solid #e1e4e8; border-radius:10px;">
       <br><strong>🔥 热力图 · 📁 文件夹排行</strong>
       <br><span style="color:#586069;font-size:13px;">近一年贡献 · 词数奖牌排行</span>
     </td>
     <td align="center" width="50%" style="padding:8px;">
-      <a href="mobile-folder.png">
-        <img src="mobile-folder.png" width="90%" style="border:1px solid #e1e4e8; border-radius:10px;">
-      </a>
+      <img src="https://github.com/user-attachments/assets/179abf20-b509-42b0-b927-f0054648fdfb" 
+           width="90%"
+           style="border:1px solid #e1e4e8; border-radius:10px;">
       <br><strong>📊 统计总览 · 📋 待办看板</strong>
       <br><span style="color:#586069;font-size:13px;">笔记总数 · 活跃天数 · 待办聚合</span>
     </td>
@@ -50,7 +50,7 @@
 ### 💻 桌面端
 
 <p align="center">
-  <img src="desktop-full.png" 
+  <img src="https://github.com/user-attachments/assets/6cae2aa5-905b-4bf3-8171-2f65adaffb1a" 
        width="90%"
        style="border:1px solid #e1e4e8; border-radius:10px; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
   <br><em>全功能看板 · 阅读模式展示</em>
@@ -65,14 +65,14 @@
 <table align="center">
   <tr>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="heatmap.gif" 
+      <img src="https://github.com/user-attachments/assets/5b123292-a1bc-4a20-af0c-0d8b02e1987d" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
       <br><strong>① 热力图</strong>
       <br><span style="color:#586069;font-size:13px;">逐列淡入 · 从旧到新 · 间隔 30ms</span>
     </td>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="card-entrance.gif" 
+      <img src="https://github.com/user-attachments/assets/6f818cd4-b9c5-47f3-95fd-49ddf4c7a327" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
       <br><strong>② 卡片入场</strong>
@@ -81,16 +81,17 @@
   </tr>
   <tr>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="progress-bar.gif" 
+      <img src="https://github.com/user-attachments/assets/0788e99f-acc3-46d8-8b25-1fba15a4ab23" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
       <br><strong>③ 进度条滑动</strong>
       <br><span style="color:#586069;font-size:13px;">从零填满 · ease-out · 600ms</span>
     </td>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="number-pop.gif" 
-           width="100%"
-           style="border:1px solid #e1e4e8; border-radius:8px;">
+      <div style="border:1px solid #e1e4e8; border-radius:8px; padding:24px 12px; background:#f6f8fa;">
+        <p style="font-size:24px; margin:0;">🔢</p>
+        <p style="font-size:18px; font-weight:600; margin:8px 0 0;">0 → 1,234</p>
+      </div>
       <br><strong>④ 数字弹入</strong>
       <br><span style="color:#586069;font-size:13px;">从 0 递增 · 缩放脉冲 · 800ms</span>
     </td>

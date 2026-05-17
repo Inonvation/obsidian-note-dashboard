@@ -32,16 +32,16 @@
 <table align="center">
   <tr>
     <td align="center" width="50%" style="padding:8px;">
-      <a href="mobile-heatmap.png">
-        <img src="mobile-heatmap.png" width="90%" style="border:1px solid #e1e4e8; border-radius:10px;">
-      </a>
+      <img src="https://github.com/user-attachments/assets/48f67b85-aa4a-4857-9d1c-9e96945a0655" 
+           width="90%"
+           style="border:1px solid #e1e4e8; border-radius:10px;">
       <br><strong>🔥 Heatmap · 📁 Folder Ranking</strong>
       <br><span style="color:#586069;font-size:13px;">Yearly contribution · Word count ranking</span>
     </td>
     <td align="center" width="50%" style="padding:8px;">
-      <a href="mobile-folder.png">
-        <img src="mobile-folder.png" width="90%" style="border:1px solid #e1e4e8; border-radius:10px;">
-      </a>
+      <img src="https://github.com/user-attachments/assets/179abf20-b509-42b0-b927-f0054648fdfb" 
+           width="90%"
+           style="border:1px solid #e1e4e8; border-radius:10px;">
       <br><strong>📊 Stats Overview · 📋 Task Board</strong>
       <br><span style="color:#586069;font-size:13px;">Total notes · Active days · Task aggregation</span>
     </td>
@@ -51,7 +51,7 @@
 ### 💻 Desktop
 
 <p align="center">
-  <img src="desktop-full.png" 
+  <img src="https://github.com/user-attachments/assets/6cae2aa5-905b-4bf3-8171-2f65adaffb1a" 
        width="90%"
        style="border:1px solid #e1e4e8; border-radius:10px; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
   <br><em>Full dashboard · Reading view</em>
@@ -66,14 +66,14 @@ The animation system was completely rewritten in v1.2.0. All animations trigger 
 <table align="center">
   <tr>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="heatmap.gif" 
+      <img src="https://github.com/user-attachments/assets/5b123292-a1bc-4a20-af0c-0d8b02e1987d" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
       <br><strong>① Heatmap</strong>
       <br><span style="color:#586069;font-size:13px;">Column fade-in · old to new · 30ms interval</span>
     </td>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="card-entrance.gif" 
+      <img src="https://github.com/user-attachments/assets/6f818cd4-b9c5-47f3-95fd-49ddf4c7a327" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
       <br><strong>② Card Entrance</strong>
@@ -82,16 +82,17 @@ The animation system was completely rewritten in v1.2.0. All animations trigger 
   </tr>
   <tr>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="progress-bar.gif" 
+      <img src="https://github.com/user-attachments/assets/0788e99f-acc3-46d8-8b25-1fba15a4ab23" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
       <br><strong>③ Progress Bars</strong>
       <br><span style="color:#586069;font-size:13px;">Fill from 0% · ease-out · 600ms</span>
     </td>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="number-pop.gif" 
-           width="100%"
-           style="border:1px solid #e1e4e8; border-radius:8px;">
+      <div style="border:1px solid #e1e4e8; border-radius:8px; padding:24px 12px; background:#f6f8fa;">
+        <p style="font-size:24px; margin:0;">🔢</p>
+        <p style="font-size:18px; font-weight:600; margin:8px 0 0;">0 → 1,234</p>
+      </div>
       <br><strong>④ Counter Pop</strong>
       <br><span style="color:#586069;font-size:13px;">Count up from 0 · scale pulse · 800ms</span>
     </td>

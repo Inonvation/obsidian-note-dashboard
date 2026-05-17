@@ -1,0 +1,12 @@
+# 本地图片/动图（已改用 GitHub CDN 链接，不占用 Nutstore 空间）
+*.gif
+*.png
+*.jpg
+*.jpeg
+
+# 本地 release 笔记（内容已在 README 更新日志中）
+RELEASE_*.md
+
+# 本地冲突文件
+*冲突*
+*.bak
