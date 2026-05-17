@@ -1,4 +1,9 @@
 <p align="center">
+  <a href="README_EN.md"><img src="https://img.shields.io/badge/English-1982d2?style=flat&logo=readme&logoColor=white"></a>
+  <a href="#"><img src="https://img.shields.io/badge/中文-d63031?style=flat&logo=readme&logoColor=white"></a>
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/Obsidian-0.15+-%23483699?style=flat-square&logo=obsidian">
   <img src="https://img.shields.io/badge/Dataview-0.5+-%234a9c6d?style=flat-square&logo=dataview">
   <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square">
@@ -15,27 +20,29 @@
 
 ## 📖 目录
 
-<a name="preview"></a>[效果预览](#preview) · <a name="animations"></a>[动画效果](#animations) · <a name="features"></a>[功能介绍](#features) · <a name="dependencies"></a>[依赖](#dependencies) · <a name="usage"></a>[使用方法](#usage) · <a name="customization"></a>[自定义](#customization) · <a name="similar"></a>[相似项目](#similar) · <a name="changelog"></a>[更新日志](#changelog) · <a name="contributing"></a>[参与贡献](#contributing) · <a name="license"></a>[许可证](#license)
+[效果预览](#preview) · [动画效果](#animations) · [功能介绍](#features) · [依赖](#dependencies) · [使用方法](#usage) · [自定义](#customization) · [相似项目](#similar) · [更新日志](#changelog) · [参与贡献](#contributing) · [Star 历史](#stargazers) · [许可证](#license)
 
 ---
 
-## 🖼️ 效果预览
+## <a name="preview"></a>🖼️ 效果预览
 
 ### 📱 移动端
 
 <table align="center">
   <tr>
-    <td align="center" width="50%">
+    <td align="center" width="50%" style="padding:8px;">
       <img src="https://github.com/user-attachments/assets/48f67b85-aa4a-4857-9d1c-9e96945a0655" 
-           width="90%" 
-           style="border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,0.12);">
-      <br><em>热力图 · 文件夹排行</em>
+           width="90%"
+           style="border:1px solid #e1e4e8; border-radius:10px;">
+      <br><strong>🔥 热力图</strong>
+      <br><span style="color:#586069;font-size:13px;">近一年贡献 · 5 级绿色渐变</span>
     </td>
-    <td align="center" width="50%">
+    <td align="center" width="50%" style="padding:8px;">
       <img src="https://github.com/user-attachments/assets/179abf20-b509-42b0-b927-f0054648fdfb" 
            width="90%"
-           style="border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,0.12);">
-      <br><em>统计概览 · 待办看板</em>
+           style="border:1px solid #e1e4e8; border-radius:10px;">
+      <br><strong>📁 文件夹排行</strong>
+      <br><span style="color:#586069;font-size:13px;">词数排行 · 🥇🥈🥉 奖牌标记</span>
     </td>
   </tr>
 </table>
@@ -44,47 +51,57 @@
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/6cae2aa5-905b-4bf3-8171-2f65adaffb1a" 
-       width="95%"
-       style="border-radius:12px; box-shadow:0 8px 32px rgba(0,0,0,0.15);">
+       width="90%"
+       style="border:1px solid #e1e4e8; border-radius:10px; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
   <br><em>全功能看板 · 阅读模式展示</em>
 </p>
 
 ---
 
-## 🎬 动画效果
+## <a name="animations"></a>🎬 动画效果
 
-看板在 v1.2.0 中全面重做了动效系统，所有动画在打开时依次触发。
+看板在 v1.2.0 中全面重做了动效系统，所有动画在打开时依次触发，总时长约 1.5s。
 
 <table align="center">
   <tr>
-    <td align="center" width="50%" style="padding:8px;">
+    <td align="center" width="50%" style="padding:12px;">
       <img src="https://github.com/user-attachments/assets/6f818cd4-b9c5-47f3-95fd-49ddf4c7a327" 
            width="100%"
-           style="border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.1);">
+           style="border:1px solid #e1e4e8; border-radius:8px;">
+      <br><strong>① 卡片入场</strong>
+      <br><span style="color:#586069;font-size:13px;">四向滑入 · 弹性缓动 · 间隔 80ms</span>
     </td>
-    <td align="center" width="50%" style="padding:8px;">
+    <td align="center" width="50%" style="padding:12px;">
       <img src="https://github.com/user-attachments/assets/0788e99f-acc3-46d8-8b25-1fba15a4ab23" 
            width="100%"
-           style="border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.1);">
+           style="border:1px solid #e1e4e8; border-radius:8px;">
+      <br><strong>② 进度条滑动</strong>
+      <br><span style="color:#586069;font-size:13px;">从零填满 · ease-out · 600ms</span>
     </td>
   </tr>
   <tr>
-    <td align="center" width="50%" style="padding:8px;">
+    <td align="center" width="50%" style="padding:12px;">
       <img src="https://github.com/user-attachments/assets/5b123292-a1bc-4a20-af0c-0d8b02e1987d" 
            width="100%"
-           style="border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.1);">
+           style="border:1px solid #e1e4e8; border-radius:8px;">
+      <br><strong>③ 热力图淡入</strong>
+      <br><span style="color:#586069;font-size:13px;">逐列浮现 · 从旧到新 · 间隔 30ms</span>
     </td>
-    <td align="center" width="50%" style="padding:8px;">
+    <td align="center" width="50%" style="padding:12px;">
       <img src="https://github.com/user-attachments/assets/ce4e9d7c-c580-4513-9625-22b9a7b6b615" 
            width="100%"
-           style="border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.1);">
+           style="border:1px solid #e1e4e8; border-radius:8px;">
+      <br><strong>④ 数字弹入</strong>
+      <br><span style="color:#586069;font-size:13px;">从 0 递增 · 缩放脉冲 · 800ms</span>
     </td>
   </tr>
 </table>
 
+> 💡 另有 **⑤ 标签脉冲** — 「本月」「🥇🥈🥉」等标签持续呼吸闪烁（透明度 1→0.6→1，周期 2s），为 CSS 动画，无法通过静态截图展示。
+
 ---
 
-## ✨ 功能介绍
+## <a name="features"></a>✨ 功能介绍
 
 <table>
 <tr>
@@ -131,7 +148,7 @@
 
 ---
 
-## 📦 依赖
+## <a name="dependencies"></a>📦 依赖
 
 | 软件 | 版本要求 | 说明 |
 |------|:--------:|------|
@@ -142,7 +159,7 @@
 
 ---
 
-## 🚀 使用方法
+## <a name="usage"></a>🚀 使用方法
 
 ### 1. 安装 Dataview 插件
 
@@ -168,7 +185,7 @@ Obsidian 设置中将其设为默认启动文件，或搭配 [Homepage](https://
 
 ---
 
-## 🎨 自定义
+## <a name="customization"></a>🎨 自定义
 
 所有可调参数统一集中在 `📊-我的笔记看板.md` 顶部 `C` 对象中：
 
@@ -196,7 +213,7 @@ const C = {
 
 ---
 
-## 🔗 相似项目
+## <a name="similar"></a>🔗 相似项目
 
 | 项目 | ⭐ | 差异 |
 |------|:-:|------|
@@ -206,7 +223,7 @@ const C = {
 
 ---
 
-## 📦 更新日志
+## <a name="changelog"></a>📦 更新日志
 
 **v1.3.0（2026-05-17）**
 - 🐛 热力图不随周次更新：切换到滑动窗口机制（54 列），每周日自动右移
@@ -233,7 +250,7 @@ const C = {
 
 ---
 
-## 🤝 参与贡献
+## <a name="contributing"></a>🤝 参与贡献
 
 欢迎任何形式的贡献！
 
@@ -243,7 +260,7 @@ const C = {
 
 ---
 
-## ⭐ Star 历史
+## <a name="stargazers"></a>⭐ Star 历史
 
 <p align="center">
   <a href="https://star-history.com/#Inonvation/obsidian-note-dashboard&Date">
@@ -254,7 +271,7 @@ const C = {
 
 ---
 
-## 📄 许可证
+## <a name="license"></a>📄 许可证
 
 本项目基于 **MIT 许可证** 开源，详情见 [LICENSE](./LICENSE) 文件。
 
