@@ -28,24 +28,20 @@
 
 ### 📱 移动端
 
-<table align="center">
-  <tr>
-    <td align="center" width="50%" style="padding:8px;">
-      <img src="asset/gif/mobile-heatmap.png" 
-           width="90%"
-           style="border:1px solid #e1e4e8; border-radius:10px;">
-      <br><strong>🔥 热力图</strong>
-      <br><span style="color:#586069;font-size:13px;">近一年贡献 · 5 级绿色渐变</span>
-    </td>
-    <td align="center" width="50%" style="padding:8px;">
-      <img src="asset/gif/mobile-folder.png" 
-           width="90%"
-           style="border:1px solid #e1e4e8; border-radius:10px;">
-      <br><strong>📁 文件夹排行</strong>
-      <br><span style="color:#586069;font-size:13px;">词数排行 · 🥇🥈🥉 奖牌标记</span>
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <img src="asset/gif/mobile-heatmap.png" 
+       width="45%"
+       style="border:1px solid #e1e4e8; border-radius:10px; max-width:300px;">
+  <br><strong>🔥 热力图 + 📁 文件夹排行</strong>
+  <br><span style="color:#586069;font-size:13px;">近一年贡献 · 5 级绿色渐变 · 词数奖牌排行</span>
+</p>
+<p align="center">
+  <img src="asset/gif/mobile-folder.png" 
+       width="45%"
+       style="border:1px solid #e1e4e8; border-radius:10px; max-width:300px;">
+  <br><strong>📊 统计总览 + 📋 待办看板</strong>
+  <br><span style="color:#586069;font-size:13px;">笔记总数 · 活跃天数 · 连续天数 · 待办聚合</span>
+</p>
 
 ### 💻 桌面端
 

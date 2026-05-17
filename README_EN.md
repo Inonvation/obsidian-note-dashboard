@@ -29,24 +29,20 @@
 
 ### 📱 Mobile
 
-<table align="center">
-  <tr>
-    <td align="center" width="50%" style="padding:8px;">
-      <img src="asset/gif/mobile-heatmap.png" 
-           width="90%"
-           style="border:1px solid #e1e4e8; border-radius:10px;">
-      <br><strong>🔥 Heatmap</strong>
-      <br><span style="color:#586069;font-size:13px;">Yearly contribution · 5-level green gradient</span>
-    </td>
-    <td align="center" width="50%" style="padding:8px;">
-      <img src="asset/gif/mobile-folder.png" 
-           width="90%"
-           style="border:1px solid #e1e4e8; border-radius:10px;">
-      <br><strong>📁 Folder Ranking</strong>
-      <br><span style="color:#586069;font-size:13px;">Word counts · 🥇🥈🥉 badges</span>
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <img src="asset/gif/mobile-heatmap.png" 
+       width="45%"
+       style="border:1px solid #e1e4e8; border-radius:10px; max-width:300px;">
+  <br><strong>🔥 Heatmap + 📁 Folder Ranking</strong>
+  <br><span style="color:#586069;font-size:13px;">Yearly contribution · 5-level gradient · Word count ranking</span>
+</p>
+<p align="center">
+  <img src="asset/gif/mobile-folder.png" 
+       width="45%"
+       style="border:1px solid #e1e4e8; border-radius:10px; max-width:300px;">
+  <br><strong>📊 Stats Overview + 📋 Task Board</strong>
+  <br><span style="color:#586069;font-size:13px;">Total notes · Active days · Streak · Task aggregation</span>
+</p>
 
 ### 💻 Desktop
 
