@@ -32,14 +32,14 @@
 <table align="center">
   <tr>
     <td align="center" width="50%" style="padding:8px;">
-      <img src="https://github.com/user-attachments/assets/48f67b85-aa4a-4857-9d1c-9e96945a0655" 
+      <img src="asset/gif/mobile-heatmap.png" 
            width="90%"
            style="border:1px solid #e1e4e8; border-radius:10px;">
       <br><strong>🔥 Heatmap</strong>
       <br><span style="color:#586069;font-size:13px;">Yearly contribution · 5-level green gradient</span>
     </td>
     <td align="center" width="50%" style="padding:8px;">
-      <img src="https://github.com/user-attachments/assets/179abf20-b509-42b0-b927-f0054648fdfb" 
+      <img src="asset/gif/mobile-folder.png" 
            width="90%"
            style="border:1px solid #e1e4e8; border-radius:10px;">
       <br><strong>📁 Folder Ranking</strong>
@@ -51,7 +51,7 @@
 ### 💻 Desktop
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/6cae2aa5-905b-4bf3-8171-2f65adaffb1a" 
+  <img src="asset/gif/desktop-full.png" 
        width="90%"
        style="border:1px solid #e1e4e8; border-radius:10px; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
   <br><em>Full dashboard · Reading view</em>
@@ -66,30 +66,30 @@ The animation system was completely rewritten in v1.2.0. All animations trigger 
 <table align="center">
   <tr>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="https://github.com/user-attachments/assets/6f818cd4-b9c5-47f3-95fd-49ddf4c7a327" 
+      <img src="asset/gif/heatmap.gif" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
-      <br><strong>① Card Entrance</strong>
-      <br><span style="color:#586069;font-size:13px;">Sliding from 4 directions · 80ms interval</span>
+      <br><strong>① Heatmap</strong>
+      <br><span style="color:#586069;font-size:13px;">Column fade-in · old to new · 30ms interval</span>
     </td>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="https://github.com/user-attachments/assets/0788e99f-acc3-46d8-8b25-1fba15a4ab23" 
+      <img src="asset/gif/card-entrance.gif" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
-      <br><strong>② Progress Bars</strong>
-      <br><span style="color:#586069;font-size:13px;">Fill from 0% · ease-out · 600ms</span>
+      <br><strong>② Card Entrance</strong>
+      <br><span style="color:#586069;font-size:13px;">Sliding from 4 directions · 80ms interval</span>
     </td>
   </tr>
   <tr>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="https://github.com/user-attachments/assets/5b123292-a1bc-4a20-af0c-0d8b02e1987d" 
+      <img src="asset/gif/progress-bar.gif" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
-      <br><strong>③ Heatmap Fade-in</strong>
-      <br><span style="color:#586069;font-size:13px;">Column by column · 30ms interval</span>
+      <br><strong>③ Progress Bars</strong>
+      <br><span style="color:#586069;font-size:13px;">Fill from 0% · ease-out · 600ms</span>
     </td>
     <td align="center" width="50%" style="padding:12px;">
-      <img src="https://github.com/user-attachments/assets/ce4e9d7c-c580-4513-9625-22b9a7b6b615" 
+      <img src="asset/gif/number-pop.gif" 
            width="100%"
            style="border:1px solid #e1e4e8; border-radius:8px;">
       <br><strong>④ Counter Pop</strong>
