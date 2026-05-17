@@ -2,7 +2,9 @@
   <img src="https://img.shields.io/badge/Obsidian-0.15+-%23483699?style=flat-square&logo=obsidian">
   <img src="https://img.shields.io/badge/Dataview-0.5+-%234a9c6d?style=flat-square&logo=dataview">
   <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square">
-  <img src="https://img.shields.io/badge/release-v1.2.0-orange?style=flat-square">
+  <a href="https://github.com/Inonvation/obsidian-note-dashboard/releases">
+    <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat-square&color=orange">
+  </a>
   <img src="https://img.shields.io/badge/single--file-481%20lines-brightgreen?style=flat-square">
 </p>
 
@@ -13,7 +15,7 @@
 
 ## 📖 目录
 
-[效果预览](#-效果预览) · [🎬 动画效果](#-动画效果) · [功能介绍](#-功能介绍) · [依赖](#-依赖) · [使用方法](#-使用方法) · [自定义](#-自定义) · [相似项目](#-相似项目) · [参与贡献](#-参与贡献) · [许可证](#-许可证)
+<a name="preview"></a>[效果预览](#preview) · <a name="animations"></a>[动画效果](#animations) · <a name="features"></a>[功能介绍](#features) · <a name="dependencies"></a>[依赖](#dependencies) · <a name="usage"></a>[使用方法](#usage) · <a name="customization"></a>[自定义](#customization) · <a name="similar"></a>[相似项目](#similar) · <a name="changelog"></a>[更新日志](#changelog) · <a name="contributing"></a>[参与贡献](#contributing) · <a name="license"></a>[许可证](#license)
 
 ---
 
@@ -206,6 +208,15 @@ const C = {
 
 ## 📦 更新日志
 
+**v1.3.0（2026-05-17）**
+- 🐛 热力图不随周次更新：切换到滑动窗口机制（54 列），每周日自动右移
+- 🐛 日期锚定错误：改为取「有数据的最后一天」与「今天」中较晚者
+- 🐛 未来日期跳过数据查询：预写日记不显示颜色现已修复
+- ✨ 未来日期用最淡色填充而非留白
+- ✨ 月份标签改用绝对定位，窗口边缘被截断时不显示
+- ✨ 颜色阈值放宽（200/800/2500 字符），梯度更合理
+- 🧹 去除冗余变量、提取动画延迟函数、块级作用域改造、常量分组注释
+
 **v1.2.0（2026-05-16）**
 - ✨ 自动切换阅读模式，多面板兼容
 - 🎨 动画重做：4 种卡片入场、进度条滑动、热力图逐列淡入、数字弹入、标签脉冲
@@ -248,6 +259,3 @@ const C = {
 本项目基于 **MIT 许可证** 开源，详情见 [LICENSE](./LICENSE) 文件。
 
 <p align="center">为 Obsidian 社区用心打造 ❤️</p>
-```
-
----
