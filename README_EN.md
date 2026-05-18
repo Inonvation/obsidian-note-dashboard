@@ -226,6 +226,13 @@ const C = {
 
 ## <a name="changelog_en"></a>📦 Changelog
 
+**v1.4.1 (2026-05-18)**
+- 🐛 Fixed potential freeze in some scenarios
+- 🐛 Fixed animation jitter caused by re-rendering
+- 🐛 Fixed re-render issue on first launch (mobile)
+- ⚡ Optimized rendering logic for smoother animation
+- ⚡ Better performance with many notes, reduced lag
+
 **v1.4.0 (2026-05-18)**
 - ✨ **Smooth rendering**: Eliminated flash and preview-switch jitter, `__ndRenderedKey` prevents duplicate animations
 - 🎨 **Layout change**: Dual-column → full-width, monthly chart and folder ranking each on their own row
