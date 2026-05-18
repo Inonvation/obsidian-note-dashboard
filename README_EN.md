@@ -10,7 +10,7 @@
   <a href="https://github.com/Inonvation/obsidian-note-dashboard/releases">
     <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat-square&color=orange">
   </a>
-  <img src="https://img.shields.io/badge/single--file-690%20lines-brightgreen?style=flat-square">
+  <img src="https://img.shields.io/badge/single--file-696%20lines-brightgreen?style=flat-square">
 </p>
 
 <h1 align="center">📊 Obsidian Note Dashboard</h1>
@@ -156,7 +156,7 @@ Responsive layout works on phone, tablet, and desktop. Heatmap supports touch sc
 | [Obsidian](https://obsidian.md) | 0.15+ | Note-taking app |
 | [Dataview](https://github.com/blacksmithgu/obsidian-dataview) | 0.5+ | Required — enable JavaScript Queries in settings |
 
-> ✅ No external APIs, no API keys, no paid services. Single file, 690 lines, ready to use.
+> ✅ No external APIs, no API keys, no paid services. Single file, 696 lines, ready to use.
 
 ---
 

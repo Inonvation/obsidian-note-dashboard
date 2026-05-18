@@ -10,7 +10,7 @@
   <a href="https://github.com/Inonvation/obsidian-note-dashboard/releases">
     <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat-square&color=orange">
   </a>
-  <img src="https://img.shields.io/badge/single--file-690%20lines-brightgreen?style=flat-square">
+  <img src="https://img.shields.io/badge/single--file-696%20lines-brightgreen?style=flat-square">
 </p>
 
 <h1 align="center">📊 Obsidian Note Dashboard</h1>
@@ -155,7 +155,7 @@
 | [Obsidian](https://obsidian.md) | 0.15+ | 笔记软件本体 |
 | [Dataview](https://github.com/blacksmithgu/obsidian-dataview) | 0.5+ | 必需，JavaScript Queries 需手动开启 |
 
-> ✅ 无外部 API、无需 API 密钥、无付费服务。单文件 690 行，开箱即用。
+> ✅ 无外部 API、无需 API 密钥、无付费服务。单文件 696 行，开箱即用。
 
 ---
 
