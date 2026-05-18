@@ -83,6 +83,12 @@ obsidian/github/obsidian-note-dashboard/
 
 ---
 
+## Release 附件
+
+- 每次发版时，将 `📊-我的笔记看板.md` 上传为 Release 附件
+- 附件命名使用 ASCII 英文：`obsidian-note-dashboard.md`
+- 不上传中文/emoji 文件名（GitHub API 不支持 4-byte Unicode，会截断为 `-.md`）
+
 ## AI 交互规则
 
 - 用中文回答，简洁直接不废话
@@ -91,3 +97,4 @@ obsidian/github/obsidian-note-dashboard/
 - 不修改 `.git/config`、不泄露 token
 - 操作前先确认涉及哪些文件，避免误改
 - 所有代码改动以 `obsidian/github/obsidian-note-dashboard/` 为准
+- Release 附件用英文名 `obsidian-note-dashboard.md`
