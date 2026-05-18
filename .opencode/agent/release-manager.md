@@ -40,10 +40,8 @@ mode: subagent
 **文件**: `📊-我的笔记看板.md` · {行数} 行
 ```
 
-### Step 2: 更新 README（可选）
+### Step 2: 更新 README
 
-**先问用户是否需要更新 README**，不要默认执行。
-若需要：
 - 在两个 README 的更新日志区顶部追加新版本条目
 - 同步中英文内容
 - 更新 badge 行数（用 `git diff --stat` 获取看板行数）
