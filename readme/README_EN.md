@@ -10,7 +10,7 @@
   <a href="https://github.com/Inonvation/obsidian-note-dashboard/releases">
     <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat-square&color=orange">
   </a>
-  <img src="https://img.shields.io/badge/single--file-481%20lines-brightgreen?style=flat-square">
+  <img src="https://img.shields.io/badge/single--file-690%20lines-brightgreen?style=flat-square">
 </p>
 
 <h1 align="center">📊 Obsidian Note Dashboard</h1>
@@ -156,7 +156,7 @@ Responsive layout works on phone, tablet, and desktop. Heatmap supports touch sc
 | [Obsidian](https://obsidian.md) | 0.15+ | Note-taking app |
 | [Dataview](https://github.com/blacksmithgu/obsidian-dataview) | 0.5+ | Required — enable JavaScript Queries in settings |
 
-> ✅ No external APIs, no API keys, no paid services. Single file, 481 lines, ready to use.
+> ✅ No external APIs, no API keys, no paid services. Single file, 690 lines, ready to use.
 
 ---
 
@@ -225,6 +225,12 @@ const C = {
 ---
 
 ## <a name="changelog_en"></a>📦 Changelog
+
+**v1.4.0 (2026-05-18)**
+- ✨ **Smooth rendering**: Eliminated flash and preview-switch jitter, `__ndRenderedKey` prevents duplicate animations
+- 🎨 **Layout change**: Dual-column → full-width, monthly chart and folder ranking each on their own row
+- ⚡ **Animation refactor**: Delays moved from CSS to JS, first-render vs re-execution paths
+- 🐛 Fixed flash and progress bar jitter on multi-pane/tab switching
 
 **v1.3.0 (2026-05-17)**
 - 🐛 Heatmap not updating weekly: switched to sliding window (54 columns), auto-shifts every Sunday

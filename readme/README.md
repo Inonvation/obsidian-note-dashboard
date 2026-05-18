@@ -10,7 +10,7 @@
   <a href="https://github.com/Inonvation/obsidian-note-dashboard/releases">
     <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat-square&color=orange">
   </a>
-  <img src="https://img.shields.io/badge/single--file-481%20lines-brightgreen?style=flat-square">
+  <img src="https://img.shields.io/badge/single--file-690%20lines-brightgreen?style=flat-square">
 </p>
 
 <h1 align="center">📊 Obsidian Note Dashboard</h1>
@@ -155,7 +155,7 @@
 | [Obsidian](https://obsidian.md) | 0.15+ | 笔记软件本体 |
 | [Dataview](https://github.com/blacksmithgu/obsidian-dataview) | 0.5+ | 必需，JavaScript Queries 需手动开启 |
 
-> ✅ 无外部 API、无需 API 密钥、无付费服务。单文件 481 行，开箱即用。
+> ✅ 无外部 API、无需 API 密钥、无付费服务。单文件 690 行，开箱即用。
 
 ---
 
@@ -224,6 +224,12 @@ const C = {
 ---
 
 ## <a name="changelog"></a>📦 更新日志
+
+**v1.4.0（2026-05-18）**
+- ✨ **平滑渲染**: 消除首屏闪烁、preview 切换抖动，`__ndRenderedKey` 防重复动画
+- 🎨 **布局调整**: 双栏 → 全宽布局，月度统计与文件夹排行各自独占一行
+- ⚡ **动画重构**: 动画延迟迁移至 JS 控制，首次渲染 vs re-execution 分离
+- 🐛 修复多面板/标签切换时闪烁、进度条跳动问题
 
 **v1.3.0（2026-05-17）**
 - 🐛 热力图不随周次更新：切换到滑动窗口机制（54 列），每周日自动右移
