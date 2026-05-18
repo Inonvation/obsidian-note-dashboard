@@ -1,6 +1,6 @@
 <p align="center">
   <a href="#"><img src="https://img.shields.io/badge/English-1982d2?style=flat&logo=readme&logoColor=white"></a>
-  <a href="readme.md"><img src="https://img.shields.io/badge/中文-d63031?style=flat&logo=readme&logoColor=white"></a>
+  <a href="README.md"><img src="https://img.shields.io/badge/中文-d63031?style=flat&logo=readme&logoColor=white"></a>
 </p>
 
 <p align="center">
