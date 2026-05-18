@@ -1,0 +1,39 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "release-manager": {
+      "description": "发版全流程：更新看板 → release notes → 同步 README → tag 推送",
+      "mode": "subagent",
+      "model": "anthropic/claude-sonnet-4-6"
+    },
+    "docs-sync": {
+      "description": "中英文 README 同步",
+      "mode": "subagent",
+      "model": "anthropic/claude-sonnet-4-6"
+    },
+    "obsidian-dev": {
+      "description": "Obsidian DataviewJS 开发",
+      "mode": "subagent",
+      "model": "anthropic/claude-sonnet-4-6"
+    },
+    "code-review": {
+      "description": "DataviewJS 代码审查",
+      "mode": "subagent",
+      "model": "anthropic/claude-sonnet-4-6"
+    }
+  },
+  "command": {
+    "release": {
+      "description": "一键发版",
+      "agent": "release-manager"
+    },
+    "sync-docs": {
+      "description": "同步中英文 README",
+      "agent": "docs-sync"
+    },
+    "review": {
+      "description": "审查看板代码",
+      "agent": "code-review"
+    }
+  }
+}
