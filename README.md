@@ -10,7 +10,7 @@
   <a href="https://github.com/Inonvation/obsidian-note-dashboard/releases">
     <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat-square&color=orange">
   </a>
-  <img src="https://img.shields.io/badge/single--file-696%20lines-brightgreen?style=flat-square">
+  <img src="https://img.shields.io/badge/single--file-719%20lines-brightgreen?style=flat-square">
 </p>
 
 <h1 align="center">📊 Obsidian Note Dashboard</h1>
@@ -155,7 +155,7 @@
 | [Obsidian](https://obsidian.md) | 0.15+ | 笔记软件本体 |
 | [Dataview](https://github.com/blacksmithgu/obsidian-dataview) | 0.5+ | 必需，JavaScript Queries 需手动开启 |
 
-> ✅ 无外部 API、无需 API 密钥、无付费服务。单文件 696 行，开箱即用。
+> ✅ 无外部 API、无需 API 密钥、无付费服务。单文件 719 行，开箱即用。
 
 ---
 
@@ -224,6 +224,11 @@ const C = {
 ---
 
 ## <a name="changelog"></a>📦 更新日志
+
+**v1.4.2（2026-05-19）**
+- 🐛 修复热力图数据统计错误的问题
+- 🐛 修复电脑端深色模式下首次打开笔记时不会自动切换阅读模式的bug
+- ⚡ 优化代码结构
 
 **v1.4.1（2026-05-18）**
 - 🐛 修复部分场景下可能的卡死问题
