@@ -237,6 +237,9 @@ const C = {
 - ⚡ 优化代码及渲染逻辑，提升动画观感
 - ⚡ 优化笔记较多时的渲染性能和数据统计逻辑
 
+<details>
+<summary>📜 历史更新</summary>
+
 **v1.4.0（2026-05-18）**
 - ✨ **平滑渲染**: 消除首屏闪烁、preview 切换抖动，`__ndRenderedKey` 防重复动画
 - 🎨 **布局调整**: 双栏 → 全宽布局，月度统计与文件夹排行各自独占一行
@@ -266,6 +269,8 @@ const C = {
 - 📐 全局 `nd-` 前缀 CSS 类名，渲染更干净
 - 🐛 自动回正预览模式，隔离全局变量冲突
 
+</details>
+
 ---
 
 ## <a name="contributing"></a>🤝 参与贡献
@@ -275,8 +280,6 @@ const C = {
 - 🐛 提交 [Issue](https://github.com/Inonvation/obsidian-note-dashboard/issues) 报告 Bug 或提出功能建议
 - 🔀 提交 Pull Request 改进代码
 - ⭐ 点亮 Star 让更多人看到这个项目
-
----
 
 ---
 

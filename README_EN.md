@@ -238,6 +238,9 @@ const C = {
 - ⚡ Optimized rendering logic for smoother animation
 - ⚡ Better performance with many notes, reduced lag
 
+<details>
+<summary>📜 Historical Changelog</summary>
+
 **v1.4.0 (2026-05-18)**
 - ✨ **Smooth rendering**: Eliminated flash and preview-switch jitter, `__ndRenderedKey` prevents duplicate animations
 - 🎨 **Layout change**: Dual-column → full-width, monthly chart and folder ranking each on their own row
@@ -267,6 +270,8 @@ const C = {
 - 📐 Global `nd-` prefixed CSS classes for cleaner rendering
 - 🐛 Auto-fix preview mode, isolated global variable conflicts
 
+</details>
+
 ---
 
 ## <a name="contributing_en"></a>🤝 Contributing
@@ -276,8 +281,6 @@ Contributions are welcome!
 - 🐛 Submit an [Issue](https://github.com/Inonvation/obsidian-note-dashboard/issues) for bugs or feature requests
 - 🔀 Submit a Pull Request to improve the code
 - ⭐ Star the repo to help others discover the project
-
----
 
 ---
 
