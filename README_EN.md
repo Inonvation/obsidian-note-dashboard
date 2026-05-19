@@ -21,7 +21,7 @@
 ## 📖 Table of Contents
 
 <a name="toc_en"></a>
-[Preview](#preview_en) · [Animations](#animations_en) · [Features](#features_en) · [Dependencies](#dependencies_en) · [Getting Started](#usage_en) · [Customization](#customization_en) · [Similar Projects](#similar_en) · [Changelog](#changelog_en) · [Contributing](#contributing_en) · [Star History](#stargazers_en) · [License](#license_en)
+[Preview](#preview_en) · [Animations](#animations_en) · [Features](#features_en) · [Dependencies](#dependencies_en) · [Getting Started](#usage_en) · [Customization](#customization_en) · [Similar Projects](#similar_en) · [Changelog](#changelog_en) · [Contributing](#contributing_en) · [License](#license_en)
 
 ---
 
@@ -278,15 +278,6 @@ Contributions are welcome!
 - ⭐ Star the repo to help others discover the project
 
 ---
-
-## <a name="stargazers_en"></a>⭐ Star History
-
-<p align="center">
-  <a href="https://star-history.com/#Inonvation/obsidian-note-dashboard&Date">
-    <img src="https://api.star-history.com/svg?repos=Inonvation/obsidian-note-dashboard&type=Date"
-         alt="Star History Chart" width="80%">
-  </a>
-</p>
 
 ---
 

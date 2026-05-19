@@ -20,7 +20,7 @@
 
 ## 📖 目录
 
-[效果预览](#preview) · [动画效果](#animations) · [功能介绍](#features) · [依赖](#dependencies) · [使用方法](#usage) · [自定义](#customization) · [相似项目](#similar) · [更新日志](#changelog) · [参与贡献](#contributing) · [Star 历史](#stargazers) · [许可证](#license)
+[效果预览](#preview) · [动画效果](#animations) · [功能介绍](#features) · [依赖](#dependencies) · [使用方法](#usage) · [自定义](#customization) · [相似项目](#similar) · [更新日志](#changelog) · [参与贡献](#contributing) · [许可证](#license)
 
 ---
 
@@ -277,15 +277,6 @@ const C = {
 - ⭐ 点亮 Star 让更多人看到这个项目
 
 ---
-
-## <a name="stargazers"></a>⭐ Star 历史
-
-<p align="center">
-  <a href="https://star-history.com/#Inonvation/obsidian-note-dashboard&Date">
-    <img src="https://api.star-history.com/svg?repos=Inonvation/obsidian-note-dashboard&type=Date"
-         alt="Star History Chart" width="80%">
-  </a>
-</p>
 
 ---
 
