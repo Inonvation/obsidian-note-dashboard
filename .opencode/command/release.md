@@ -1,7 +1,5 @@
 ---
-description: 一键发版：sync vault → tag → push → GitHub Release
+description: 发布 release | 发版 | 发布新版本
 ---
 
-@release-manager 执行完整发版流程。版本号格式：v{major}.{minor}.{patch}。
-
-告诉我本次发版的版本号和变更范围，已有的 Release Notes 会自动跳过。
+@release-manager 版本号格式 v{major}.{minor}.{patch}
