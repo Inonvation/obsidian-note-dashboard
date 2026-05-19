@@ -32,6 +32,7 @@ vault 根目录/
 - 所有修改以本地仓库 (`github/obsidian-note-dashboard/`) 为准，远程只是镜像
 - vault 根目录的 `📊-我的笔记看板.md` 是最新版，修改后立即同步到仓库
 - 不添加多余注释到代码中
+- **发版相关请求会自动触发 `obsidian-release` skill**，指令会注入上下文
 
 ## 自定义命令
 

@@ -10,7 +10,7 @@
   <a href="https://github.com/Inonvation/obsidian-note-dashboard/releases">
     <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat-square&color=orange">
   </a>
-  <img src="https://img.shields.io/badge/single--file-719%20lines-brightgreen?style=flat-square">
+  <img src="https://img.shields.io/badge/single--file-684%20lines-brightgreen?style=flat-square">
 </p>
 
 <h1 align="center">📊 Obsidian Note Dashboard</h1>
