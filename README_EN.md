@@ -35,14 +35,14 @@
       <img src="https://github.com/user-attachments/assets/48f67b85-aa4a-4857-9d1c-9e96945a0655" 
            width="90%"
            style="border:1px solid #e1e4e8; border-radius:10px;">
-      <br><strong>🔥 Heatmap · 📁 Folder Ranking</strong>
+      <br><strong>Heatmap · Folder Ranking</strong>
       <br><span style="color:#586069;font-size:13px;">Yearly contribution · Word count ranking</span>
     </td>
     <td align="center" width="50%" style="padding:8px;">
       <img src="https://github.com/user-attachments/assets/179abf20-b509-42b0-b927-f0054648fdfb" 
            width="90%"
            style="border:1px solid #e1e4e8; border-radius:10px;">
-      <br><strong>📊 Stats Overview · 📋 Task Board</strong>
+      <br><strong>Stats Overview · Task Board</strong>
       <br><span style="color:#586069;font-size:13px;">Total notes · Active days · Task aggregation</span>
     </td>
   </tr>
@@ -98,7 +98,7 @@ The animation system was completely rewritten in v1.2.0. All animations trigger 
   </tr>
 </table>
 
-> 💡 Also **⑤ Badge Pulse** — "This Month" and 🥇🥈🥉 badges breathe continuously (opacity 1→0.6→1, 2s cycle). This is a CSS animation and cannot be captured in a static screenshot.
+> Also **⑤ Badge Pulse** — "This Month" and 🥇🥈🥉 badges breathe continuously (opacity 1→0.6→1, 2s cycle). This is a CSS animation and cannot be captured in a static screenshot.
 
 ---
 
@@ -108,19 +108,19 @@ The animation system was completely rewritten in v1.2.0. All animations trigger 
 <tr>
 <td width="33%">
 
-**🔥 Yearly Contribution Heatmap**  
+**Yearly Contribution Heatmap**  
 Color-coded by daily writing volume (5-level green gradient). Month labels frozen on the left, horizontally scrollable. Adapts to light/dark theme.
 
 </td>
 <td width="33%">
 
-**📊 Statistics Overview**  
+**Statistics Overview**  
 6 stat cards + monthly activity bar: total notes, total words, active days, today's writing, current streak, folder count.
 
 </td>
 <td width="34%">
 
-**📆 Monthly Statistics**  
+**Monthly Statistics**  
 Notes count and word count per month with progress bars. Current month highlighted. Supports up to 12 months.
 
 </td>
@@ -128,19 +128,19 @@ Notes count and word count per month with progress bars. Current month highlight
 <tr>
 <td>
 
-**📁 Folder Ranking**  
+**Folder Ranking**  
 Sorted by word count descending. Each entry has a percentage bar with 🥇🥈🥉 badges.
 
 </td>
 <td>
 
-**📋 Task Board**  
+**Task Board**  
 Aggregates all unchecked tasks grouped by source file. Groups ≤6 items are expanded by default, larger ones are collapsible.
 
 </td>
 <td>
 
-**📱 Cross-platform**  
+**Cross-platform**  
 Responsive layout works on phone, tablet, and desktop. Heatmap supports touch scrolling on mobile.
 
 </td>
@@ -156,7 +156,7 @@ Responsive layout works on phone, tablet, and desktop. Heatmap supports touch sc
 | [Obsidian](https://obsidian.md) | 0.15+ | Note-taking app |
 | [Dataview](https://github.com/blacksmithgu/obsidian-dataview) | 0.5+ | Required — enable JavaScript Queries in settings |
 
-> ✅ No external APIs, no API keys, no paid services. Single file, 719 lines, ready to use.
+> No external APIs, no API keys, no paid services. Single file, 719 lines, ready to use.
 
 ---
 
@@ -178,7 +178,7 @@ Download `📊-我的笔记看板.md` from the [latest Release](https://github.c
 
 Open the file in Obsidian and wait a few seconds for Dataview to index your vault. The dashboard automatically switches to reading mode with full data displayed.
 
-> 💡 **Blank on first open?** Run **Dataview: Force refresh all views** from the command palette (`Ctrl/Cmd + P`).
+> **Blank on first open?** Run **Dataview: Force refresh all views** from the command palette (`Ctrl/Cmd + P`).
 
 ### 4. (Optional) Set as Homepage
 
@@ -210,7 +210,7 @@ const C = {
 | `C.colors` | 8-color array for monthly progress bars |
 | `C.days` | Weekday labels (left side of heatmap) |
 
-> 💡 Create a task list with `- [x]` / `- [ ]` in `planning/成长计划.md`, and the dashboard will detect it and display a completion bar.
+> Create a task list with `- [x]` / `- [ ]` in `planning/成长计划.md`, and the dashboard will detect it and display a completion bar.
 
 ---
 
@@ -239,7 +239,7 @@ const C = {
 - Better performance with many notes, reduced lag
 
 <details>
-<summary>📜 Historical Changelog</summary>
+<summary>Historical Changelog</summary>
 
 **v1.4.0 (2026-05-18)**
 - **Smooth rendering**: Eliminated flash and preview-switch jitter, `__ndRenderedKey` prevents duplicate animations
@@ -278,9 +278,9 @@ const C = {
 
 Contributions are welcome!
 
-- 🐛 Submit an [Issue](https://github.com/Inonvation/obsidian-note-dashboard/issues) for bugs or feature requests
-- 🔀 Submit a Pull Request to improve the code
-- ⭐ Star the repo to help others discover the project
+- Submit an [Issue](https://github.com/Inonvation/obsidian-note-dashboard/issues) for bugs or feature requests
+- Submit a Pull Request to improve the code
+- Star the repo to help others discover the project
 
 ---
 
@@ -288,4 +288,4 @@ Contributions are welcome!
 
 This project is open source under the **MIT License**. See the [LICENSE](./LICENSE) file for details.
 
-<p align="center">Built with ❤️ for the Obsidian community</p>
+<p align="center">Built for the Obsidian community</p>
