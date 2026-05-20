@@ -97,7 +97,7 @@
   </tr>
 </table>
 
-> 💡 另有 **⑤ 标签脉冲** — 「本月」「🥇🥈🥉」等标签持续呼吸闪烁（透明度 1→0.6→1，周期 2s），为 CSS 动画，无法通过静态截图展示。
+>  另有 **⑤ 标签脉冲** — 「本月」「🥇🥈🥉」等标签持续呼吸闪烁（透明度 1→0.6→1，周期 2s），为 CSS 动画，无法通过静态截图展示。
 
 ---
 
@@ -107,7 +107,7 @@
 <tr>
 <td width="33%">
 
-**🔥 近一年贡献热力图**  
+**近一年贡献热力图**  
 按每日写入字数着色（5 级绿色渐变），月份标签左侧冻结，支持横向滚动。自动适配浅色/深色主题。
 
 </td>
@@ -155,7 +155,7 @@
 | [Obsidian](https://obsidian.md) | 0.15+ | 笔记软件本体 |
 | [Dataview](https://github.com/blacksmithgu/obsidian-dataview) | 0.5+ | 必需，JavaScript Queries 需手动开启 |
 
-> ✅ 无外部 API、无需 API 密钥、无付费服务。单文件 719 行，开箱即用。
+> 无外部 API、无需 API 密钥、无付费服务。单文件 719 行，开箱即用。
 
 ---
 
@@ -177,7 +177,7 @@ Obsidian → 设置 → 社区插件 → 浏览 → 搜索 "Dataview" → 安装
 
 在 Obsidian 中打开该文件，等待几秒让 Dataview 完成索引。看板会自动切换到阅读模式，展示完整数据。
 
-> 💡 **首次打开显示空白？** 在命令面板（`Ctrl/Cmd + P`）中执行 **Dataview: Force refresh all views** 即可。
+>  **首次打开显示空白？** 在命令面板（`Ctrl/Cmd + P`）中执行 **Dataview: Force refresh all views** 即可。
 
 ### 4. （可选）设为主页
 
@@ -209,7 +209,7 @@ const C = {
 | `C.colors` | 月度进度条的 8 色数组 |
 | `C.days` | 左侧星期标签，默认只显示一、三、五 |
 
-> 💡 在库中创建 `planning/成长计划.md`，写入 `- [x]` / `- [ ]` 任务清单，看板会自动检测并显示完成进度条。
+>  在库中创建 `planning/成长计划.md`，写入 `- [x]` / `- [ ]` 任务清单，看板会自动检测并显示完成进度条。
 
 ---
 
@@ -277,9 +277,9 @@ const C = {
 
 欢迎任何形式的贡献！
 
-- 🐛 提交 [Issue](https://github.com/Inonvation/obsidian-note-dashboard/issues) 报告 Bug 或提出功能建议
-- 🔀 提交 Pull Request 改进代码
-- ⭐ 点亮 Star 让更多人看到这个项目
+-  提交 [Issue](https://github.com/Inonvation/obsidian-note-dashboard/issues) 报告 Bug 或提出功能建议
+- 提交 Pull Request 改进代码
+- 点亮 Star 让更多人看到这个项目
 
 ---
 
