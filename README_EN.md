@@ -13,21 +13,21 @@
   <img src="https://img.shields.io/badge/single--file-684%20lines-brightgreen?style=flat-square">
 </p>
 
-<h1 align="center">📊 Obsidian Note Dashboard</h1>
+<h1 align="center">Obsidian Note Dashboard</h1>
 <p align="center">A single-file note-taking dashboard built with DataviewJS — Heatmap · Writing Stats · Folder Ranking · Task Board</p>
 
 ---
 
-## 📖 Table of Contents
+## Table of Contents
 
 <a name="toc_en"></a>
 [Preview](#preview_en) · [Animations](#animations_en) · [Features](#features_en) · [Dependencies](#dependencies_en) · [Getting Started](#usage_en) · [Customization](#customization_en) · [Similar Projects](#similar_en) · [Changelog](#changelog_en) · [Contributing](#contributing_en) · [License](#license_en)
 
 ---
 
-## <a name="preview_en"></a>🖼️ Preview
+## <a name="preview_en"></a>Preview
 
-### 📱 Mobile
+### Mobile
 
 <table align="center">
   <tr>
@@ -48,7 +48,7 @@
   </tr>
 </table>
 
-### 💻 Desktop
+### Desktop
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/6cae2aa5-905b-4bf3-8171-2f65adaffb1a" 
@@ -59,7 +59,7 @@
 
 ---
 
-## <a name="animations_en"></a>🎬 Animations
+## <a name="animations_en"></a>Animations
 
 The animation system was completely rewritten in v1.2.0. All animations trigger sequentially when the dashboard opens, totaling ~1.5s.
 
@@ -102,7 +102,7 @@ The animation system was completely rewritten in v1.2.0. All animations trigger 
 
 ---
 
-## <a name="features_en"></a>✨ Features
+## <a name="features_en"></a>Features
 
 <table>
 <tr>
@@ -149,7 +149,7 @@ Responsive layout works on phone, tablet, and desktop. Heatmap supports touch sc
 
 ---
 
-## <a name="dependencies_en"></a>📦 Dependencies
+## <a name="dependencies_en"></a>Dependencies
 
 | Software | Version | Notes |
 |------|:--------:|------|
@@ -160,7 +160,7 @@ Responsive layout works on phone, tablet, and desktop. Heatmap supports touch sc
 
 ---
 
-## <a name="usage_en"></a>🚀 Getting Started
+## <a name="usage_en"></a>Getting Started
 
 ### 1. Install Dataview Plugin
 
@@ -186,7 +186,7 @@ Set it as your default startup file in Obsidian settings, or use a plugin like [
 
 ---
 
-## <a name="customization_en"></a>🎨 Customization
+## <a name="customization_en"></a>Customization
 
 All adjustable parameters are in the `C` object at the top of `📊-我的笔记看板.md`:
 
@@ -214,7 +214,7 @@ const C = {
 
 ---
 
-## <a name="similar_en"></a>🔗 Similar Projects
+## <a name="similar_en"></a>Similar Projects
 
 | Project | ⭐ | Difference |
 |---------|:-:|------------|
@@ -224,57 +224,57 @@ const C = {
 
 ---
 
-## <a name="changelog_en"></a>📦 Changelog
+## <a name="changelog_en"></a>Changelog
 
 **v1.4.2 (2026-05-19)**
-- 🐛 Fixed heatmap data calculation errors
-- 🐛 Fixed auto-switch to reading mode on first open in dark mode (desktop)
-- ⚡ Optimized code structure
+- Fixed heatmap data calculation errors
+- Fixed auto-switch to reading mode on first open in dark mode (desktop)
+- Optimized code structure
 
 **v1.4.1 (2026-05-18)**
-- 🐛 Fixed potential freeze in some scenarios
-- 🐛 Fixed animation jitter caused by re-rendering
-- 🐛 Fixed re-render issue on first launch (mobile)
-- ⚡ Optimized rendering logic for smoother animation
-- ⚡ Better performance with many notes, reduced lag
+- Fixed potential freeze in some scenarios
+- Fixed animation jitter caused by re-rendering
+- Fixed re-render issue on first launch (mobile)
+- Optimized rendering logic for smoother animation
+- Better performance with many notes, reduced lag
 
 <details>
 <summary>📜 Historical Changelog</summary>
 
 **v1.4.0 (2026-05-18)**
-- ✨ **Smooth rendering**: Eliminated flash and preview-switch jitter, `__ndRenderedKey` prevents duplicate animations
-- 🎨 **Layout change**: Dual-column → full-width, monthly chart and folder ranking each on their own row
-- ⚡ **Animation refactor**: Delays moved from CSS to JS, first-render vs re-execution paths
-- 🐛 Fixed flash and progress bar jitter on multi-pane/tab switching
+- **Smooth rendering**: Eliminated flash and preview-switch jitter, `__ndRenderedKey` prevents duplicate animations
+- **Layout change**: Dual-column → full-width, monthly chart and folder ranking each on their own row
+- **Animation refactor**: Delays moved from CSS to JS, first-render vs re-execution paths
+- Fixed flash and progress bar jitter on multi-pane/tab switching
 
 **v1.3.0 (2026-05-17)**
-- 🐛 Heatmap not updating weekly: switched to sliding window (54 columns), auto-shifts every Sunday
-- 🐛 Date anchor bug: now uses the later of "last day with data" and "today"
-- 🐛 Future dates skipped data queries: pre-written diary entries now show colors
-- ✨ Future dates filled with lightest color instead of blank
-- ✨ Month labels use absolute positioning; hidden when clipped at window edge
-- ✨ Color thresholds relaxed (200/800/2500 chars) for better gradient distribution
-- 🧹 Removed redundant variables, extracted animation delay function, block-scoped modules, grouped constants
+- Heatmap not updating weekly: switched to sliding window (54 columns), auto-shifts every Sunday
+- Date anchor bug: now uses the later of "last day with data" and "today"
+- Future dates skipped data queries: pre-written diary entries now show colors
+- Future dates filled with lightest color instead of blank
+- Month labels use absolute positioning; hidden when clipped at window edge
+- Color thresholds relaxed (200/800/2500 chars) for better gradient distribution
+- Removed redundant variables, extracted animation delay function, block-scoped modules, grouped constants
 
 **v1.2.0 (2026-05-16)**
-- ✨ Auto-switch to reading mode, multi-pane compatible
-- 🎨 Animations overhauled: card entrance, progress bars, heatmap fade-in, counter pop, badge pulse
-- ⚡ Content caching — instant open on second load
-- 📉 Code reduced from 521 to 481 lines
-- 🐛 Fixed multi-pane / heatmap scroll / progress bar jitter bugs
+- Auto-switch to reading mode, multi-pane compatible
+- Animations overhauled: card entrance, progress bars, heatmap fade-in, counter pop, badge pulse
+- Content caching — instant open on second load
+- Code reduced from 521 to 481 lines
+- Fixed multi-pane / heatmap scroll / progress bar jitter bugs
 
 **v1.1.0 (2026-05-16)**
-- 🔧 Unified global config in `C` object
-- 📝 Word count optimized (Chinese by character, English by space)
-- 🎨 Card entrance animation + hover float effect
-- 📐 Global `nd-` prefixed CSS classes for cleaner rendering
-- 🐛 Auto-fix preview mode, isolated global variable conflicts
+- Unified global config in `C` object
+- Word count optimized (Chinese by character, English by space)
+- Card entrance animation + hover float effect
+- Global `nd-` prefixed CSS classes for cleaner rendering
+- Auto-fix preview mode, isolated global variable conflicts
 
 </details>
 
 ---
 
-## <a name="contributing_en"></a>🤝 Contributing
+## <a name="contributing_en"></a>Contributing
 
 Contributions are welcome!
 
@@ -284,7 +284,7 @@ Contributions are welcome!
 
 ---
 
-## <a name="license_en"></a>📄 License
+## <a name="license_en"></a>License
 
 This project is open source under the **MIT License**. See the [LICENSE](./LICENSE) file for details.
 
