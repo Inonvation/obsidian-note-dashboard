@@ -10,7 +10,7 @@
   <a href="https://github.com/Inonvation/obsidian-note-dashboard/releases">
     <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat-square&color=orange">
   </a>
-  <img src="https://img.shields.io/badge/single--file-684%20lines-brightgreen?style=flat-square">
+  <img src="https://img.shields.io/badge/single--file-1208%20lines-brightgreen?style=flat-square">
 </p>
 
 <h1 align="center">Obsidian Note Dashboard</h1>
@@ -224,6 +224,15 @@ const C = {
 ---
 
 ## <a name="changelog"></a> 更新日志
+
+**v2.0.0（2026-05-22）**
+- 待办看板重构：改为按文件分组布局，支持展开/收起
+- 优先级标记：`!!` → 紧急（闪烁）、`!` → 重要
+- 到期日解析：支持 `📅 YYYY-MM-DD`，自动标记逾期/今日到期/即将到期
+- 完成进度条：每个文件组 + 全局进度条，带平滑动画
+- 近七天词数统计：月度/七天视图切换，默认展示近七天
+- 文件夹饼图：列表/饼图双视图模式
+- 动画优化：视图切换流畅过渡，缓动曲线优化
 
 **v1.4.2（2026-05-19）**
 - 修复热力图数据统计错误的问题

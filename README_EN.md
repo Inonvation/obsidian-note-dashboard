@@ -10,7 +10,7 @@
   <a href="https://github.com/Inonvation/obsidian-note-dashboard/releases">
     <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat-square&color=orange">
   </a>
-  <img src="https://img.shields.io/badge/single--file-684%20lines-brightgreen?style=flat-square">
+  <img src="https://img.shields.io/badge/single--file-1208%20lines-brightgreen?style=flat-square">
 </p>
 
 <h1 align="center">Obsidian Note Dashboard</h1>
@@ -225,6 +225,15 @@ const C = {
 ---
 
 ## <a name="changelog_en"></a>Changelog
+
+**v2.0.0 (2026-05-22)**
+- Task board refactored: file-grouped layout with collapsible sections
+- Priority markers: `!!` → urgent (blinking badge), `!` → important
+- Due date parsing: supports `📅 YYYY-MM-DD`, auto-labels overdue/today/upcoming
+- Progress bars: per-file group + global view, smooth sliding animations
+- 7-day word count: toggle between monthly and 7-day view, defaults to 7-day
+- Folder pie chart: list/pie chart dual view mode
+- Animation improvements: smooth view transitions, optimized easing curves
 
 **v1.4.2 (2026-05-19)**
 - Fixed heatmap data calculation errors
