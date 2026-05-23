@@ -5,32 +5,31 @@
 ## 项目结构
 
 ```
-vault 根目录/
-├── 📊-我的笔记看板.md          # 主文件（实际使用）
-├── _rules/看板修改规则.md       # 修改规则
-└── github/obsidian-note-dashboard/  # GitHub 仓库镜像
-    ├── 📊-我的笔记看板.md       # 仓库看板（与根目录同步）
-    ├── AGENTS.md               # 本文件
-    ├── opencode.json           # opencode 配置
-    ├── .opencode/              # agent 子任务配置
-    │   ├── agent/
-    │   │   ├── release-manager.md
-    │   │   ├── docs-sync.md
-    │   │   ├── code-review.md
-    │   │   └── obsidian-dev.md
-    │   └── command/
-    │       ├── release.md
-    │       ├── sync-docs.md
-    │       └── review.md
-    ├── release/                # Release notes
-    ├── README.md / README_EN.md
-    └── LICENSE
+github/obsidian-note-dashboard/     ← 单源（子项目根）
+├── 📊-我的笔记看板.md              # 看板主文件（单源）
+├── AGENTS.md                       # 本文件
+├── opencode.json                   # opencode 配置
+├── .opencode/                      # agent 子任务配置
+│   ├── agent/
+│   │   ├── release-manager.md
+│   │   ├── docs-sync.md
+│   │   ├── code-review.md
+│   │   └── obsidian-dev.md
+│   └── command/
+│       ├── release.md
+│       ├── sync-docs.md
+│       └── review.md
+├── release/                        # Release notes
+├── README.md / README_EN.md
+└── LICENSE
 ```
+
+Obsidian vault 中通过 wiki link `[[github/obsidian-note-dashboard/📊-我的笔记看板|看板]]` 引用。
 
 ## 工作流
 
-- 所有修改以本地仓库 (`github/obsidian-note-dashboard/`) 为准，远程只是镜像
-- vault 根目录的 `📊-我的笔记看板.md` 是最新版，修改后立即同步到仓库
+- 看板文件以本仓库为唯一源（不再在 vault 根保存副本）
+- Obsidian 内通过 wiki link 直接引用，无需手动同步
 - 不添加多余注释到代码中
 - **发版相关请求会自动触发 `obsidian-release` skill**，指令会注入上下文
 

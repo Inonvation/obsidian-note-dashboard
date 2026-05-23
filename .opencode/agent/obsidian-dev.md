@@ -7,11 +7,10 @@ mode: subagent
 
 ## 项目结构
 
-- vault 根目录: `C:\Users\cy\Nutstore\1\我的坚果云\obsidian\`
-- 看板主文件（vault 根）: `📊-我的笔记看板.md` — 实际使用
-- 仓库看板: `github/obsidian-note-dashboard/📊-我的笔记看板.md` — GitHub 镜像
-- 修改规则: `_rules/看板修改规则.md`
-- Agent 配置: `github/obsidian-note-dashboard/.opencode/`
+- 工作根目录: `C:\Users\cy\Nutstore\1\我的坚果云\obsidian\github\obsidian-note-dashboard\`
+- 看板主文件: `📊-我的笔记看板.md` — 单源，项目根下
+- 修改规则: `C:\Users\cy\Nutstore\1\我的坚果云\obsidian\_rules\看板修改规则.md`
+- Agent 配置: `.opencode/`
 
 **所有代码在 `📊-我的笔记看板.md` 的 ````dataviewjs` 代码块中。**
 
@@ -23,7 +22,7 @@ mode: subagent
 - 首次渲染 vs re-execution 路径分离
 - 兼容浅色/深色主题（`C.isDark()`）
 - 保持单文件架构，避免全局变量污染
-- 修改前需先读 `_rules/看板修改规则.md`
+- 修改前需先读 vault 根的 `_rules/看板修改规则.md`
 
 ## 动画系统
 
@@ -33,6 +32,3 @@ mode: subagent
 3. 进度条从零填满（600ms）
 4. 数字从 0 递增弹入（800ms）
 
-## 同步要求
-
-修改完 vault 根目录的 `📊-我的笔记看板.md` 后，立即复制到 `github/obsidian-note-dashboard/`，保持两端一致。

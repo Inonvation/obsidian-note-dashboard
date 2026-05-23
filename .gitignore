@@ -12,3 +12,15 @@ Thumbs.db
 *.swp
 *.swo
 *~
+
+# Secrets & API Keys
+.env
+.env.*
+*.local.*
+secrets*
+credentials*
+*.pem
+*.key
+auth*.json
+
+

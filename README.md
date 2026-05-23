@@ -10,7 +10,7 @@
   <a href="https://github.com/Inonvation/obsidian-note-dashboard/releases">
     <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat-square&color=orange">
   </a>
-  <img src="https://img.shields.io/badge/single--file-1208%20lines-brightgreen?style=flat-square">
+  <img src="https://img.shields.io/badge/single--file-1263%20lines-brightgreen?style=flat-square">
 </p>
 
 <h1 align="center">Obsidian Note Dashboard</h1>
@@ -224,6 +224,14 @@ const C = {
 ---
 
 ## <a name="changelog"></a> 更新日志
+
+**v2.1.0（2026-05-24）**
+- 性能优化：热力图/待办看板懒加载，首屏渲染更快
+- 饼图/柱状图按需生成：切换视图时才构建，减少初始开销
+- 错误边界：异常时显示友好提示，防止看板空白
+- 修复热力图下方空白过大的问题
+- 修复待办看板展开/折叠功能失效的问题
+- 代码精简：移除冗余代码约30行
 
 **v2.0.0（2026-05-22）**
 - 待办看板重构：改为按文件分组布局，支持展开/收起

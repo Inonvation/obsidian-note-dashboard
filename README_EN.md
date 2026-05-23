@@ -10,7 +10,7 @@
   <a href="https://github.com/Inonvation/obsidian-note-dashboard/releases">
     <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat-square&color=orange">
   </a>
-  <img src="https://img.shields.io/badge/single--file-1208%20lines-brightgreen?style=flat-square">
+  <img src="https://img.shields.io/badge/single--file-1263%20lines-brightgreen?style=flat-square">
 </p>
 
 <h1 align="center">Obsidian Note Dashboard</h1>
@@ -225,6 +225,14 @@ const C = {
 ---
 
 ## <a name="changelog_en"></a>Changelog
+
+**v2.1.0 (2026-05-24)**
+- Performance optimization: lazy loading for heatmap/task board, faster first-screen rendering
+- On-demand generation: pie chart/bar chart built only when switching views
+- Error boundary: friendly error message instead of blank screen on failure
+- Fixed excessive whitespace below heatmap
+- Fixed task board expand/collapse not working
+- Code cleanup: removed ~30 lines of redundant code
 
 **v2.0.0 (2026-05-22)**
 - Task board refactored: file-grouped layout with collapsible sections

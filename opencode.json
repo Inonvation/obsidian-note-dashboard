@@ -1,8 +1,9 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "instructions": ["AGENTS.md"],
   "agent": {
     "release-manager": {
-      "description": "发版全流程：vault看板同步 → release notes → README → git tag → GitHub Release（含附件上传）",
+      "description": "发版全流程：release notes → README → git tag → GitHub Release（含附件上传）",
       "mode": "subagent",
       "model": "anthropic/claude-sonnet-4-6"
     },
@@ -24,7 +25,7 @@
   },
   "command": {
     "release": {
-      "description": "一键发版：sync vault → tag → push → GitHub Release",
+      "description": "一键发版：release notes → tag → push → GitHub Release",
       "agent": "release-manager"
     },
     "sync-docs": {
