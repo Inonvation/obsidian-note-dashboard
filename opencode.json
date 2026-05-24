@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "instructions": ["AGENTS.md"],
+  "instructions": ["PROJECT_RULES.md"],
   "agent": {
     "release-manager": {
       "description": "发版全流程：release notes → README → git tag → GitHub Release（含附件上传）",

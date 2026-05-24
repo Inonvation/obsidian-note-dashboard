@@ -1,4 +1,4 @@
-# Project Rules — 📊 Obsidian Note Dashboard
+# Project Rules — Obsidian Note Dashboard
 
 > 基于 DataviewJS 的单文件笔记统计看板：热力图 · 写作统计 · 文件夹排行 · 待办聚合
 
@@ -7,18 +7,16 @@
 ```
 github/obsidian-note-dashboard/     ← 单源（子项目根）
 ├── 📊-我的笔记看板.md              # 看板主文件（单源）
-├── AGENTS.md                       # 本文件
+├── PROJECT_RULES.md                 # 本文件
 ├── opencode.json                   # opencode 配置
-├── .opencode/                      # agent 子任务配置
-│   ├── agent/
-│   │   ├── release-manager.md
-│   │   ├── docs-sync.md
-│   │   ├── code-review.md
-│   │   └── obsidian-dev.md
-│   └── command/
-│       ├── release.md
-│       ├── sync-docs.md
-│       └── review.md
+├── .opencode/                      # 工作流配置
+│   ├── agent/                      # Agent 角色定义
+│   ├── command/                    # 快捷命令
+│   └── skills/                     # Skill 流程定义
+│       ├── obsidian-release/
+│       ├── code-review/
+│       ├── docs-sync/
+│       └── obsidian-dev/
 ├── release/                        # Release notes
 ├── README.md / README_EN.md
 └── LICENSE
