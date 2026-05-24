@@ -30,6 +30,7 @@ Obsidian vault 中通过 wiki link `[[github/obsidian-note-dashboard/📊-我的
 - Obsidian 内通过 wiki link 直接引用，无需手动同步
 - 不添加多余注释到代码中
 - **发版相关请求会自动触发 `obsidian-release` skill**，指令会注入上下文
+- **发版后自动同步**：发布 release 或更新 README 时，自动同步到 vault 中的 `github/obsidian-note-dashboard/` 目录
 
 ## 自定义命令
 

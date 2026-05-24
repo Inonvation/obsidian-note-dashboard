@@ -3,7 +3,7 @@
   "instructions": ["PROJECT_RULES.md"],
   "agent": {
     "release-manager": {
-      "description": "发版全流程：release notes → README → git tag → GitHub Release（含附件上传）",
+      "description": "发版全流程：release notes → README → git tag → GitHub Release（含附件上传）→ 同步到 vault",
       "mode": "subagent",
       "model": "anthropic/claude-sonnet-4-6"
     },
