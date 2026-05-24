@@ -10,7 +10,7 @@
   <a href="https://github.com/Inonvation/obsidian-note-dashboard/releases">
     <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat-square&color=orange">
   </a>
-  <img src="https://img.shields.io/badge/single--file-1263%20lines-brightgreen?style=flat-square">
+  <img src="https://img.shields.io/badge/single--file-1466%20lines-brightgreen?style=flat-square">
 </p>
 
 <h1 align="center">Obsidian Note Dashboard</h1>
@@ -226,6 +226,14 @@ const C = {
 
 ## <a name="changelog_en"></a>Changelog
 
+**v2.1.1 (2026-05-26)**
+- Animation: expand/collapse uses precise height transitions, eliminating visual lag and page jumps
+- Pie chart: centered layout with anti-collision labels and straight leader lines
+- Expand/Collapse All: staggered file group animation prevents layout thrashing
+- Fixed task board green progress bar not showing on lazy load
+- Fixed Expand/Collapse All button initial state and click handling
+- Folder ranking fold button flattened
+
 **v2.1.0 (2026-05-24)**
 - Performance optimization: lazy loading for heatmap/task board, faster first-screen rendering
 - On-demand generation: pie chart/bar chart built only when switching views
@@ -243,6 +251,9 @@ const C = {
 - Folder pie chart: list/pie chart dual view mode
 - Animation improvements: smooth view transitions, optimized easing curves
 
+<details>
+<summary>Historical Changelog</summary>
+
 **v1.4.2 (2026-05-19)**
 - Fixed heatmap data calculation errors
 - Fixed auto-switch to reading mode on first open in dark mode (desktop)
@@ -254,9 +265,6 @@ const C = {
 - Fixed re-render issue on first launch (mobile)
 - Optimized rendering logic for smoother animation
 - Better performance with many notes, reduced lag
-
-<details>
-<summary>Historical Changelog</summary>
 
 **v1.4.0 (2026-05-18)**
 - **Smooth rendering**: Eliminated flash and preview-switch jitter, `__ndRenderedKey` prevents duplicate animations

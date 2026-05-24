@@ -10,7 +10,7 @@
   <a href="https://github.com/Inonvation/obsidian-note-dashboard/releases">
     <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat-square&color=orange">
   </a>
-  <img src="https://img.shields.io/badge/single--file-1263%20lines-brightgreen?style=flat-square">
+  <img src="https://img.shields.io/badge/single--file-1466%20lines-brightgreen?style=flat-square">
 </p>
 
 <h1 align="center">Obsidian Note Dashboard</h1>
@@ -225,6 +225,13 @@ const C = {
 
 ## <a name="changelog"></a> 更新日志
 
+**v2.1.1（2026-05-26）**
+- 展开/折叠改为精确高度过渡，消除视觉卡顿与页面跳动
+- 饼图居中，新增标签防碰撞与直线引线
+- 全部展开/收起采用交错动画，防止布局骤变
+- 修复待办看板进度条懒加载不显示及按钮状态异常
+- 文件夹排行榜折叠按钮扁平化
+
 **v2.1.0（2026-05-24）**
 - 性能优化：热力图/待办看板懒加载，首屏渲染更快
 - 饼图/柱状图按需生成：切换视图时才构建，减少初始开销
@@ -242,6 +249,9 @@ const C = {
 - 文件夹饼图：列表/饼图双视图模式
 - 动画优化：视图切换流畅过渡，缓动曲线优化
 
+<details>
+<summary> 历史更新</summary>
+
 **v1.4.2（2026-05-19）**
 - 修复热力图数据统计错误的问题
 - 修复电脑端深色模式下首次打开笔记时不会自动切换阅读模式的bug
@@ -253,9 +263,6 @@ const C = {
 - 修复移动端首次启动时的二次渲染问题
 - 优化代码及渲染逻辑，提升动画观感
 - 优化笔记较多时的渲染性能和数据统计逻辑
-
-<details>
-<summary> 历史更新</summary>
 
 **v1.4.0（2026-05-18）**
 - **平滑渲染**: 消除首屏闪烁、preview 切换抖动，`__ndRenderedKey` 防重复动画
