@@ -1,0 +1,39 @@
+# Environment
+.env
+.env.*
+*.local.*
+
+# Secrets
+secrets*
+credentials*
+*.pem
+*.key
+auth*.json
+*.token
+
+# OS
+Thumbs.db
+.DS_Store
+Desktop.ini
+
+# Editor
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Logs
+*.log
+logs/
+
+# Temporary
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Backup
+*.bak
+*.backup
+*.orig
