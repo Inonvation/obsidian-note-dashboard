@@ -10,23 +10,19 @@
   <a href="https://github.com/Inonvation/obsidian-note-dashboard/releases">
     <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat-square&color=orange">
   </a>
-  <img src="https://img.shields.io/badge/single--file-1466%20lines-brightgreen?style=flat-square">
+  <img src="https://img.shields.io/badge/single--file-1622%20lines-brightgreen?style=flat-square">
 </p>
 
 <h1 align="center">Obsidian Note Dashboard</h1>
-<p align="center">基于 DataviewJS 的笔记统计看板 —— 热力图 · 写作统计 · 文件夹排行 · 待办聚合</p>
+<p align="center">基于 DataviewJS 的笔记统计看板 -- 热力图 · 写作统计 · 文件夹排行 · 待办聚合</p>
 
 ---
 
-##  目录
-
-[效果预览](#preview) · [动画效果](#animations) · [功能介绍](#features) · [依赖](#dependencies) · [使用方法](#usage) · [自定义](#customization) · [相似项目](#similar) · [更新日志](#changelog) · [参与贡献](#contributing) · [许可证](#license)
+[效果预览](#preview) · [功能特性](#features) · [设置面板](#settings) · [动画效果](#animations) · [依赖](#dependencies) · [使用方法](#usage) · [更新日志](#changelog)
 
 ---
 
 ## <a name="preview"></a> 效果预览
-
-###  移动端
 
 <table align="center">
   <tr>
@@ -34,113 +30,97 @@
       <img src="https://github.com/user-attachments/assets/48f67b85-aa4a-4857-9d1c-9e96945a0655" 
            width="90%"
            style="border:1px solid #e1e4e8; border-radius:10px;">
-      <br><strong>🔥 热力图 · 📁 文件夹排行</strong>
+      <br><strong style="color:#6366f1;">热力图 · 文件夹排行</strong>
       <br><span style="color:#586069;font-size:13px;">近一年贡献 · 词数奖牌排行</span>
     </td>
     <td align="center" width="50%" style="padding:8px;">
       <img src="https://github.com/user-attachments/assets/179abf20-b509-42b0-b927-f0054648fdfb" 
            width="90%"
            style="border:1px solid #e1e4e8; border-radius:10px;">
-      <br><strong>📊 统计总览 · 📋 待办看板</strong>
+      <br><strong style="color:#10b981;">统计总览 · 待办看板</strong>
       <br><span style="color:#586069;font-size:13px;">笔记总数 · 活跃天数 · 待办聚合</span>
     </td>
   </tr>
 </table>
 
-###  桌面端
-
 <p align="center">
   <img src="https://github.com/user-attachments/assets/6cae2aa5-905b-4bf3-8171-2f65adaffb1a" 
        width="90%"
        style="border:1px solid #e1e4e8; border-radius:10px; box-shadow:0 4px 20px rgba(0,0,0,0.08);">
-  <br><em>全功能看板 · 阅读模式展示</em>
+  <br><em style="color:#586069;">桌面端 · 全功能看板</em>
 </p>
 
 ---
 
-## <a name="animations"></a> 动画效果
-
-看板在 v1.2.0 中全面重做了动效系统，所有动画在打开时依次触发，总时长约 1.5s。
-
-<table align="center">
-  <tr>
-    <td align="center" width="50%" style="padding:12px;">
-      <img src="https://github.com/user-attachments/assets/5b123292-a1bc-4a20-af0c-0d8b02e1987d" 
-           width="100%"
-           style="border:1px solid #e1e4e8; border-radius:8px;">
-      <br><strong>① 热力图</strong>
-      <br><span style="color:#586069;font-size:13px;">逐列淡入 · 从旧到新 · 间隔 30ms</span>
-    </td>
-    <td align="center" width="50%" style="padding:12px;">
-      <img src="https://github.com/user-attachments/assets/6f818cd4-b9c5-47f3-95fd-49ddf4c7a327" 
-           width="100%"
-           style="border:1px solid #e1e4e8; border-radius:8px;">
-      <br><strong>② 卡片入场</strong>
-      <br><span style="color:#586069;font-size:13px;">四向滑入 · 弹性缓动 · 间隔 80ms</span>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="50%" style="padding:12px;">
-      <img src="https://github.com/user-attachments/assets/0788e99f-acc3-46d8-8b25-1fba15a4ab23" 
-           width="100%"
-           style="border:1px solid #e1e4e8; border-radius:8px;">
-      <br><strong>③ 进度条滑动</strong>
-      <br><span style="color:#586069;font-size:13px;">从零填满 · ease-out · 600ms</span>
-    </td>
-    <td align="center" width="50%" style="padding:12px;">
-      <img src="https://github.com/user-attachments/assets/d8d13cd9-9101-4e72-a58c-986c7e3ddb6c" 
-           width="100%"
-           style="border:1px solid #e1e4e8; border-radius:8px;">
-      <br><strong>④ 数字弹入</strong>
-      <br><span style="color:#586069;font-size:13px;">从 0 递增 · 缩放脉冲 · 800ms</span>
-    </td>
-  </tr>
-</table>
-
->  另有 **⑤ 标签脉冲** — 「本月」「🥇🥈🥉」等标签持续呼吸闪烁（透明度 1→0.6→1，周期 2s），为 CSS 动画，无法通过静态截图展示。
-
----
-
-## <a name="features"></a> 功能介绍
+## <a name="features"></a> 功能特性
 
 <table>
 <tr>
 <td width="33%">
 
-**近一年贡献热力图**  
-按每日写入字数着色（5 级绿色渐变），月份标签左侧冻结，支持横向滚动。自动适配浅色/深色主题。
+**<span style="color:#6366f1;">热力图</span>**
+
+54 列滑动窗口，5 级渐变着色，横向滚动，懒加载渲染
 
 </td>
 <td width="33%">
 
-**统计总览**  
-6 张统计卡片 + 本月活跃进度条：笔记总数、总字数、活跃天数、今日已写字数、当前连续天数、文件夹数。
+**<span style="color:#10b981;">统计总览</span>**
+
+6 张卡片 + 本月活跃进度条，数字弹入动画
 
 </td>
 <td width="34%">
 
-**月度统计**  
-每月笔记数 + 字数进度条，当前月份高亮标记，最多支持 12 个月数据展示。
+**<span style="color:#f59e0b;">柱状图</span>**
+
+月度/近 7 天切换，Y 轴自动取整，升起过渡动画
 
 </td>
 </tr>
 <tr>
 <td>
 
-**文件夹排行榜**  
-按总字数降序排列，每条带百分比进度条和 🥇🥈🥉 奖牌标记，一眼看出哪个文件夹最活跃。
+**<span style="color:#f43f5e;">文件夹排行</span>**
+
+列表/饼图双视图，防碰撞算法，扇形展开动画
 
 </td>
 <td>
 
-**待办看板**  
-聚合所有未完成任务，按所在文件分组。≤6 项的组默认展开，超过则折叠，保持页面清爽。
+**<span style="color:#0ea5e9;">成长进度</span>**
+
+自动检测成长计划，渐变进度条，流光扫光动画
 
 </td>
 <td>
 
-**全平台适配**  
-响应式布局，手机 / 平板 / 桌面均可正常显示，触控端支持热力图横向滚动。
+**<span style="color:#f97316;">待办看板</span>**
+
+按文件分组，优先级/到期日标记，点击直接完成
+
+</td>
+</tr>
+<tr>
+<td>
+
+**<span style="color:#64748b;">设置面板</span>**
+
+7 种配色一键切换，所有配置可视化调整
+
+</td>
+<td>
+
+**<span style="color:#8b5cf6;">平滑渲染</span>**
+
+强制阅读模式，消除闪烁，二次渲染秒开
+
+</td>
+<td>
+
+**<span style="color:#14b8a6;">全平台适配</span>**
+
+响应式布局，手机/平板/桌面均可正常使用
 
 </td>
 </tr>
@@ -148,167 +128,109 @@
 
 ---
 
-## <a name="dependencies"></a>依赖
+## <a name="settings"></a> 设置面板
 
-| 软件 | 版本要求 | 说明 |
-|------|:--------:|------|
-| [Obsidian](https://obsidian.md) | 0.15+ | 笔记软件本体 |
-| [Dataview](https://github.com/blacksmithgu/obsidian-dataview) | 0.5+ | 必需，JavaScript Queries 需手动开启 |
+点击看板右上角齿轮图标打开，所有配置实时预览，保存后立即生效。
 
-> 无外部 API、无需 API 密钥、无付费服务。单文件 719 行，开箱即用。
+| 配色方案 | Indigo | Emerald | Amber | Rose | Sky | Coral | Slate |
+|:--------|:------:|:-------:|:-----:|:----:|:---:|:-----:|:-----:|
+| 主色调 | <span style="color:#6366f1;">`#6366f1`</span> | <span style="color:#10b981;">`#10b981`</span> | <span style="color:#f59e0b;">`#f59e0b`</span> | <span style="color:#f43f5e;">`#f43f5e`</span> | <span style="color:#0ea5e9;">`#0ea5e9`</span> | <span style="color:#f97316;">`#f97316`</span> | <span style="color:#64748b;">`#64748b`</span> |
 
----
+**可配置项：** 排除文件夹 · 排行数量 · 待办展开组数 · 成长计划路径 · 优先级标签 · 到期日标记 · 估算阈值 · 估算系数
 
-## <a name="usage"></a>使用方法
-
-### 1. 安装 Dataview 插件
-
-```
-Obsidian → 设置 → 社区插件 → 浏览 → 搜索 "Dataview" → 安装 → 启用
-```
-
-进入 Dataview 设置页，勾选 **Enable JavaScript Queries**。
-
-### 2. 下载看板文件
-
-从 [最新 Release](https://github.com/Inonvation/obsidian-note-dashboard/releases) 下载 `📊-我的笔记看板.md`，放到你的 Obsidian 库任意位置（根目录或子文件夹均可，代码会自动适配路径）。
-
-### 3. 打开看板
-
-在 Obsidian 中打开该文件，等待几秒让 Dataview 完成索引。看板会自动切换到阅读模式，展示完整数据。
-
->  **首次打开显示空白？** 在命令面板（`Ctrl/Cmd + P`）中执行 **Dataview: Force refresh all views** 即可。
-
-### 4. （可选）设为主页
-
-Obsidian 设置中将其设为默认启动文件，或搭配 [Homepage](https://github.com/mirnovs/obsidian-homepage) 等插件使用。
+所有配置可通过 Frontmatter YAML 自定义，配色方案通过 localStorage 持久化。
 
 ---
 
-## <a name="customization"></a> 自定义
+## <a name="animations"></a> 动画效果
 
-所有可调参数统一集中在 `📊-我的笔记看板.md` 顶部 `C` 对象中：
-
-```javascript
-const C = {
-    exclude: ['附件', '模板', 'copilot'],   // 排除的文件夹
-    days: ['', '一', '', '三', '', '五', ''], // 星期标签（空字符串不显示）
-    colors: ['#6366f1','#8b5cf6','#a78bfa','#c4b5fd',
-             '#a5b4fc','#818cf8','#6d28d9','#4f46e5'],  // 月度进度条配色
-    heatColors: {
-        light: { e:'#ebedf0', c1:'#c8e6d0', c2:'#6cc085', c3:'#3a9d5e', c4:'#1f6e3a' },
-        dark:  { e:'#2d333b', c1:'#1a5435', c2:'#2b7448', c3:'#409660', c4:'#57ab76' }
-    }
-};
-```
-
-| 参数 | 说明 |
-|------|------|
-| `C.exclude` | 排除的文件夹名，按需增删 |
-| `C.heatColors` | 浅色/深色主题的 5 级热力色板 |
-| `C.colors` | 月度进度条的 8 色数组 |
-| `C.days` | 左侧星期标签，默认只显示一、三、五 |
-
->  在库中创建 `planning/成长计划.md`，写入 `- [x]` / `- [ ]` 任务清单，看板会自动检测并显示完成进度条。
+| 动画 | 时长 | 说明 |
+|:-----|:----:|:-----|
+| 热力图逐列淡入 | 30ms/列 | 从旧到新逐列出现 |
+| 卡片四向滑入 | 0.5s | 上下左右弹性缓动入场 |
+| 数字弹入 | 0.8s | 从 0 递增，缩放脉冲效果 |
+| 进度条填充 | 0.6s | 从零填满，ease-out 缓出 |
+| 柱状图升起 | 1.2s | 从 0 升到目标高度 |
+| 饼图扇形展开 | 0.85s | 扇形扫描展开 |
 
 ---
 
-## <a name="similar"></a>相似项目
+## <a name="dependencies"></a> 依赖
 
-| 项目 | ⭐ | 差异 |
-|------|:-:|------|
-| [vran-dev/obsidian-contribution-graph](https://github.com/vran-dev/obsidian-contribution-graph) | 432 | 独立插件，热力图交互更强，不含统计 Dashboard |
-| [InlitX/Obsidian-Dashboard-Gallery](https://github.com/InlitX/Obsidian-Dashboard-Gallery) | — | 侧重视觉设计和布局，不统计词数 / 文件夹分布 |
-| [yirsi/obsidian-habit-heatmap](https://github.com/yirsi/obsidian-habit-heatmap) | — | 带游戏化系统的习惯追踪，与笔记写作统计不同方向 |
+| 软件 | 版本 |
+|:-----|:----:|
+| [Obsidian](https://obsidian.md) | 0.15+ |
+| [Dataview](https://github.com/blacksmithgu/obsidian-dataview) | 0.5+ |
+
+> 无外部 API，无付费服务，数据完全在本地。
+
+---
+
+## <a name="usage"></a> 使用方法
+
+1. **安装 Dataview** -- 设置 -> 社区插件 -> 搜索 "Dataview" -> 安装 -> 启用
+2. **开启 JavaScript** -- Dataview 设置页勾选 `Enable JavaScript Queries`
+3. **下载看板** -- 从 [Release](https://github.com/Inonvation/obsidian-note-dashboard/releases) 下载 `.md` 文件，放到库任意位置
+4. **打开看板** -- 在 Obsidian 中打开文件，等待 Dataview 索引完成
+
+> 首次空白？执行 `Dataview: Force refresh all views` 即可。
 
 ---
 
 ## <a name="changelog"></a> 更新日志
 
-**v2.1.1（2026-05-26）**
+### <span style="color:#6366f1;">v2.2.0（2026-05-27）</span>
+
+**新功能**
+- 新增可视化设置面板：点击看板右上角齿轮图标即可打开
+- 7 套配色方案：靛蓝、翠绿、琥珀、玫红、天空蓝、珊瑚橙、石板灰
+- Frontmatter 配置支持：所有设置项可通过笔记头部的 YAML 属性自定义
+- 帮助提示：设置面板中非显而易见的选项带有问号图标，悬停显示说明
+
+**性能优化**
+- 加载容错：单个笔记加载失败不再导致整个看板崩溃
+- 任务排序优化：大量待办任务的排序速度提升
+- 标记完成可靠性：任务标记失败时自动恢复
+- 计划解析增强：成长计划支持更多 Markdown 列表格式
+
+**代码重构**
+- 提取公共动画函数：折叠/展开动画逻辑统一，减少约 80 行重复代码
+- 配置系统重构：所有硬编码的个人化设置统一为可配置项
+
+### <span style="color:#10b981;">v2.1.1（2026-05-26）</span>
 - 展开/折叠改为精确高度过渡，消除视觉卡顿与页面跳动
 - 饼图居中，新增标签防碰撞与直线引线
 - 全部展开/收起采用交错动画，防止布局骤变
 - 修复待办看板进度条懒加载不显示及按钮状态异常
-- 文件夹排行榜折叠按钮扁平化
 
-**v2.1.0（2026-05-24）**
+### <span style="color:#f59e0b;">v2.1.0（2026-05-24）</span>
 - 性能优化：热力图/待办看板懒加载，首屏渲染更快
 - 饼图/柱状图按需生成：切换视图时才构建，减少初始开销
 - 错误边界：异常时显示友好提示，防止看板空白
-- 修复热力图下方空白过大的问题
-- 修复待办看板展开/折叠功能失效的问题
-- 代码精简：移除冗余代码约30行
 
-**v2.0.0（2026-05-22）**
+### <span style="color:#f43f5e;">v2.0.0（2026-05-22）</span>
 - 待办看板重构：改为按文件分组布局，支持展开/收起
-- 优先级标记：`!!` → 紧急（闪烁）、`!` → 重要
+- 优先级标记：`!!` 紧急（闪烁）、`!` 重要
 - 到期日解析：支持 `📅 YYYY-MM-DD`，自动标记逾期/今日到期/即将到期
-- 完成进度条：每个文件组 + 全局进度条，带平滑动画
-- 近七天词数统计：月度/七天视图切换，默认展示近七天
+- 近七天词数统计：月度/七天视图切换
 - 文件夹饼图：列表/饼图双视图模式
-- 动画优化：视图切换流畅过渡，缓动曲线优化
 
 <details>
-<summary> 历史更新</summary>
+<summary>历史版本</summary>
 
-**v1.4.2（2026-05-19）**
-- 修复热力图数据统计错误的问题
-- 修复电脑端深色模式下首次打开笔记时不会自动切换阅读模式的bug
-- 优化代码结构
-
-**v1.4.1（2026-05-18）**
-- 修复部分场景下可能的卡死问题
-- 修复二次渲染导致动画抖动的问题
-- 修复移动端首次启动时的二次渲染问题
-- 优化代码及渲染逻辑，提升动画观感
-- 优化笔记较多时的渲染性能和数据统计逻辑
-
-**v1.4.0（2026-05-18）**
-- **平滑渲染**: 消除首屏闪烁、preview 切换抖动，`__ndRenderedKey` 防重复动画
-- **布局调整**: 双栏 → 全宽布局，月度统计与文件夹排行各自独占一行
-- **动画重构**: 动画延迟迁移至 JS 控制，首次渲染 vs re-execution 分离
-- 修复多面板/标签切换时闪烁、进度条跳动问题
-
-**v1.3.0（2026-05-17）**
-- 热力图不随周次更新：切换到滑动窗口机制（54 列），每周日自动右移
-- 日期锚定错误：改为取「有数据的最后一天」与「今天」中较晚者
-- 未来日期跳过数据查询：预写日记不显示颜色现已修复
-- 未来日期用最淡色填充而非留白
-- 月份标签改用绝对定位，窗口边缘被截断时不显示
-- 颜色阈值放宽（200/800/2500 字符），梯度更合理
-- 去除冗余变量、提取动画延迟函数、块级作用域改造、常量分组注释
-
-**v1.2.0（2026-05-16）**
-- 自动切换阅读模式，多面板兼容
-- 动画重做：4 种卡片入场、进度条滑动、热力图逐列淡入、数字弹入、标签脉冲
-- 内容缓存机制，二次打开秒开
-- 代码从 521 行精简到 481 行
-- 修复多面板 / 热力图滚动 / 进度条跳动等 Bug
-
-**v1.1.0（2026-05-16）**
-- 全局配置统一到 `C` 对象
-- 词数统计优化（中文按字、英文按空格分词）
-- 卡片入场动画 + hover 上浮交互
-- 全局 `nd-` 前缀 CSS 类名，渲染更干净
-- 自动回正预览模式，隔离全局变量冲突
+| 版本 | 日期 | 要点 |
+|:----|:----:|:-----|
+| v1.4.2 | 2026-05-19 | 修复热力图统计错误、深色模式预览切换 bug |
+| v1.4.1 | 2026-05-18 | 修复卡死、二次渲染抖动、移动端首次启动问题 |
+| v1.4.0 | 2026-05-18 | 平滑渲染引擎，消除闪烁；全宽布局；动画 JS 控制 |
+| v1.3.0 | 2026-05-17 | 热力图 54 列滑动窗口，颜色阈值调整 |
+| v1.2.0 | 2026-05-16 | 自动切换阅读模式，4 种入场动画 |
+| v1.1.0 | 2026-05-16 | 全局配置 `C` 对象，中文/英文分词 |
 
 </details>
 
 ---
 
-## <a name="contributing"></a>参与贡献
+## 许可证
 
-欢迎任何形式的贡献！
-
--  提交 [Issue](https://github.com/Inonvation/obsidian-note-dashboard/issues) 报告 Bug 或提出功能建议
-- 提交 Pull Request 改进代码
-- 点亮 Star 让更多人看到这个项目
-
----
-
-## <a name="license"></a>许可证
-
-本项目基于 **MIT 许可证** 开源，详情见 [LICENSE](./LICENSE) 文件。
-
-<p align="center">为 Obsidian 社区用心打造 ❤️</p>
+本项目基于 **MIT 许可证** 开源。
