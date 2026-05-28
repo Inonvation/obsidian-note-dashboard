@@ -1,8 +1,9 @@
 # Note Dashboard
 > 笔记统计看板：热力图、写作统计、文件夹排行、待办聚合。
 
-提供两种版本：
+
 > [!TIP]
+> 提供两种版本：
 > **Plugin 版本**：Obsidian 原生插件，无需依赖 Dataview
 > **Dataview 版本**：基于 DataviewJS 的单文件看板
 
