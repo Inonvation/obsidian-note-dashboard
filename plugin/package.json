@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-note-dashboard",
-	"version": "1.0.1",
+	"version": "2.3.0",
 	"description": "Obsidian笔记统计看板插件",
 	"main": "main.js",
 	"scripts": {
