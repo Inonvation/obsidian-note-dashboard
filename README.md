@@ -16,7 +16,6 @@
 - 最近编辑：最近编辑的文件列表
 - 待办看板：按文件分组、优先级标记、逾期提醒
 - 6 种配色方案：indigo、emerald、amber、rose、sky、coral
-- 自动刷新：文件变更自动更新看板数据
 
 ## Installation
 
@@ -92,23 +91,6 @@ npm run dev
 # 构建生产版本
 npm run build
 ```
-
-## Release
-
-使用 opencode 一键发布：
-
-```
-发布 v1.1.0，更新日志：新增 xxx 功能
-```
-
-或手动发布：
-
-```bash
-git tag v1.1.0
-git push --tags
-```
-
-GitHub Actions 会自动构建并创建 Release。
 
 ## License
 
