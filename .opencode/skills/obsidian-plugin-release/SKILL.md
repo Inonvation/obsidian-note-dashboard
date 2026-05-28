@@ -1,15 +1,9 @@
-# Skill: Obsidian Plugin Release
+---
+name: obsidian-plugin-release
+description: 一键发布Obsidian插件到GitHub Release。当用户提到发布v1.x.x、release、发布插件、发布新版本、upload release等关键词时触发。自动执行预检查、更新版本号、git提交推送。
+---
 
-一键发布 Obsidian 插件到 GitHub Release。
-
-## Trigger
-
-当用户提到以下关键词时触发：
-- "发布 v1.x.x"
-- "release v1.x.x"
-- "发布插件"
-- "发布新版本"
-- "upload release"
+# Obsidian Plugin Release
 
 ## Workflow
 
@@ -19,24 +13,18 @@
 - 版本号（如 v1.1.0）
 - 更新日志/说明
 
-**如果没有提供版本号**：自动递增当前版本号的 patch 版本
-- 当前 1.0.0 → 自动变为 1.0.1
-- 当前 1.0.9 → 自动变为 1.0.10
+如果没有提供版本号：自动递增当前版本号的 patch 版本（1.0.0 → 1.0.1）
 
 ### 2. 预检查（发布前验证）
 
-在发布前执行以下检查：
-
 ```bash
 cd plugin
-npm run typecheck    # TypeScript 类型检查
-npm run lint         # ESLint 代码规范检查
-npm run build        # 构建测试
+npm run typecheck
+npm run lint
+npm run build
 ```
 
-**如果有错误**：
-- 告知用户具体错误
-- 询问是否继续发布（跳过检查）
+如果有错误：告知用户具体错误，询问是否继续发布（跳过检查）
 
 ### 3. 更新版本号
 
@@ -44,17 +32,14 @@ npm run build        # 构建测试
 - `plugin/manifest.json`
 - `plugin/package.json`
 
-使用 PowerShell：
 ```powershell
-cd plugin
-(Get-Content manifest.json -Raw) | ConvertFrom-Json | ForEach-Object { $_.version = "<版本号>" } | ConvertTo-Json | Set-Content manifest.json
-(Get-Content package.json -Raw) | ConvertFrom-Json | ForEach-Object { $_.version = "<版本号>" } | ConvertTo-Json | Set-Content package.json
+(Get-Content plugin/manifest.json -Raw) | ConvertFrom-Json | ForEach-Object { $_.version = "<版本号>" } | ConvertTo-Json | Set-Content plugin/manifest.json
+(Get-Content plugin/package.json -Raw) | ConvertFrom-Json | ForEach-Object { $_.version = "<版本号>" } | ConvertTo-Json | Set-Content plugin/package.json
 ```
 
 ### 4. Git 操作
 
 ```bash
-cd <项目根目录>
 git add .
 git commit -m "v<版本号>: <更新日志>"
 git tag v<版本号>
@@ -63,37 +48,18 @@ git push --tags
 
 ### 5. 确认发布
 
-告诉用户：
-- 版本号已更新
-- 代码已推送到 GitHub
-- GitHub Actions 正在自动构建
-- 几分钟后可在 Releases 页面下载
+告诉用户：版本号已更新、代码已推送到 GitHub、GitHub Actions 正在自动构建、几分钟后可在 Releases 页面下载。
 
-## Example Interactions
+## Example
 
-**Example 1: 指定版本号**
 ```
 User: 发布 v1.1.0，更新日志：新增深色模式支持
-Assistant:
-1. 执行预检查（typecheck, lint, build）
-2. 更新 plugin/manifest.json 和 plugin/package.json 版本号为 "1.1.0"
-3. git commit -m "v1.1.0: 新增深色模式支持"
-4. git tag v1.1.0
-5. git push --tags
-6. 告知用户发布已触发
-```
-
-**Example 2: 自动递增版本**
-```
-User: 发布插件，更新日志：修复热力图显示问题
-Assistant:
-1. 读取当前版本号：1.0.0
-2. 自动递增为：1.0.1
-3. 执行预检查
-4. 更新版本号
-5. git commit -m "v1.0.1: 修复热力图显示问题"
-6. git tag v1.0.1
-7. git push --tags
+→ 执行预检查（typecheck, lint, build）
+→ 更新 plugin/manifest.json 和 plugin/package.json 版本号为 "1.1.0"
+→ git commit -m "v1.1.0: 新增深色模式支持"
+→ git tag v1.1.0
+→ git push --tags
+→ 告知用户发布已触发
 ```
 
 ## Notes
