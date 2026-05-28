@@ -1,42 +1,55 @@
-# Note Dashboard - Obsidian Plugin
+# Note Dashboard
 
-笔记统计看板插件：热力图、写作统计、文件夹排行、待办聚合。
+笔记统计看板：热力图、写作统计、文件夹排行、待办聚合。
 
-从 DataviewJS 单文件看板迁移为 Obsidian 原生插件，无需依赖 Dataview 插件。
+提供两种版本：
+- **Plugin 版本**：Obsidian 原生插件，无需依赖 Dataview
+- **Dataview 版本**：基于 DataviewJS 的单文件看板
 
 ## Features
 
-- 🔥 热力图：GitHub 风格的写作热力图，54 周滑动窗口
-- 📈 统计总览：笔记总数、总词数、活跃天数、今日已写、连续天数
-- 📊 月度/7天图表：可切换的柱状图，显示写作趋势
-- 📂 文件夹排行：按词数排序的文件夹排行榜
-- 🌱 成长进度：解析计划文件的 checkbox 进度条
-- ✏️ 最近编辑：最近编辑的文件列表
-- 📋 待办看板：按文件分组、优先级标记、逾期提醒
-- 🎨 6 种配色方案：indigo、emerald、amber、rose、sky、coral
-- ⚡ 自动刷新：文件变更自动更新看板数据
+- 热力图：GitHub 风格的写作热力图，54 周滑动窗口
+- 统计总览：笔记总数、总词数、活跃天数、今日已写、连续天数
+- 月度/7天图表：可切换的柱状图，显示写作趋势
+- 文件夹排行：按词数排序的文件夹排行榜
+- 成长进度：解析计划文件的 checkbox 进度条
+- 最近编辑：最近编辑的文件列表
+- 待办看板：按文件分组、优先级标记、逾期提醒
+- 6 种配色方案：indigo、emerald、amber、rose、sky、coral
+- 自动刷新：文件变更自动更新看板数据
 
 ## Installation
 
-### From GitHub Release
+### Plugin 版本（推荐）
 
-1. 下载最新版本的 `main.js`、`manifest.json`、`styles.css`
-2. 复制到你的 Obsidian vault 的 `.obsidian/plugins/note-dashboard/` 目录
-3. 重启 Obsidian
-4. 在 设置 → 第三方插件 中启用 "Note Dashboard"
+#### From GitHub Release
 
-### Manual Build
+1. 从 [Releases](https://github.com/Inonvation/obsidian-note-dashboard/releases) 下载最新版本
+2. 下载 `main.js`、`manifest.json`、`styles.css`
+3. 复制到你的 Obsidian vault 的 `.obsidian/plugins/note-dashboard/` 目录
+4. 重启 Obsidian
+5. 在 设置 → 第三方插件 中启用 "Note Dashboard"
+
+#### Manual Build
 
 ```bash
-git clone https://github.com/cy/obsidian-note-dashboard.git
-cd obsidian-note-dashboard
+git clone https://github.com/Inonvation/obsidian-note-dashboard.git
+cd obsidian-note-dashboard/plugin
 npm install
 npm run build
 ```
 
 将生成的 `main.js`、`manifest.json`、`styles.css` 复制到插件目录。
 
+### Dataview 版本
+
+1. 确保已安装 [Dataview](https://github.com/blacksmithgu/obsidian-dataview) 插件
+2. 从 `dataview/` 目录复制 `note-dashboard.md` 到你的 vault
+3. 在 Obsidian 中打开该文件，选择 "Dataview JS" 语言
+
 ## Configuration
+
+### Plugin 版本
 
 | Option | Default | Description |
 |--------|---------|-------------|
@@ -51,19 +64,51 @@ npm run build
 | 待办看板默认展开数 | 3 | 默认展开前 N 个文件 |
 | 待办标签 | #urgent, #important, ... | 优先级标签 |
 
-## Screenshot
+## Project Structure
 
-<!-- TODO: 添加截图 -->
+```
+obsidian-note-dashboard/
+├── plugin/                    # Plugin 版本源码
+│   ├── src/
+│   ├── main.ts
+│   ├── manifest.json
+│   ├── styles.css
+│   └── package.json
+├── dataview/                  # DataviewJS 版本
+│   └── note-dashboard.md
+└── .github/workflows/
+    └── release.yml            # 自动发布脚本
+```
 
 ## Development
 
 ```bash
+# 进入 plugin 目录
+cd plugin
+
 # 开发模式（监听文件变化）
 npm run dev
 
 # 构建生产版本
 npm run build
 ```
+
+## Release
+
+使用 opencode 一键发布：
+
+```
+发布 v1.1.0，更新日志：新增 xxx 功能
+```
+
+或手动发布：
+
+```bash
+git tag v1.1.0
+git push --tags
+```
+
+GitHub Actions 会自动构建并创建 Release。
 
 ## License
 
