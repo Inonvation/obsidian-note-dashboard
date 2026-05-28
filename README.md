@@ -8,14 +8,16 @@
 
 ## Features
 
-- 热力图：GitHub 风格的写作热力图，54 周滑动窗口
-- 统计总览：笔记总数、总词数、活跃天数、今日已写、连续天数
-- 月度/7天图表：可切换的柱状图，显示写作趋势
-- 文件夹排行：按词数排序的文件夹排行榜
-- 成长进度：解析计划文件的 checkbox 进度条
-- 最近编辑：最近编辑的文件列表
-- 待办看板：按文件分组、优先级标记、逾期提醒
-- 6 种配色方案：indigo、emerald、amber、rose、sky、coral
+| 功能 | 说明 |
+|------|------|
+| 热力图 | GitHub 风格的写作热力图，54 周滑动窗口 |
+| 统计总览 | 笔记总数、总词数、活跃天数、今日已写、连续天数 |
+| 月度/7天图表 | 可切换的柱状图，显示写作趋势 |
+| 文件夹排行 | 按词数排序的文件夹排行榜 |
+| 成长进度 | 解析计划文件的 checkbox 进度条 |
+| 最近编辑 | 最近编辑的文件列表 |
+| 待办看板 | 按文件分组、优先级标记、逾期提醒 |
+| 6 种配色方案 | indigo、emerald、amber、rose、sky、coral |
 
 ## Installation
 
@@ -24,10 +26,8 @@
 #### From GitHub Release
 
 1. 从 [Releases](https://github.com/Inonvation/obsidian-note-dashboard/releases) 下载最新版本
-2. 下载 `main.js`、`manifest.json`、`styles.css`
-3. 复制到你的 Obsidian vault 的 `.obsidian/plugins/note-dashboard/` 目录
-4. 重启 Obsidian
-5. 在 设置 → 第三方插件 中启用 "Note Dashboard"
+2. 将 `main.js`、`manifest.json`、`styles.css` 复制到 `.obsidian/plugins/note-dashboard/` 目录
+3. 重启 Obsidian，启用插件
 
 #### Manual Build
 
@@ -42,13 +42,11 @@ npm run build
 
 ### Dataview 版本
 
-1. 确保已安装 [Dataview](https://github.com/blacksmithgu/obsidian-dataview) 插件
-2. 从 `dataview/` 目录复制 `note-dashboard.md` 到你的 vault
-3. 在 Obsidian 中打开该文件，选择 "Dataview JS" 语言
+1. 安装 [Dataview](https://github.com/blacksmithgu/obsidian-dataview) 插件
+2. 将 `dataview/note-dashboard.md` 复制到你的 vault
+3. 打开该文件，选择 "Dataview JS" 语言
 
 ## Configuration
-
-### Plugin 版本
 
 | Option | Default | Description |
 |--------|---------|-------------|
@@ -82,15 +80,16 @@ obsidian-note-dashboard/
 ## Development
 
 ```bash
-# 进入 plugin 目录
 cd plugin
-
-# 开发模式（监听文件变化）
-npm run dev
-
-# 构建生产版本
-npm run build
+npm install   # 安装依赖
+npm run dev   # 开发模式
+npm run build # 构建生产版本
 ```
+
+## Acknowledgments
+
+- 感谢 [小米 MiMo](https://mimo.xiaomi.com/) 赠送的 API 额度，为本项目提供了模型和 API 服务支持
+- 感谢 [OpenCode](https://opencode.ai/) 提供的 AI Agent，辅助完成了本看板的开发
 
 ## License
 
