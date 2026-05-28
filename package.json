@@ -1,0 +1,26 @@
+{
+	"name": "obsidian-note-dashboard",
+	"version": "1.0.0",
+	"description": "Obsidian笔记统计看板插件",
+	"main": "main.js",
+	"scripts": {
+		"dev": "node esbuild.config.mjs",
+		"build": "node esbuild.config.mjs production"
+	},
+	"keywords": [
+		"obsidian",
+		"dashboard",
+		"statistics",
+		"heatmap"
+	],
+	"author": "cy",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/node": "^20.0.0",
+		"builtin-modules": "^3.3.0",
+		"esbuild": "^0.17.0",
+		"obsidian": "latest",
+		"tslib": "2.4.0",
+		"typescript": "4.7.4"
+	}
+}

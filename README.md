@@ -1,0 +1,70 @@
+# Note Dashboard - Obsidian Plugin
+
+笔记统计看板插件：热力图、写作统计、文件夹排行、待办聚合。
+
+从 DataviewJS 单文件看板迁移为 Obsidian 原生插件，无需依赖 Dataview 插件。
+
+## Features
+
+- 🔥 热力图：GitHub 风格的写作热力图，54 周滑动窗口
+- 📈 统计总览：笔记总数、总词数、活跃天数、今日已写、连续天数
+- 📊 月度/7天图表：可切换的柱状图，显示写作趋势
+- 📂 文件夹排行：按词数排序的文件夹排行榜
+- 🌱 成长进度：解析计划文件的 checkbox 进度条
+- ✏️ 最近编辑：最近编辑的文件列表
+- 📋 待办看板：按文件分组、优先级标记、逾期提醒
+- 🎨 6 种配色方案：indigo、emerald、amber、rose、sky、coral
+- ⚡ 自动刷新：文件变更自动更新看板数据
+
+## Installation
+
+### From GitHub Release
+
+1. 下载最新版本的 `main.js`、`manifest.json`、`styles.css`
+2. 复制到你的 Obsidian vault 的 `.obsidian/plugins/note-dashboard/` 目录
+3. 重启 Obsidian
+4. 在 设置 → 第三方插件 中启用 "Note Dashboard"
+
+### Manual Build
+
+```bash
+git clone https://github.com/cy/obsidian-note-dashboard.git
+cd obsidian-note-dashboard
+npm install
+npm run build
+```
+
+将生成的 `main.js`、`manifest.json`、`styles.css` 复制到插件目录。
+
+## Configuration
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| 配色方案 | indigo | 看板配色主题 |
+| 排除文件夹 | 附件, 模板, copilot | 不计入统计的文件夹 |
+| 成长计划路径 | planning/成长计划.md | 计划文件的相对路径 |
+| 热力图周数 | 54 | 显示最近多少周 |
+| 热力图阈值 | 400, 1200, 2500 | 热力图等级阈值 |
+| 文件夹排行数量 | 5 | 显示前 N 个文件夹 |
+| 月度图表月数 | 12 | 显示最近几个月 |
+| 7天图表天数 | 7 | 显示最近几天 |
+| 待办看板默认展开数 | 3 | 默认展开前 N 个文件 |
+| 待办标签 | #urgent, #important, ... | 优先级标签 |
+
+## Screenshot
+
+<!-- TODO: 添加截图 -->
+
+## Development
+
+```bash
+# 开发模式（监听文件变化）
+npm run dev
+
+# 构建生产版本
+npm run build
+```
+
+## License
+
+MIT

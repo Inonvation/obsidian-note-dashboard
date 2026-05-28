@@ -1,0 +1,512 @@
+/* Note Dashboard 插件样式 */
+
+/* 基础容器 */
+.note-dashboard {
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    padding: 16px;
+}
+
+/* 卡片样式 */
+.nd-card {
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 12px;
+    background: var(--background-primary);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .03), 0 3px 10px rgba(0, 0, 0, .04);
+    transition: box-shadow .25s, transform .25s, border-color .25s;
+    will-change: transform;
+}
+
+.nd-card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .1), 0 2px 6px rgba(0, 0, 0, .05);
+    transform: translateY(-2px);
+}
+
+/* 内边距 */
+.nd-pad {
+    padding: 16px;
+    margin-bottom: 10px;
+}
+
+/* 标题 */
+.nd-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-normal);
+    margin: 0 0 8px;
+    padding: 0;
+}
+
+/* 分隔线 */
+.nd-hr {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--background-modifier-border), transparent);
+    margin: 14px 0;
+    border: none;
+}
+
+/* 页脚 */
+.nd-footer {
+    margin: 12px 0 0;
+    padding: 0;
+}
+
+/* 网格布局 */
+.nd-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+/* 迷你卡片 */
+.nd-mini {
+    padding: 14px 8px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 12px;
+    text-align: center;
+    background: var(--background-primary);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .03), 0 3px 10px rgba(0, 0, 0, .04);
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+
+.nd-mini:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px var(--nd-card-shadow, rgba(0, 0, 0, .08));
+    border-color: var(--interactive-accent)33;
+}
+
+/* 迷你图标 */
+.nd-mini-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 18px;
+    line-height: 1;
+    transition: transform .2s, background .2s;
+}
+
+.nd-mini:hover .nd-mini-icon {
+    transform: scale(1.15);
+    background: radial-gradient(circle, var(--nd-card-shadow, rgba(0, 0, 0, .08)) 0%, transparent 70%);
+    animation: ndBounce .4s ease;
+}
+
+/* 全宽卡片 */
+.nd-full {
+    grid-column: 1 / -1;
+    padding: 12px 16px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 12px;
+    text-align: center;
+    background: var(--background-primary);
+    transition: transform .2s, box-shadow .2s;
+}
+
+.nd-full:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .06);
+}
+
+/* 进度条 */
+.nd-bar {
+    height: 12px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 8px;
+    background: var(--background-secondary);
+    overflow: hidden;
+}
+
+/* 标签 */
+.nd-tag {
+    font-size: 10px;
+    background: var(--interactive-accent);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* 行样式 */
+.nd-row,
+.nd-tr {
+    border-radius: 6px;
+    transition: background .15s;
+}
+
+.nd-row:hover,
+.nd-tr:hover {
+    background: var(--background-primary-alt);
+}
+
+/* 数值文本 */
+.nd-val {
+    text-shadow: 0 0 10px rgba(128, 128, 128, .12);
+    opacity: .9;
+}
+
+/* 闪光效果 */
+.nd-shimmer {
+    position: relative;
+    overflow: hidden;
+}
+
+.nd-shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .2), transparent);
+    animation: ndShimmer 3s ease-in-out infinite;
+}
+
+/* 热力图格子悬停 */
+[data-l]:hover {
+    transform: scale(1.5);
+    filter: brightness(1.15);
+    z-index: 1;
+    position: relative;
+}
+
+/* 输入框 */
+.nd-input {
+    width: 100%;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-secondary);
+    color: var(--text-normal);
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+/* 文件头 */
+.nd-fh {
+    transition: background .2s, border-left-color .2s;
+    border-radius: 10px 10px 0 0;
+    border-left: 3px solid transparent;
+}
+
+.nd-fh:hover {
+    background: var(--background-primary-alt) !important;
+    border-left-color: var(--interactive-accent) !important;
+}
+
+/* 复选框悬停 */
+.nd-cb:hover {
+    transform: scale(1.2) !important;
+    color: var(--interactive-accent) !important;
+}
+
+/* Flex布局 */
+.nd-flex {
+    display: flex;
+    align-items: center;
+}
+
+/* 统计图标 */
+.nd-stat-icon {
+    font-size: 20px;
+    margin-bottom: 2px;
+    line-height: 1.2;
+}
+
+/* 统计标签 */
+.nd-stat-label {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+/* 按钮 */
+.nd-btn {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--background-modifier-border);
+    background: var(--background-secondary);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 11px;
+    touch-action: manipulation;
+    min-height: 36px;
+}
+
+.nd-btn-accent {
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    touch-action: manipulation;
+    min-height: 36px;
+}
+
+/* 关键帧动画 */
+@keyframes ndFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ndSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ndSlideRotate {
+    from {
+        opacity: 0;
+        transform: translateY(24px) perspective(400px) rotateX(4deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) perspective(400px) rotateX(0);
+    }
+}
+
+@keyframes ndPopIn {
+    from {
+        opacity: 0;
+        transform: scale(.92);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes ndSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes ndBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-5px);
+    }
+    60% {
+        transform: translateY(-2px);
+    }
+}
+
+@keyframes ndShimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(400%);
+    }
+}
+
+@keyframes ndPulseTag {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(99, 102, 241, 0);
+    }
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 12px rgba(99, 102, 241, .45);
+    }
+}
+
+/* 区块动画 */
+[data-nd-section] {
+    transition: transform .25s cubic-bezier(.2, .8, .3, 1), box-shadow .25s, opacity .25s;
+}
+
+[data-nd-section]:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
+}
+
+/* 拖拽手柄 */
+.nd-drag-handle {
+    transition: all .2s;
+    cursor: grab;
+}
+
+.nd-drag-handle:hover {
+    transform: scale(1.15);
+    color: var(--interactive-accent) !important;
+    background: var(--background-primary-alt);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+}
+
+.nd-drag-handle:active {
+    cursor: grabbing;
+    transform: scale(1.2);
+}
+
+/* 切换按钮 */
+[data-toggle-view] {
+    transition: color .25s ease, font-weight .25s ease;
+    padding: 0 12px;
+    font-weight: 500;
+}
+
+[data-toggle-view]:hover {
+    color: var(--text-normal);
+}
+
+/* 动画类 */
+.nd-anim {
+    animation: ndSlideUp .5s ease-out both;
+}
+
+.nd-anim-2 {
+    animation: ndSlideRotate .55s ease-out both;
+}
+
+.nd-anim-3 {
+    animation: ndPopIn .45s ease-out both;
+}
+
+.nd-anim-4 {
+    animation: ndSlideIn .5s ease-out both;
+}
+
+.nd-grid-stagger > .nd-mini,
+.nd-grid-stagger > .nd-full {
+    animation: ndFadeIn .5s ease-out both;
+}
+
+.nd-grid-stagger > .nd-full {
+    animation-name: ndSlideUp;
+}
+
+.nd-heat-col {
+    animation: ndFadeIn .4s ease-out both;
+}
+
+/* 进度条填充 */
+.nd-bar-fill {
+    transform-origin: left center;
+    transform: translateX(-100%);
+}
+
+.nd-bar-fill.nd-in {
+    transform: translateX(0);
+    transition: transform 1s cubic-bezier(.25, .46, .45, .94);
+}
+
+/* 柱状图 */
+.nd-chart-bar-inner {
+    border-radius: 5px 5px 2px 2px;
+    min-height: 2px;
+    position: relative;
+    cursor: pointer;
+}
+
+.nd-chart-bar-inner:hover {
+    filter: brightness(1.15);
+}
+
+/* 切换按钮 */
+.nd-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    width: 100%;
+    padding: 2px 0;
+    margin-top: 1px;
+    font-size: 10px;
+    color: var(--text-faint);
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    border-radius: 4px;
+    transition: background .2s, color .2s;
+}
+
+.nd-toggle-btn:hover {
+    background: var(--background-primary-alt);
+    color: var(--text-muted);
+}
+
+.nd-toggle-btn svg {
+    transition: transform .3s ease;
+    width: 12px;
+    height: 12px;
+}
+
+.nd-toggle-btn.nd-open svg {
+    transform: rotate(180deg);
+}
+
+/* 折叠内容 */
+.nd-fold-content,
+.nd-file-content {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+}
+
+.nd-fold-content.nd-show,
+.nd-file-content.nd-show {
+    max-height: none;
+    opacity: 1;
+}
+
+.nd-fold-content > .nd-row:first-child {
+    padding-top: 4px !important;
+}
+
+.nd-file-content.nd-show {
+    padding-top: 4px;
+    padding-bottom: 6px;
+}
+
+/* 看板容器 */
+#nd-dash {
+    opacity: 0;
+    will-change: opacity, transform;
+}
+
+#nd-dash.nd-ready {
+    opacity: 1;
+    transition: opacity .3s ease;
+}
+
+/* 设置面板 */
+[id^="nd-panel-"] {
+    visibility: hidden;
+}
+
+[id^="nd-panel-"].nd-panel-visible {
+    visibility: visible;
+}
+
+/* 隐藏滚动条 */
+.nd-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.nd-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
