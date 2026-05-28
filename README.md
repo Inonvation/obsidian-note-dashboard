@@ -4,6 +4,7 @@
 
 > [!TIP]
 > 提供两种版本：
+> 
 > **Plugin 版本**：Obsidian 原生插件，无需依赖 Dataview
 > **Dataview 版本**：基于 DataviewJS 的单文件看板
 
