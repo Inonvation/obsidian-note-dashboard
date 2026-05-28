@@ -88,7 +88,7 @@ npm run build # 构建生产版本
 
 ## Acknowledgments
 
-- 感谢 [小米 MiMo](https://mimo.xiaomi.com/) 赠送的 API 额度，为本项目提供了模型和 API 服务支持
+- 感谢 [小米 MiMo](https://mimo.xiaomi.com/) 赠送的 API 额度以及DeepSeek，为本项目提供了模型和 API 服务支持
 - 感谢 [OpenCode](https://opencode.ai/) 提供的 AI Agent，辅助完成了本看板的开发
 
 ## License
