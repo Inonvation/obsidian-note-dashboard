@@ -20,7 +20,7 @@
   <a href="https://github.com/Inonvation/obsidian-note-dashboard/releases">
     <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat-square&color=orange" alt="Release">
   </a>
-  <img src="https://img.shields.io/badge/single--file-1622%20lines-brightgreen?style=flat-square" alt="Lines">
+  <img src="https://img.shields.io/badge/single--file-1751%20lines-brightgreen?style=flat-square" alt="Lines">
   <img src="https://img.shields.io/badge/platform-Win%20%7C%20Mac%20%7C%20Linux-lightgrey?style=flat-square" alt="Platform">
 </p>
 
@@ -215,6 +215,16 @@ graph LR
 ---
 
 ## 更新日志
+
+### v2.2.1（2026-05-28）
+
+**Bug 修复**
+- 修复设置面板的多个显示问题
+- 修复看板渲染错误的问题
+
+**性能优化**
+- 优化渲染逻辑和代码结构，减少资源占用
+- 数据统计改为增量方式，大幅提升首次渲染速度
 
 ### v2.2.0（2026-05-27）
 

@@ -20,7 +20,7 @@
   <a href="https://github.com/Inonvation/obsidian-note-dashboard/releases">
     <img src="https://img.shields.io/github/v/release/Inonvation/obsidian-note-dashboard?style=flat-square&color=orange" alt="Release">
   </a>
-  <img src="https://img.shields.io/badge/single--file-1622%20lines-brightgreen?style=flat-square" alt="Lines">
+  <img src="https://img.shields.io/badge/single--file-1751%20lines-brightgreen?style=flat-square" alt="Lines">
   <img src="https://img.shields.io/badge/platform-Win%20%7C%20Mac%20%7C%20Linux-lightgrey?style=flat-square" alt="Platform">
 </p>
 
@@ -202,6 +202,16 @@ All configs can be customized via Frontmatter YAML. Color schemes are persisted 
 ---
 
 ## Changelog
+
+### v2.2.1 (2026-05-28)
+
+**Bug Fixes**
+- Fixed multiple display issues in settings panel
+- Fixed dashboard rendering errors
+
+**Performance**
+- Optimized rendering logic and code structure, reduced resource usage
+- Data statistics changed to incremental mode, significantly improved initial rendering speed
 
 ### v2.2.0 (2026-05-27)
 
