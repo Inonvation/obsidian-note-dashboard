@@ -43,7 +43,7 @@ export function renderHeatmap(data: DashboardData, scheme: any, heatWeeks: numbe
         hm += `<div style="height:${S}px;margin-bottom:${G}px;font-size:9px;color:var(--text-muted);text-align:center;line-height:${S}px;">${DAYS[r]}</div>`;
     }
     hm += '</div>';
-    hm += `<div class="nd-hide" style="overflow-x:auto;flex:1;min-width:0;padding:${PT}px 12px 0 0;"><div style="min-width:max-content;">`;
+    hm += `<div class="nd-hide nd-heat-scroll" style="overflow-x:auto;flex:1;min-width:0;padding:${PT}px 12px 0 0;"><div style="min-width:max-content;">`;
     hm += `<div style="position:relative;height:${MH}px;margin-bottom:${MB}px;">`;
     for (const [col, label] of mMap) {
         const left = col * (S + G);

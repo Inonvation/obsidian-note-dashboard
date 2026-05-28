@@ -5,7 +5,67 @@
     width: 100%;
     box-sizing: border-box;
     overflow-x: hidden;
-    padding: 16px;
+    padding: 12px;
+}
+
+/* 侧边栏窄屏适配 */
+.workspace-split.mod-right .note-dashboard,
+.workspace-leaf-content[data-type="note-dashboard"] .note-dashboard {
+    padding: 8px;
+}
+
+.workspace-split.mod-right .note-dashboard .nd-card,
+.workspace-leaf-content[data-type="note-dashboard"] .nd-card {
+    border-radius: 10px;
+}
+
+.workspace-split.mod-right .note-dashboard .nd-pad,
+.workspace-leaf-content[data-type="note-dashboard"] .nd-pad {
+    padding: 10px;
+    margin-bottom: 8px;
+}
+
+.workspace-split.mod-right .note-dashboard .nd-title,
+.workspace-leaf-content[data-type="note-dashboard"] .nd-title {
+    font-size: 15px;
+    margin-bottom: 6px;
+}
+
+.workspace-split.mod-right .note-dashboard .nd-mini,
+.workspace-leaf-content[data-type="note-dashboard"] .nd-mini {
+    padding: 10px 6px;
+}
+
+.workspace-split.mod-right .note-dashboard .nd-mini-icon,
+.workspace-leaf-content[data-type="note-dashboard"] .nd-mini-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 15px;
+}
+
+.workspace-split.mod-right .note-dashboard .nd-stat-label,
+.workspace-leaf-content[data-type="note-dashboard"] .nd-stat-label {
+    font-size: 9px;
+}
+
+.workspace-split.mod-right .note-dashboard .nd-val,
+.workspace-leaf-content[data-type="note-dashboard"] .nd-val {
+    font-size: 13px !important;
+}
+
+.workspace-split.mod-right .note-dashboard .nd-bar,
+.workspace-leaf-content[data-type="note-dashboard"] .nd-bar {
+    height: 8px;
+}
+
+.workspace-split.mod-right .note-dashboard .nd-row,
+.workspace-leaf-content[data-type="note-dashboard"] .nd-row {
+    padding: 3px 6px;
+}
+
+.workspace-split.mod-right .note-dashboard .nd-row span,
+.workspace-leaf-content[data-type="note-dashboard"] .nd-row span {
+    font-size: 11px;
 }
 
 /* 卡片样式 */
@@ -58,6 +118,19 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
     margin-bottom: 12px;
+}
+
+/* 侧边栏窄屏网格 */
+.workspace-split.mod-right .nd-grid,
+.workspace-leaf-content[data-type="note-dashboard"] .nd-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+}
+
+.workspace-split.mod-right .nd-full,
+.workspace-leaf-content[data-type="note-dashboard"] .nd-full {
+    grid-column: 1 / -1;
+    padding: 8px 12px;
 }
 
 /* 迷你卡片 */

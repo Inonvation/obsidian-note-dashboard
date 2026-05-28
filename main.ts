@@ -207,6 +207,11 @@ class DashboardView extends ItemView {
             setTimeout(() => {
                 container.querySelectorAll('.nd-bar-fill').forEach(el => el.classList.add('nd-in'));
             }, 300);
+
+            const heatScroll = container.querySelector('.nd-heat-scroll');
+            if (heatScroll) {
+                heatScroll.scrollLeft = heatScroll.scrollWidth;
+            }
         });
 
         if (this.clickHandler) {
@@ -224,6 +229,32 @@ class DashboardView extends ItemView {
             if (path) {
                 this.app.workspace.openLinkText(path, '', false);
             }
+        }
+
+        const rankTab = target.closest('.nd-rank-tab');
+        if (rankTab) {
+            const targetId = rankTab.getAttribute('data-target');
+            const otherId = rankTab.getAttribute('data-other');
+            if (targetId) {
+                const targetEl = container.querySelector(`#${CSS.escape(targetId)}`);
+                if (targetEl) (targetEl as HTMLElement).style.display = '';
+            }
+            if (otherId) {
+                const otherEl = container.querySelector(`#${CSS.escape(otherId)}`);
+                if (otherEl) (otherEl as HTMLElement).style.display = 'none';
+            }
+            const tabs = rankTab.parentElement?.querySelectorAll('.nd-rank-tab');
+            tabs?.forEach(tab => {
+                tab.classList.remove('nd-rank-tab-active');
+                (tab as HTMLElement).style.background = 'transparent';
+                (tab as HTMLElement).style.color = 'var(--text-muted)';
+                (tab as HTMLElement).style.borderColor = 'var(--background-modifier-border)';
+            });
+            rankTab.classList.add('nd-rank-tab-active');
+            (rankTab as HTMLElement).style.background = 'var(--interactive-accent)';
+            (rankTab as HTMLElement).style.color = '#fff';
+            (rankTab as HTMLElement).style.borderColor = 'var(--interactive-accent)';
+            return;
         }
 
         const fh = target.closest('.nd-fh');
