@@ -22,8 +22,8 @@ Thumbs.db
 # Obsidian 插件目录
 .obsidian/
 
-# 本地开发配置
-.opencode/
+# 项目说明（本地）
 AGENTS.md
-opencode.json
+
+# 参考文件
 参考/

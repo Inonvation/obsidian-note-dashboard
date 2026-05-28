@@ -1,0 +1,25 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "name": "obsidian-note-dashboard",
+  "skills": [
+    ".opencode/skills/obsidian-plugin-release/SKILL.md",
+    ".opencode/skills/obsidian-plugin-dev/SKILL.md",
+    ".opencode/skills/obsidian-plugin-test/SKILL.md"
+  ],
+  "permission": {
+    "bash": {
+      "git *": "allow",
+      "npm *": "allow",
+      "cd plugin": "allow",
+      "Start-Process *": "allow",
+      "New-Item *": "allow",
+      "Copy-Item *": "allow",
+      "Test-Path *": "allow",
+      "Get-Content *": "allow",
+      "cat *": "allow",
+      "type *": "allow",
+      "*": "ask"
+    },
+    "edit": "allow"
+  }
+}

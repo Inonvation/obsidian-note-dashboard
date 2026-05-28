@@ -5,7 +5,9 @@
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
-		"build": "node esbuild.config.mjs production"
+		"build": "node esbuild.config.mjs production",
+		"typecheck": "tsc --noEmit",
+		"lint": "eslint src/"
 	},
 	"keywords": [
 		"obsidian",
@@ -16,11 +18,15 @@
 	"author": "cy",
 	"license": "MIT",
 	"devDependencies": {
+		"@eslint/js": "^10.0.1",
 		"@types/node": "^20.0.0",
+		"@typescript-eslint/eslint-plugin": "^6.21.0",
+		"@typescript-eslint/parser": "^6.21.0",
 		"builtin-modules": "^3.3.0",
 		"esbuild": "^0.17.0",
+		"eslint": "^8.57.1",
 		"obsidian": "latest",
 		"tslib": "2.4.0",
-		"typescript": "4.7.4"
+		"typescript": "^6.0.3"
 	}
 }
