@@ -7,10 +7,45 @@ sectionOrder:
   - rank
   - plan
   - tasks
+cssclass:
+  - nd-dashboard
 ---
+
+<style>
+/* 在 DataviewJS 执行之前就隐藏属性面板，消除首次渲染闪烁 */
+/* cssclass: nd-dashboard 会加到 .markdown-preview-view 上 */
+.markdown-preview-view.nd-dashboard>.metadata-container,
+.markdown-preview-view.nd-dashboard>.frontmatter,
+.markdown-preview-view.nd-dashboard>.metadata-content,
+.markdown-preview-view.nd-dashboard>.property-panel,
+.markdown-preview-view.nd-dashboard .metadata-container,
+.markdown-preview-view.nd-dashboard .frontmatter,
+.markdown-preview-view.nd-dashboard .metadata-content,
+.markdown-preview-view.nd-dashboard .property-panel {
+  display: none !important;
+}
+</style>
 
 ```dataviewjs
 // 📊 我的笔记看板 — v3 平滑渲染版
+
+// ── 立即隐藏属性面板（消除首次闪烁） ──
+// 根因：.metadata-container 是 .markdown-preview-section 的兄弟节点，不是子节点
+// 必须在父级 .markdown-reading-view 上操作，并且直接 DOM 操作作为兜底
+(function _hideMeta() {
+    const view = dv.container.closest('.markdown-reading-view') || dv.container.closest('.markdown-preview-view');
+    if (view) view.classList.add('nd-hide-meta');
+    if (!document.getElementById('nd-early-style')) {
+        const s = document.createElement('style');
+        s.id = 'nd-early-style';
+        s.textContent = '.nd-hide-meta>.metadata-container,.nd-hide-meta>.frontmatter,.nd-hide-meta>.metadata-content,.nd-hide-meta>.property-panel,.nd-hide-meta .metadata-container,.nd-hide-meta .frontmatter,.nd-hide-meta .metadata-content,.nd-hide-meta .property-panel{display:none!important}';
+        document.head.appendChild(s);
+    }
+    // 兜底：直接隐藏已渲染的属性元素（防止 CSS 选择器在某些 Obsidian 版本中不匹配）
+    document.querySelectorAll('.metadata-container,.metadata-content,.property-panel').forEach(el => {
+        if (el.closest('.markdown-reading-view,.markdown-preview-view')) el.style.display = 'none';
+    });
+})();
 
 const DEFAULT_CONFIG = {
     exclude: ['附件', '模板', 'copilot'],
@@ -132,7 +167,8 @@ if (!document.getElementById('nd-style')) {
         + '.dataview.table-view-table{display:none}'
         + '.block-language-dataviewjs+.block-language-dataviewjs .dataview.table-view-table{display:none}'
         + '#nd-dash~.markdown-preview-section{display:none}'
-        + '.markdown-reading-view:has(#nd-dash) .metadata-container,.markdown-reading-view:has(#nd-dash) .frontmatter,.markdown-reading-view:has(#nd-dash) .metadata-content,.markdown-reading-view:has(#nd-dash) .property-panel{display:none!important}'
+        // 隐藏属性面板：同时使用 .nd-hide-meta（早期注入）和 :has(#nd-dash)（后期兜底）
+        + '.nd-hide-meta>.metadata-container,.nd-hide-meta>.frontmatter,.nd-hide-meta>.metadata-content,.nd-hide-meta>.property-panel,.nd-hide-meta .metadata-container,.nd-hide-meta .frontmatter,.nd-hide-meta .metadata-content,.nd-hide-meta .property-panel,.markdown-reading-view:has(#nd-dash) .metadata-container,.markdown-reading-view:has(#nd-dash) .frontmatter,.markdown-reading-view:has(#nd-dash) .metadata-content,.markdown-reading-view:has(#nd-dash) .property-panel{display:none!important}'
         + '.nd-card{border:1px solid var(--background-modifier-border);border-radius:12px;background:var(--background-primary);box-shadow:0 1px 2px rgba(0,0,0,.03),0 3px 10px rgba(0,0,0,.04);transition:box-shadow .25s,transform .25s,border-color .25s;will-change:transform}'
         + '.nd-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.1),0 2px 6px rgba(0,0,0,.05);transform:translateY(-2px)}'
         + '.nd-pad{padding:16px;margin-bottom:10px}'
@@ -924,13 +960,20 @@ const WordCache = {
 // 加载精确词数
 const { wordByPath, totalWords } = await WordCache.load(allPages);
 
-// 按日期聚合词数
+// 按日期聚合词数 + 月活跃天数 + 文件夹排行（单次遍历 allPages，消除多次冗余遍历）
 const dateWords = new Map(), dateCount = new Map();
+const folderWords = new Map(), folderNotes = new Map();
+let monthActive = 0;
 for (const p of allPages.values) {
     const key = (p.file.day || p.file.ctime)?.toFormat?.('yyyy-MM-dd');
-    if (!key) continue;
-    dateWords.set(key, (dateWords.get(key) || 0) + (wordByPath.get(p.file.path) || 0));
-    dateCount.set(key, (dateCount.get(key) || 0) + 1);
+    if (key) {
+        dateWords.set(key, (dateWords.get(key) || 0) + (wordByPath.get(p.file.path) || 0));
+        dateCount.set(key, (dateCount.get(key) || 0) + 1);
+        if (key.startsWith(C.monthStr)) monthActive++;
+    }
+    const folder = (p.file.folder && p.file.folder !== '/') ? p.file.folder.split('/')[0] : '根目录';
+    folderWords.set(folder, (folderWords.get(folder) || 0) + (wordByPath.get(p.file.path) || 0));
+    folderNotes.set(folder, (folderNotes.get(folder) || 0) + 1);
 }
 const uniqueDays = new Set(dateWords.keys());
 
@@ -942,17 +985,11 @@ while (true) {
     if (uniqueDays.has(k)) { streak++; cursor.setDate(cursor.getDate() - 1); } else break;
 }
 const todayWords = dateWords.get(C.todayStr) || 0;
-let monthActive = 0;
-for (const d of uniqueDays) { if (d.startsWith(C.monthStr)) monthActive++; }
 
-// 文件夹排行
-const folderData = [...allPages.groupBy(p =>
-    (p.file.folder && p.file.folder !== '/') ? p.file.folder.split('/')[0] : '根目录'
-)].map(g => {
-    let fc = 0;
-    for (const row of g.rows.values) fc += wordByPath.get(row.file.path) || 0;
-    return { name: g.key, notes: g.rows.length, words: fc };
-}).sort((a, b) => (b.words || 0) - (a.words || 0));
+// 文件夹排行（从合并遍历结果构建）
+const folderData = [...folderWords.entries()].map(([name, words]) => ({
+    name, notes: folderNotes.get(name) || 0, words
+})).sort((a, b) => b.words - a.words);
 
 // 月度统计——最近12个月
 let latestDataMonth = C.now.getFullYear() * 12 + C.now.getMonth();
@@ -969,7 +1006,6 @@ for (let i = 11; i >= 0; i--) {
     const key = `${y}-${C.pad(mo + 1)}`;
     monthMap.set(key, { year: y, month: mo + 1, notes: 0, words: 0 });
 }
-// 填入实际数据
 for (const [dk, words] of dateWords) {
     const mk = dk.substring(0, 7);
     if (monthMap.has(mk)) {
@@ -1844,68 +1880,9 @@ requestAnimationFrame(() => {
     if (taskEl && !taskEl.dataset.loaded) lazyObserver.observe(taskEl);
 });
 
-// 标记已渲染，后续 re-execution 跳过二次渲染动画
-const isReRender = window.__ndRenderedKey === dataKey;
-window.__ndRenderedKey = dataKey;
-
-// 动画编排
-if (isReRender) {
-    // 二次渲染：立即显示，无动画延迟
-    root.classList.add('nd-ready');
-    root.querySelectorAll('.nd-chart-bar-inner').forEach(el => el.style.transition = 'none');
-    root.querySelectorAll('.nd-bar-fill').forEach(el => el.classList.add('nd-in'));
-} else {
-    // 首次渲染：有序动画入场
-    requestAnimationFrame(() => {
-        const targets = [];
-        root.querySelectorAll('.nd-chart-bar-inner').forEach(el => {
-            const h = el.style.height;
-            if (!h || h === '0px' || h === '0%') return;
-            targets.push({ el, targetH: h });
-            el.style.transition = 'none';
-            el.style.height = '0px';
-        });
-
-        requestAnimationFrame(() => {
-            root.classList.add('nd-ready');
-
-            // 统计小卡片交错入场
-            const staggerDelay = 0.06;
-            const miniCards = root.querySelectorAll('.nd-grid-stagger>.nd-mini');
-            miniCards.forEach((el, i) => {
-                el.style.animation = `ndFadeIn .5s ease-out both`;
-                el.style.animationDelay = `${i * staggerDelay}s`;
-            });
-            const fullEl = root.querySelector('.nd-grid-stagger>.nd-full');
-            if (fullEl) {
-                fullEl.style.animation = 'ndSlideUp .5s ease-out both';
-                fullEl.style.animationDelay = `${miniCards.length * staggerDelay}s`;
-            }
-
-            // 热力图格子、标题、数字入场
-            root.querySelectorAll('.nd-heat-col').forEach(el => el.style.animation = 'ndFadeIn .4s ease-out both');
-            root.querySelectorAll('.nd-title').forEach(el => el.style.animation = 'ndFadeIn .5s ease-out both');
-            root.querySelectorAll('.nd-val').forEach((el, i) => {
-                el.style.animation = 'ndPopIn .4s ease-out both';
-                el.style.animationDelay = `${i * 0.08}s`;
-            });
-
-            // 柱状图升起 + 进度条填充
-            setTimeout(() => {
-                targets.forEach(({ el, targetH }) => {
-                    el.style.transition = 'height 1.2s cubic-bezier(.25,.46,.45,.94), background .3s';
-                    el.style.height = targetH;
-                });
-                root.querySelectorAll('.nd-bar-fill').forEach(el => el.classList.add('nd-in'));
-                const tag = root.querySelector('.nd-tag');
-                if (tag) {
-                    tag.style.animation = 'ndPulseTag 2s ease-in-out 3';
-                    tag.style.boxShadow = '0 0 8px rgba(99,102,241,0.4)';
-                }
-            }, 600);
-        });
-    });
-}
+// 动画编排：简化首次渲染，立即显示内容，消除嵌套 rAF 和 stagger 开销
+root.classList.add('nd-ready');
+root.querySelectorAll('.nd-bar-fill').forEach(el => el.classList.add('nd-in'));
 
 // ── 折叠按钮事件绑定 ──
 root.querySelectorAll('.nd-toggle-btn[data-fold-target]').forEach(btn => {
