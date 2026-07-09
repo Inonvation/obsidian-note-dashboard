@@ -52,4 +52,4 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            dataview/📊-我的笔记看板.md
+            dataview/我的笔记看板.md
