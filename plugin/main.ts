@@ -1,8 +1,8 @@
-import { ItemView, Plugin, TFile, WorkspaceLeaf } from 'obsidian';
+import { ItemView, Plugin, TFile, Vault, WorkspaceLeaf } from 'obsidian';
 import { collectData, DashboardData } from './src/data';
 import { renderStatsCards } from './src/components/stats-cards';
 import { renderHeatmap } from './src/components/heatmap';
-import { renderChart } from './src/components/chart';
+import { renderChart, renderChartPane, animChartBars } from './src/components/chart';
 import { renderRanking } from './src/components/ranking';
 import { renderPlanProgress } from './src/components/plan-progress';
 import { renderRecentEdits } from './src/components/recent-edits';
@@ -113,7 +113,18 @@ class DashboardView extends ItemView {
             }
         }
 
+        // Save scroll positions before updating
+        const scrollTop = container.scrollTop;
+        const scrollLeft = container.scrollLeft;
+        
         container.innerHTML = html;
+        
+        // Restore scroll positions
+        container.scrollTop = scrollTop;
+        container.scrollLeft = scrollLeft;
+        
+        // Initialize chart panes
+        this.initChartPanes(container);
 
         requestAnimationFrame(() => {
             container.querySelectorAll('.nd-anim').forEach((el, i) => {
@@ -136,6 +147,19 @@ class DashboardView extends ItemView {
         container.addEventListener('click', this.clickHandler);
     }
 
+    private initChartPanes(container: HTMLElement) {
+        // Render day pane by default
+        const dayPane = container.querySelector('.nd-chart-pane[data-chart-type="day"]') as HTMLElement;
+        if (dayPane && !dayPane.dataset.loaded) {
+            const data = JSON.parse(dayPane.dataset.chartData || '[]');
+            const bar0 = dayPane.dataset.bar0 || '';
+            const bar1 = dayPane.dataset.bar1 || '';
+            const primary = dayPane.dataset.primary || '';
+            renderChartPane(dayPane, data, bar0, bar1, primary);
+            dayPane.dataset.loaded = '1';
+        }
+    }
+
     private handleClick(e: MouseEvent, container: HTMLElement) {
         const target = e.target as HTMLElement;
         const link = target.closest('[data-nd-link]');
@@ -144,6 +168,51 @@ class DashboardView extends ItemView {
             if (path) {
                 this.app.workspace.openLinkText(path, '', false);
             }
+        }
+
+        // Handle chart toggle
+        const chartTab = target.closest('.nd-chart-tab');
+        if (chartTab) {
+            const view = chartTab.getAttribute('data-view');
+            const toggle = chartTab.closest('.nd-chart-toggle');
+            if (!toggle) return;
+            
+            const ind = toggle.querySelector('[data-ind]') as HTMLElement;
+            const tabs = toggle.querySelectorAll('.nd-chart-tab');
+            const dayPane = container.querySelector('.nd-chart-pane[data-chart-type="day"]') as HTMLElement;
+            const monthPane = container.querySelector('.nd-chart-pane[data-chart-type="month"]') as HTMLElement;
+            
+            if (!dayPane || !monthPane) return;
+            
+            // Update toggle indicator
+            if (ind) {
+                ind.style.left = view === 'month' ? 'calc(50%)' : '2px';
+            }
+            
+            // Update tab colors
+            tabs.forEach(tab => {
+                (tab as HTMLElement).style.color = tab === chartTab ? '#fff' : 'var(--text-muted)';
+            });
+            
+            // Switch panes
+            if (view === 'month') {
+                if (!monthPane.dataset.loaded) {
+                    const data = JSON.parse(monthPane.dataset.chartData || '[]');
+                    const bar0 = monthPane.dataset.bar0 || '';
+                    const bar1 = monthPane.dataset.bar1 || '';
+                    const primary = monthPane.dataset.primary || '';
+                    renderChartPane(monthPane, data, bar0, bar1, primary);
+                    monthPane.dataset.loaded = '1';
+                }
+                dayPane.style.display = 'none';
+                monthPane.style.display = 'block';
+                animChartBars(monthPane);
+            } else {
+                monthPane.style.display = 'none';
+                dayPane.style.display = 'block';
+                animChartBars(dayPane);
+            }
+            return;
         }
 
         const rankTab = target.closest('.nd-rank-tab');
@@ -259,7 +328,7 @@ export default class NoteDashboardPlugin extends Plugin {
         // 合并 vault 事件注册
         for (const evt of ['modify', 'create', 'delete', 'rename']) {
             this.registerEvent(
-                (this.app.vault as any).on(evt, () => this.scheduleRefresh())
+                (this.app.vault as Vault).on(evt, () => this.scheduleRefresh())
             );
         }
 

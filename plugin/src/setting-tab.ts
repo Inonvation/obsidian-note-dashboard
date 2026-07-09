@@ -132,5 +132,33 @@ export class NoteDashboardSettingTab extends PluginSettingTab {
                         await this.plugin.saveSettings();
                     }
                 }));
+
+        new Setting(containerEl)
+            .setName('估计阈值')
+            .setDesc('字数超过此值视为长文（用于统计）')
+            .addText(text => text
+                .setPlaceholder('200')
+                .setValue(this.plugin.settings.estThreshold.toString())
+                .onChange(async (value) => {
+                    const num = parseInt(value);
+                    if (!isNaN(num) && num >= 0) {
+                        this.plugin.settings.estThreshold = num;
+                        await this.plugin.saveSettings();
+                    }
+                }));
+
+        new Setting(containerEl)
+            .setName('估计系数')
+            .setDesc('每分钟阅读字数（用于阅读时间估算）')
+            .addText(text => text
+                .setPlaceholder('4')
+                .setValue(this.plugin.settings.estCoeff.toString())
+                .onChange(async (value) => {
+                    const num = parseInt(value);
+                    if (!isNaN(num) && num >= 1) {
+                        this.plugin.settings.estCoeff = num;
+                        await this.plugin.saveSettings();
+                    }
+                }));
     }
 }

@@ -1,13 +1,15 @@
 {
 	"name": "obsidian-note-dashboard",
-	"version": "2.3.0",
+	"version": "2.4.1",
 	"description": "Obsidian笔记统计看板插件",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
 		"build": "node esbuild.config.mjs production",
 		"typecheck": "tsc --noEmit",
-		"lint": "eslint src/"
+		"lint": "eslint src/",
+		"test": "jest",
+		"sync-version": "node -e \"const p=require('./package.json');const m=require('./manifest.json');m.version=p.version;require('fs').writeFileSync('manifest.json',JSON.stringify(m,null,2))\""
 	},
 	"keywords": [
 		"obsidian",
@@ -18,13 +20,16 @@
 	"author": "cy",
 	"license": "MIT",
 	"devDependencies": {
+		"@types/jest": "^29.5.0",
 		"@types/node": "^20.0.0",
 		"@typescript-eslint/eslint-plugin": "^6.21.0",
 		"@typescript-eslint/parser": "^6.21.0",
 		"builtin-modules": "^3.3.0",
 		"esbuild": "^0.17.0",
 		"eslint": "^8.57.1",
+		"jest": "^29.7.0",
 		"obsidian": "latest",
+		"ts-jest": "^29.1.0",
 		"tslib": "2.4.0",
 		"typescript": "^6.0.3"
 	}

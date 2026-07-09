@@ -2,16 +2,17 @@ import { moment } from 'obsidian';
 import { DashboardData } from '../data';
 import { fmtNum } from '../stats/word-count';
 import { isDarkMode } from '../utils';
+import { ColorScheme } from '../types';
 
 const DAYS = ['日', '一', '二', '三', '四', '五', '六'];
 
-export function renderHeatmap(data: DashboardData, scheme: any, heatWeeks: number, heatLevels: number[]): string {
+export function renderHeatmap(data: DashboardData, scheme: ColorScheme, heatWeeks: number, heatLevels: number[]): string {
     const S = 13, G = 2, R = 2, PT = 20, MH = 18, MB = 4, LW = 22;
     const W = heatWeeks;
 
-    const now = moment();
-    const end = now.toDate();
-    const start = moment(end).subtract((W - 1) * 7 + (6 - end.getDay()), 'days').toDate();
+    const now = new Date();
+    const end = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const start = new Date(end.getTime() - ((W - 1) * 7 + (6 - end.getDay())) * 24 * 60 * 60 * 1000);
 
     const level = (words: number): number => {
         if (words >= heatLevels[2]) return 4;
@@ -29,9 +30,9 @@ export function renderHeatmap(data: DashboardData, scheme: any, heatWeeks: numbe
 
     const mMap = new Map<number, string>();
     for (let c = 0; c < W; c++) {
-        const d = moment(start).add(c * 7, 'days');
-        if (d.date() <= 7) {
-            mMap.set(c, d.format('M月'));
+        const d = new Date(start.getTime() + c * 7 * 24 * 60 * 60 * 1000);
+        if (d.getDate() <= 7) {
+            mMap.set(c, (d.getMonth() + 1) + '月');
         }
     }
 
@@ -54,14 +55,14 @@ export function renderHeatmap(data: DashboardData, scheme: any, heatWeeks: numbe
     for (let r = 0; r < 7; r++) {
         hm += `<div style="display:flex;gap:${G}px;margin-bottom:${G}px;">`;
         for (let c = 0; c < W; c++) {
-            const d = moment(start).add(c * 7 + r, 'days');
-            const k = d.format('YYYY-MM-DD');
+            const d = new Date(start.getTime() + (c * 7 + r) * 24 * 60 * 60 * 1000);
+            const k = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
             const words = data.dateWords.get(k) || 0;
             const cnt = data.dateCount.get(k) || 0;
             const lv = level(words);
             const tip = cnt
-                ? `${d.month() + 1}月${d.date()}日 · ${cnt}篇 · ${fmtNum(words)}词`
-                : `${d.month() + 1}月${d.date()}日`;
+                ? `${d.getMonth() + 1}月${d.getDate()}日 · ${cnt}篇 · ${fmtNum(words)}词`
+                : `${d.getMonth() + 1}月${d.getDate()}日`;
             hm += `<div class="nd-heat-col" style="width:${S}px;height:${S}px;border-radius:${R}px;flex-shrink:0;background:${clr(lv)};transition:background .15s;animation-delay:${cellDelay(c)}" title="${tip}" data-l="${lv}"></div>`;
         }
         hm += '</div>';

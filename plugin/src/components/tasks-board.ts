@@ -1,6 +1,7 @@
 import { App } from 'obsidian';
 import { DashboardData, TaskItem } from '../data';
 import { escapeHtml } from '../utils';
+import { ColorScheme } from '../types';
 
 interface AnalyzedTask {
     text: string;
@@ -70,7 +71,7 @@ function renderTaskRow(task: TaskItem, taskTags: string[]): string {
         + `</div>`;
 }
 
-export function renderTasksBoard(data: DashboardData, scheme: any, taskTags: string[], maxOpen: number, app: App): string {
+export function renderTasksBoard(data: DashboardData, scheme: ColorScheme, taskTags: string[], maxOpen: number, app: App): string {
     const { pendingTasks, totalDone, allTasks } = data;
     const totalAll = totalDone + pendingTasks.length;
     const donePct = totalAll > 0 ? Math.round(totalDone / totalAll * 100) : 0;

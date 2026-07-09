@@ -1,6 +1,7 @@
 import { DashboardData } from '../data';
 import { fmtNum } from '../stats/word-count';
 import { escapeHtml } from '../utils';
+import { ColorScheme } from '../types';
 
 const RANK = ['🥇', '🥈', '🥉'];
 
@@ -9,7 +10,7 @@ function renderRankItem(d: { name: string; words: number; notes?: number; path?:
     showNotes?: boolean;
     icon?: string;
     link?: string;
-}, scheme: any, totalWords: number): string {
+}, scheme: ColorScheme, totalWords: number): string {
     const top = i < 3;
     const rankStr = opts.showEmojiRank !== false ? (RANK[i] || '' + (i + 1)) : '' + (i + 1);
     const color = scheme.bar[i % scheme.bar.length];
@@ -42,7 +43,7 @@ function rankHeader(cols: { label: string; style?: string }[]): string {
     return h + '</div>';
 }
 
-export function renderRanking(data: DashboardData, scheme: any, folderTopN: number): string {
+export function renderRanking(data: DashboardData, scheme: ColorScheme, folderTopN: number): string {
     const fileRankData = data.allFiles
         .map(f => ({
             name: f.name.replace('.md', ''),

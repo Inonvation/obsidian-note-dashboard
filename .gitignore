@@ -1,5 +1,6 @@
 # 构建输出
 *.js.map
+plugin/main.js
 
 # 依赖
 node_modules/

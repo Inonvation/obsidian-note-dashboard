@@ -1,6 +1,9 @@
 import { TFile, Vault, moment } from 'obsidian';
 import { countWords } from './stats/word-count';
 
+// Cache for word counts to avoid recomputation
+const wordCountCache = new Map<string, { mtime: number; words: number }>();
+
 export interface DashboardData {
     allFiles: TFile[];
     totalWords: number;
@@ -66,6 +69,11 @@ export async function collectData(
     }
     for (const batch of batches) {
         const results = await Promise.all(batch.map(async (file) => {
+            // Check cache first
+            const cached = wordCountCache.get(file.path);
+            if (cached && cached.mtime === file.stat.mtime) {
+                return { file, content: '', words: cached.words };
+            }
             const content = await vault.cachedRead(file);
             const words = countWords(content);
             return { file, content, words };
@@ -73,6 +81,8 @@ export async function collectData(
         for (const { file, content, words } of results) {
             totalWords += words;
             fileWords.set(file.path, words);
+            // Update cache
+            wordCountCache.set(file.path, { mtime: file.stat.mtime, words });
 
             const fileDate = moment(file.stat.mtime).format('YYYY-MM-DD');
             dateWords.set(fileDate, (dateWords.get(fileDate) || 0) + words);

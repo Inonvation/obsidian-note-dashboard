@@ -16,8 +16,8 @@ export function countWords(content: string): number {
         .replace(/^#+\s*/gm, '')
         .replace(/^[\s>*+-]\s*/gm, '')
         .replace(/^\d+\.\s*/gm, '');
-    const cjk = (t.match(/[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/g) || []).length;
-    const other = t.replace(/[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/g, ' ').split(/\s+/).filter(w => w).length;
+    const cjk = (t.match(/\p{Script=Han}/gu) || []).length;
+    const other = t.replace(/\p{Script=Han}/gu, ' ').split(/\s+/).filter(w => w).length;
     return cjk + other;
 }
 

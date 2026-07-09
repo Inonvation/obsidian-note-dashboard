@@ -1,8 +1,9 @@
 import { DashboardData } from '../data';
 import { fmtNum } from '../stats/word-count';
 import { isDarkMode } from '../utils';
+import { ColorScheme } from '../types';
 
-export function renderStatsCards(data: DashboardData, scheme: any): string {
+export function renderStatsCards(data: DashboardData, scheme: ColorScheme): string {
     const cG = isDarkMode() ? '#86efac' : '#166534';
     const cO = isDarkMode() ? '#fdba74' : '#9a3412';
 
