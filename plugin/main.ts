@@ -1,4 +1,4 @@
-import { App, ItemView, Plugin, PluginSettingTab, Setting, TFile, WorkspaceLeaf } from 'obsidian';
+import { ItemView, Plugin, TFile, WorkspaceLeaf } from 'obsidian';
 import { collectData, DashboardData } from './src/data';
 import { renderStatsCards } from './src/components/stats-cards';
 import { renderHeatmap } from './src/components/heatmap';
@@ -7,97 +7,12 @@ import { renderRanking } from './src/components/ranking';
 import { renderPlanProgress } from './src/components/plan-progress';
 import { renderRecentEdits } from './src/components/recent-edits';
 import { renderTasksBoard } from './src/components/tasks-board';
-import { escapeHtml } from './src/utils';
+import { COLOR_SCHEMES } from './src/color-schemes';
+import { NoteDashboardSettings } from './src/types';
+import { DEFAULT_SETTINGS } from './src/settings';
+import { NoteDashboardSettingTab } from './src/setting-tab';
 
 const VIEW_TYPE = "note-dashboard";
-
-const COLOR_SCHEMES: Record<string, any> = {
-    indigo: {
-        primary: '#6366f1',
-        accent: '#8b5cf6',
-        gradient: 'linear-gradient(135deg,#6366f1,#8b5cf6)',
-        tag: '#6366f1',
-        bar: ['#6366f1', '#8b5cf6', '#a78bfa', '#c4b5fd', '#a5b4fc', '#818cf8', '#6d28d9', '#4f46e5']
-    },
-    emerald: {
-        primary: '#10b981',
-        accent: '#34d399',
-        gradient: 'linear-gradient(135deg,#10b981,#34d399)',
-        tag: '#10b981',
-        bar: ['#10b981', '#34d399', '#6ee7b7', '#a7f3d0', '#059669', '#047857', '#065f46', '#064e3b']
-    },
-    amber: {
-        primary: '#f59e0b',
-        accent: '#fbbf24',
-        gradient: 'linear-gradient(135deg,#f59e0b,#fbbf24)',
-        tag: '#f59e0b',
-        bar: ['#f59e0b', '#fbbf24', '#fcd34d', '#fde68a', '#d97706', '#b45309', '#92400e', '#78350f']
-    },
-    rose: {
-        primary: '#f43f5e',
-        accent: '#fb7185',
-        gradient: 'linear-gradient(135deg,#f43f5e,#fb7185)',
-        tag: '#f43f5e',
-        bar: ['#f43f5e', '#fb7185', '#fda4af', '#fecdd3', '#e11d48', '#be123c', '#9f1239', '#881337']
-    },
-    sky: {
-        primary: '#0ea5e9',
-        accent: '#38bdf8',
-        gradient: 'linear-gradient(135deg,#0ea5e9,#38bdf8)',
-        tag: '#0ea5e9',
-        bar: ['#0ea5e9', '#38bdf8', '#7dd3fc', '#bae6fd', '#0284c7', '#0369a1', '#075985', '#0c4a6e']
-    },
-    coral: {
-        primary: '#f97316',
-        accent: '#fb923c',
-        gradient: 'linear-gradient(135deg,#f97316,#fb923c)',
-        tag: '#f97316',
-        bar: ['#f97316', '#fb923c', '#fdba74', '#fed7aa', '#ea580c', '#c2410c', '#9a3412', '#7c2d12']
-    },
-    slate: {
-        primary: '#64748b',
-        accent: '#94a3b8',
-        gradient: 'linear-gradient(135deg,#64748b,#94a3b8)',
-        tag: '#64748b',
-        bar: ['#64748b', '#94a3b8', '#cbd5e1', '#e2e8f0', '#475569', '#334155', '#1e293b', '#0f172a']
-    },
-};
-
-// 插件设置接口
-interface NoteDashboardSettings {
-    exclude: string[];
-    planPath: string;
-    heatLevels: number[];
-    heatWeeks: number;
-    monthCount: number;
-    dayCount: number;
-    folderTopN: number;
-    maxOpen: number;
-    taskTags: string[];
-    dueEmoji: string;
-    estThreshold: number;
-    estCoeff: number;
-    colorScheme: string;
-    sectionOrder: string[];
-}
-
-// 默认设置
-const DEFAULT_SETTINGS: NoteDashboardSettings = {
-    exclude: ['附件', '模板', 'copilot'],
-    planPath: 'planning/成长计划.md',
-    heatLevels: [400, 1200, 2500],
-    heatWeeks: 54,
-    monthCount: 12,
-    dayCount: 7,
-    folderTopN: 5,
-    maxOpen: 3,
-    taskTags: ['#urgent', '#important', '#doing', '#wip', '#进行中', '#review', '#待回顾'],
-    dueEmoji: '📅',
-    estThreshold: 200,
-    estCoeff: 4,
-    colorScheme: 'indigo',
-    sectionOrder: ['heat', 'stats', 'chart', 'rank', 'plan', 'recent', 'tasks'],
-};
 
 class DashboardView extends ItemView {
     private plugin: NoteDashboardPlugin;
@@ -341,18 +256,12 @@ export default class NoteDashboardPlugin extends Plugin {
 
         this.addSettingTab(new NoteDashboardSettingTab(this.app, this));
 
-        this.registerEvent(
-            this.app.vault.on('modify', () => this.scheduleRefresh())
-        );
-        this.registerEvent(
-            this.app.vault.on('create', () => this.scheduleRefresh())
-        );
-        this.registerEvent(
-            this.app.vault.on('delete', () => this.scheduleRefresh())
-        );
-        this.registerEvent(
-            this.app.vault.on('rename', () => this.scheduleRefresh())
-        );
+        // 合并 vault 事件注册
+        for (const evt of ['modify', 'create', 'delete', 'rename']) {
+            this.registerEvent(
+                (this.app.vault as any).on(evt, () => this.scheduleRefresh())
+            );
+        }
 
         this.app.workspace.onLayoutReady(() => {
             if (!this.app.workspace.getLeavesOfType(VIEW_TYPE).length) {
@@ -412,148 +321,5 @@ export default class NoteDashboardPlugin extends Plugin {
         if (leaf) {
             workspace.revealLeaf(leaf);
         }
-    }
-}
-
-// 设置面板类
-class NoteDashboardSettingTab extends PluginSettingTab {
-    plugin: NoteDashboardPlugin;
-
-    constructor(app: App, plugin: NoteDashboardPlugin) {
-        super(app, plugin);
-        this.plugin = plugin;
-    }
-
-    display(): void {
-        const { containerEl } = this;
-        containerEl.empty();
-
-        containerEl.createEl('h2', { text: '笔记看板设置' });
-
-        // 配色方案设置
-        new Setting(containerEl)
-            .setName('配色方案')
-            .setDesc('选择看板的配色主题')
-            .addDropdown(dropdown => {
-                Object.keys(COLOR_SCHEMES).forEach(scheme => {
-                    dropdown.addOption(scheme, scheme);
-                });
-                dropdown.setValue(this.plugin.settings.colorScheme);
-                dropdown.onChange(async (value) => {
-                    this.plugin.settings.colorScheme = value;
-                    await this.plugin.saveSettings();
-                });
-            });
-
-        // 排除文件夹设置
-        new Setting(containerEl)
-            .setName('排除文件夹')
-            .setDesc('这些文件夹下的笔记不计入统计（用逗号分隔）')
-            .addText(text => text
-                .setPlaceholder('附件, 模板, copilot')
-                .setValue(this.plugin.settings.exclude.join(', '))
-                .onChange(async (value) => {
-                    this.plugin.settings.exclude = value.split(',').map(s => s.trim()).filter(s => s);
-                    await this.plugin.saveSettings();
-                }));
-
-        // 成长计划路径设置
-        new Setting(containerEl)
-            .setName('成长计划路径')
-            .setDesc('相对路径，留空隐藏进度条')
-            .addText(text => text
-                .setPlaceholder('planning/成长计划.md')
-                .setValue(this.plugin.settings.planPath)
-                .onChange(async (value) => {
-                    this.plugin.settings.planPath = value;
-                    await this.plugin.saveSettings();
-                }));
-
-        // 热力图周数设置
-        new Setting(containerEl)
-            .setName('热力图周数')
-            .setDesc('显示最近多少周的热力图（10-104）')
-            .addText(text => text
-                .setPlaceholder('54')
-                .setValue(this.plugin.settings.heatWeeks.toString())
-                .onChange(async (value) => {
-                    const num = parseInt(value);
-                    if (!isNaN(num) && num >= 10 && num <= 104) {
-                        this.plugin.settings.heatWeeks = num;
-                        await this.plugin.saveSettings();
-                    }
-                }));
-
-        // 文件夹排行数量设置
-        new Setting(containerEl)
-            .setName('文件夹排行数量')
-            .setDesc('显示前N个文件夹（1-50）')
-            .addText(text => text
-                .setPlaceholder('5')
-                .setValue(this.plugin.settings.folderTopN.toString())
-                .onChange(async (value) => {
-                    const num = parseInt(value);
-                    if (!isNaN(num) && num >= 1 && num <= 50) {
-                        this.plugin.settings.folderTopN = num;
-                        await this.plugin.saveSettings();
-                    }
-                }));
-
-        // 待办标签设置
-        new Setting(containerEl)
-            .setName('待办标签')
-            .setDesc('含这些标签的任务标记为重要/紧急（用逗号分隔）')
-            .addText(text => text
-                .setPlaceholder('#urgent, #important, #doing')
-                .setValue(this.plugin.settings.taskTags.join(', '))
-                .onChange(async (value) => {
-                    this.plugin.settings.taskTags = value.split(',').map(s => s.trim()).filter(s => s);
-                    await this.plugin.saveSettings();
-                }));
-
-        // 月度图表月数设置
-        new Setting(containerEl)
-            .setName('月度图表月数')
-            .setDesc('显示最近几个月的图表（1-24）')
-            .addText(text => text
-                .setPlaceholder('12')
-                .setValue(this.plugin.settings.monthCount.toString())
-                .onChange(async (value) => {
-                    const num = parseInt(value);
-                    if (!isNaN(num) && num >= 1 && num <= 24) {
-                        this.plugin.settings.monthCount = num;
-                        await this.plugin.saveSettings();
-                    }
-                }));
-
-        // 7天图表天数设置
-        new Setting(containerEl)
-            .setName('7天图表天数')
-            .setDesc('显示最近几天的图表（3-30）')
-            .addText(text => text
-                .setPlaceholder('7')
-                .setValue(this.plugin.settings.dayCount.toString())
-                .onChange(async (value) => {
-                    const num = parseInt(value);
-                    if (!isNaN(num) && num >= 3 && num <= 30) {
-                        this.plugin.settings.dayCount = num;
-                        await this.plugin.saveSettings();
-                    }
-                }));
-
-        // 待办看板默认展开数
-        new Setting(containerEl)
-            .setName('待办看板默认展开数')
-            .setDesc('默认展开前N个文件的任务（1-10）')
-            .addText(text => text
-                .setPlaceholder('3')
-                .setValue(this.plugin.settings.maxOpen.toString())
-                .onChange(async (value) => {
-                    const num = parseInt(value);
-                    if (!isNaN(num) && num >= 1 && num <= 10) {
-                        this.plugin.settings.maxOpen = num;
-                        await this.plugin.saveSettings();
-                    }
-                }));
     }
 }

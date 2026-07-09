@@ -75,9 +75,14 @@ export function renderTasksBoard(data: DashboardData, scheme: any, taskTags: str
     const totalAll = totalDone + pendingTasks.length;
     const donePct = totalAll > 0 ? Math.round(totalDone / totalAll * 100) : 0;
 
-    let urgCnt = 0, impCnt = 0;
+    // 一次性分析所有 pendingTasks，缓存结果避免重复 analyzeTask 调用
+    const analyzedCache = new Map<TaskItem, AnalyzedTask>();
     for (const t of pendingTasks) {
-        const a = analyzeTask(t, taskTags);
+        analyzedCache.set(t, analyzeTask(t, taskTags));
+    }
+
+    let urgCnt = 0, impCnt = 0;
+    for (const a of analyzedCache.values()) {
         if (a.isUrgent) urgCnt++;
         else if (a.isImportant) impCnt++;
     }
@@ -119,7 +124,7 @@ export function renderTasksBoard(data: DashboardData, scheme: any, taskTags: str
         sortedFiles.forEach((g, fi) => {
             const fn = g.file.split('/').pop()?.replace('.md', '') || g.file;
             const pct = g.total > 0 ? Math.round(g.done / g.total * 100) : 0;
-            const analyzed = g.tasks.map(t => ({ task: t, ...analyzeTask(t, taskTags) }));
+            const analyzed = g.tasks.map(t => ({ task: t, ...(analyzedCache.get(t) || analyzeTask(t, taskTags)) }));
             const hasU = analyzed.some(a => a.isUrgent);
             const hasI = analyzed.some(a => a.isImportant && !a.isUrgent);
             analyzed.sort((a, b) => {

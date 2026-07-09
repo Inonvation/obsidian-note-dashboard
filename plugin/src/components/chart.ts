@@ -23,47 +23,6 @@ function niceScale(maxVal: number, ticks: number) {
     return { max: niceStep * ticks, step: niceStep, ticks: tickValues };
 }
 
-function renderBarChart(rows: ChartRow[], scheme: ColorScheme, paneId: string): string {
-    const yScale = niceScale(Math.max(...rows.map(r => r.words), 1), 4);
-    const yMax = yScale.max;
-    const barAreaHeight = 120;
-
-    let html = '<div style="display:flex;align-items:stretch;">';
-    
-    // Y axis
-    html += `<div style="flex-shrink:0;min-width:22px;display:flex;flex-direction:column;justify-content:space-between;padding:0 5px 4px 0;height:${barAreaHeight}px;position:sticky;left:0;z-index:2;background:var(--background-primary);">`;
-    for (let t = yScale.ticks.length - 1; t >= 0; t--) {
-        html += `<div style="font-size:9px;color:var(--text-faint);text-align:right;line-height:1;">${fmtNum(yScale.ticks[t])}</div>`;
-    }
-    html += '</div>';
-
-    // Bar area
-    html += `<div style="flex:1;min-width:0;">`;
-    html += `<div style="display:flex;align-items:flex-end;gap:2px;height:${barAreaHeight}px;">`;
-    
-    rows.forEach((r, i) => {
-        const pct = yMax > 0 ? Math.max(1, (r.words / yMax) * 100) : 1;
-        const color = r.isCurrent ? scheme.bar[0] : scheme.bar[1];
-        
-        html += `<div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;flex:1 1 0;height:100%;position:relative;">`;
-        html += `<div class="nd-chart-bar" data-h="${pct}" style="width:75%;max-width:36px;height:0%;border-radius:5px 5px 2px 2px;background:${color};cursor:pointer;transition:height 1.2s cubic-bezier(.25,.46,.45,.94);position:relative;" title="${r.label}: ${fmtNum(r.words)}词">`;
-        html += `<div class="nd-chart-bar-num" style="position:absolute;bottom:100%;left:0;right:0;display:flex;justify-content:center;pointer-events:none;margin-bottom:2px;opacity:0;transition:opacity .6s ease .8s;"><span style="font-size:8px;font-weight:700;white-space:nowrap;color:var(--text-muted);">${fmtNum(r.words)}</span></div>`;
-        html += `</div>`;
-        html += `<span style="font-size:9px;color:${r.isCurrent ? scheme.primary : 'var(--text-muted)'};margin-top:3px;white-space:nowrap;line-height:1;font-weight:${r.isCurrent ? 700 : 400};">${r.label}</span>`;
-        html += `</div>`;
-    });
-    
-    html += '</div></div></div>';
-
-    // Legend
-    html += `<div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-top:6px;font-size:10px;color:var(--text-muted);">`;
-    html += `<span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:3px;background:${scheme.bar[0]};display:inline-block;"></span> 当前</span>`;
-    html += `<span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:3px;background:${scheme.bar[1]};display:inline-block;"></span> 其他</span>`;
-    html += `</div>`;
-
-    return html;
-}
-
 export function renderChart(data: DashboardData, scheme: ColorScheme, monthCount: number, dayCount: number): string {
     const now = moment();
 

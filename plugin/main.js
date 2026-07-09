@@ -27,7 +27,7 @@ __export(main_exports, {
   default: () => NoteDashboardPlugin
 });
 module.exports = __toCommonJS(main_exports);
-var import_obsidian4 = require("obsidian");
+var import_obsidian5 = require("obsidian");
 
 // src/data.ts
 var import_obsidian = require("obsidian");
@@ -62,41 +62,53 @@ async function collectData(vault, exclude, planPath, taskTags) {
   const dateCount = /* @__PURE__ */ new Map();
   const folderMap = /* @__PURE__ */ new Map();
   let totalWords = 0;
+  const fileWords = /* @__PURE__ */ new Map();
   const now = (0, import_obsidian.moment)();
   const todayStr = now.format("YYYY-MM-DD");
   let todayWords = 0;
   const uniqueDays = /* @__PURE__ */ new Set();
   const allTasks = [];
-  for (const file of allFiles) {
-    const content = await vault.cachedRead(file);
-    const words = countWords(content);
-    totalWords += words;
-    const fileDate = (0, import_obsidian.moment)(file.stat.mtime).format("YYYY-MM-DD");
-    dateWords.set(fileDate, (dateWords.get(fileDate) || 0) + words);
-    dateCount.set(fileDate, (dateCount.get(fileDate) || 0) + 1);
-    uniqueDays.add(fileDate);
-    if (fileDate === todayStr) {
-      todayWords += words;
-    }
-    const folderPath = ((_a = file.parent) == null ? void 0 : _a.path) || "";
-    if (!folderMap.has(folderPath)) {
-      folderMap.set(folderPath, { words: 0, notes: 0 });
-    }
-    const fd = folderMap.get(folderPath);
-    fd.words += words;
-    fd.notes += 1;
-    const lines = content.split("\n");
-    lines.forEach((line, idx) => {
-      const match = line.match(/^\s*[-*+] \[([ xX])\] (.+)/);
-      if (match) {
-        allTasks.push({
-          path: file.path,
-          line: idx + 1,
-          text: match[2],
-          completed: /[xX]/.test(match[1])
-        });
+  const BATCH_SIZE = 50;
+  const batches = [];
+  for (let i = 0; i < allFiles.length; i += BATCH_SIZE) {
+    batches.push(allFiles.slice(i, i + BATCH_SIZE));
+  }
+  for (const batch of batches) {
+    const results = await Promise.all(batch.map(async (file) => {
+      const content = await vault.cachedRead(file);
+      const words = countWords(content);
+      return { file, content, words };
+    }));
+    for (const { file, content, words } of results) {
+      totalWords += words;
+      fileWords.set(file.path, words);
+      const fileDate = (0, import_obsidian.moment)(file.stat.mtime).format("YYYY-MM-DD");
+      dateWords.set(fileDate, (dateWords.get(fileDate) || 0) + words);
+      dateCount.set(fileDate, (dateCount.get(fileDate) || 0) + 1);
+      uniqueDays.add(fileDate);
+      if (fileDate === todayStr) {
+        todayWords += words;
       }
-    });
+      const folderPath = ((_a = file.parent) == null ? void 0 : _a.path) || "";
+      if (!folderMap.has(folderPath)) {
+        folderMap.set(folderPath, { words: 0, notes: 0 });
+      }
+      const fd = folderMap.get(folderPath);
+      fd.words += words;
+      fd.notes += 1;
+      const lines = content.split("\n");
+      lines.forEach((line, idx) => {
+        const match = line.match(/^\s*[-*+] \[([ xX])\] (.+)/);
+        if (match) {
+          allTasks.push({
+            path: file.path,
+            line: idx + 1,
+            text: match[2],
+            completed: /[xX]/.test(match[1])
+          });
+        }
+      });
+    }
   }
   const folderData = [...folderMap.entries()].map(([path, data]) => ({
     name: path.split("/").pop() || "\u672A\u5206\u7C7B",
@@ -105,22 +117,28 @@ async function collectData(vault, exclude, planPath, taskTags) {
     notes: data.notes
   })).sort((a, b) => b.words - a.words);
   let streak = 0;
-  const today = (0, import_obsidian.moment)().startOf("day");
+  const streakD = /* @__PURE__ */ new Date();
+  streakD.setHours(0, 0, 0, 0);
   for (let i = 0; i < 365; i++) {
-    const d = today.clone().subtract(i, "days").format("YYYY-MM-DD");
+    const d = streakD.getFullYear() + "-" + String(streakD.getMonth() + 1).padStart(2, "0") + "-" + String(streakD.getDate()).padStart(2, "0");
     if (dateWords.has(d)) {
       streak++;
+      streakD.setDate(streakD.getDate() - 1);
     } else if (i > 0) {
       break;
+    } else {
+      streakD.setDate(streakD.getDate() - 1);
     }
   }
-  const monthStart = (0, import_obsidian.moment)().startOf("month");
+  const nowM = /* @__PURE__ */ new Date();
+  const monthStart = new Date(nowM.getFullYear(), nowM.getMonth(), 1);
+  const daysInMonth = new Date(nowM.getFullYear(), nowM.getMonth() + 1, 0).getDate();
   let monthActive = 0;
-  const daysInMonth = monthStart.daysInMonth();
   for (let i = 0; i < daysInMonth; i++) {
-    const d = monthStart.clone().add(i, "days").format("YYYY-MM-DD");
+    const d = monthStart.getFullYear() + "-" + String(monthStart.getMonth() + 1).padStart(2, "0") + "-" + String(monthStart.getDate()).padStart(2, "0");
     if (dateWords.has(d))
       monthActive++;
+    monthStart.setDate(monthStart.getDate() + 1);
   }
   let planContent = null;
   if (planPath) {
@@ -137,6 +155,7 @@ async function collectData(vault, exclude, planPath, taskTags) {
   return {
     allFiles,
     totalWords,
+    fileWords,
     dateWords,
     dateCount,
     todayWords,
@@ -418,12 +437,15 @@ function rankHeader(cols) {
   return h + "</div>";
 }
 function renderRanking(data, scheme, folderTopN) {
-  const fileRankData = data.allFiles.map((f) => ({
-    name: f.name.replace(".md", ""),
-    path: f.path,
-    words: 0,
-    notes: 1
-  })).sort((a, b) => b.words - a.words);
+  const fileRankData = data.allFiles.map((f) => {
+    var _a;
+    return {
+      name: f.name.replace(".md", ""),
+      path: f.path,
+      words: ((_a = data.fileWords) == null ? void 0 : _a.get(f.path)) || 0,
+      notes: 1
+    };
+  }).sort((a, b) => b.words - a.words);
   let html = '<div class="nd-card nd-pad nd-anim nd-anim-2" style="margin-bottom:10px;">';
   const folderToggleId = "nd-folder-toggle-" + Date.now();
   const folderListId = "nd-folder-list-" + Date.now();
@@ -588,9 +610,12 @@ function renderTasksBoard(data, scheme, taskTags, maxOpen, app) {
   const { pendingTasks, totalDone, allTasks } = data;
   const totalAll = totalDone + pendingTasks.length;
   const donePct = totalAll > 0 ? Math.round(totalDone / totalAll * 100) : 0;
-  let urgCnt = 0, impCnt = 0;
+  const analyzedCache = /* @__PURE__ */ new Map();
   for (const t of pendingTasks) {
-    const a = analyzeTask(t, taskTags);
+    analyzedCache.set(t, analyzeTask(t, taskTags));
+  }
+  let urgCnt = 0, impCnt = 0;
+  for (const a of analyzedCache.values()) {
     if (a.isUrgent)
       urgCnt++;
     else if (a.isImportant)
@@ -635,7 +660,7 @@ function renderTasksBoard(data, scheme, taskTags, maxOpen, app) {
       var _a;
       const fn = ((_a = g.file.split("/").pop()) == null ? void 0 : _a.replace(".md", "")) || g.file;
       const pct = g.total > 0 ? Math.round(g.done / g.total * 100) : 0;
-      const analyzed = g.tasks.map((t) => ({ task: t, ...analyzeTask(t, taskTags) }));
+      const analyzed = g.tasks.map((t) => ({ task: t, ...analyzedCache.get(t) || analyzeTask(t, taskTags) }));
       const hasU = analyzed.some((a) => a.isUrgent);
       const hasI = analyzed.some((a) => a.isImportant && !a.isUrgent);
       analyzed.sort((a, b) => {
@@ -671,8 +696,7 @@ function renderTasksBoard(data, scheme, taskTags, maxOpen, app) {
   return k;
 }
 
-// main.ts
-var VIEW_TYPE = "note-dashboard";
+// src/color-schemes.ts
 var COLOR_SCHEMES = {
   indigo: {
     primary: "#6366f1",
@@ -724,6 +748,8 @@ var COLOR_SCHEMES = {
     bar: ["#64748b", "#94a3b8", "#cbd5e1", "#e2e8f0", "#475569", "#334155", "#1e293b", "#0f172a"]
   }
 };
+
+// src/settings.ts
 var DEFAULT_SETTINGS = {
   exclude: ["\u9644\u4EF6", "\u6A21\u677F", "copilot"],
   planPath: "planning/\u6210\u957F\u8BA1\u5212.md",
@@ -740,7 +766,81 @@ var DEFAULT_SETTINGS = {
   colorScheme: "indigo",
   sectionOrder: ["heat", "stats", "chart", "rank", "plan", "recent", "tasks"]
 };
-var DashboardView = class extends import_obsidian4.ItemView {
+
+// src/setting-tab.ts
+var import_obsidian4 = require("obsidian");
+var NoteDashboardSettingTab = class extends import_obsidian4.PluginSettingTab {
+  constructor(app, plugin) {
+    super(app, plugin);
+    this.plugin = plugin;
+  }
+  display() {
+    const { containerEl } = this;
+    containerEl.empty();
+    containerEl.createEl("h2", { text: "\u7B14\u8BB0\u770B\u677F\u8BBE\u7F6E" });
+    new import_obsidian4.Setting(containerEl).setName("\u914D\u8272\u65B9\u6848").setDesc("\u9009\u62E9\u770B\u677F\u7684\u914D\u8272\u4E3B\u9898").addDropdown((dropdown) => {
+      Object.keys(COLOR_SCHEMES).forEach((scheme) => {
+        dropdown.addOption(scheme, scheme);
+      });
+      dropdown.setValue(this.plugin.settings.colorScheme);
+      dropdown.onChange(async (value) => {
+        this.plugin.settings.colorScheme = value;
+        await this.plugin.saveSettings();
+      });
+    });
+    new import_obsidian4.Setting(containerEl).setName("\u6392\u9664\u6587\u4EF6\u5939").setDesc("\u8FD9\u4E9B\u6587\u4EF6\u5939\u4E0B\u7684\u7B14\u8BB0\u4E0D\u8BA1\u5165\u7EDF\u8BA1\uFF08\u7528\u9017\u53F7\u5206\u9694\uFF09").addText((text) => text.setPlaceholder("\u9644\u4EF6, \u6A21\u677F, copilot").setValue(this.plugin.settings.exclude.join(", ")).onChange(async (value) => {
+      this.plugin.settings.exclude = value.split(",").map((s) => s.trim()).filter((s) => s);
+      await this.plugin.saveSettings();
+    }));
+    new import_obsidian4.Setting(containerEl).setName("\u6210\u957F\u8BA1\u5212\u8DEF\u5F84").setDesc("\u76F8\u5BF9\u8DEF\u5F84\uFF0C\u7559\u7A7A\u9690\u85CF\u8FDB\u5EA6\u6761").addText((text) => text.setPlaceholder("planning/\u6210\u957F\u8BA1\u5212.md").setValue(this.plugin.settings.planPath).onChange(async (value) => {
+      this.plugin.settings.planPath = value;
+      await this.plugin.saveSettings();
+    }));
+    new import_obsidian4.Setting(containerEl).setName("\u70ED\u529B\u56FE\u5468\u6570").setDesc("\u663E\u793A\u6700\u8FD1\u591A\u5C11\u5468\u7684\u70ED\u529B\u56FE\uFF0810-104\uFF09").addText((text) => text.setPlaceholder("54").setValue(this.plugin.settings.heatWeeks.toString()).onChange(async (value) => {
+      const num = parseInt(value);
+      if (!isNaN(num) && num >= 10 && num <= 104) {
+        this.plugin.settings.heatWeeks = num;
+        await this.plugin.saveSettings();
+      }
+    }));
+    new import_obsidian4.Setting(containerEl).setName("\u6587\u4EF6\u5939\u6392\u884C\u6570\u91CF").setDesc("\u663E\u793A\u524DN\u4E2A\u6587\u4EF6\u5939\uFF081-50\uFF09").addText((text) => text.setPlaceholder("5").setValue(this.plugin.settings.folderTopN.toString()).onChange(async (value) => {
+      const num = parseInt(value);
+      if (!isNaN(num) && num >= 1 && num <= 50) {
+        this.plugin.settings.folderTopN = num;
+        await this.plugin.saveSettings();
+      }
+    }));
+    new import_obsidian4.Setting(containerEl).setName("\u5F85\u529E\u6807\u7B7E").setDesc("\u542B\u8FD9\u4E9B\u6807\u7B7E\u7684\u4EFB\u52A1\u6807\u8BB0\u4E3A\u91CD\u8981/\u7D27\u6025\uFF08\u7528\u9017\u53F7\u5206\u9694\uFF09").addText((text) => text.setPlaceholder("#urgent, #important, #doing").setValue(this.plugin.settings.taskTags.join(", ")).onChange(async (value) => {
+      this.plugin.settings.taskTags = value.split(",").map((s) => s.trim()).filter((s) => s);
+      await this.plugin.saveSettings();
+    }));
+    new import_obsidian4.Setting(containerEl).setName("\u6708\u5EA6\u56FE\u8868\u6708\u6570").setDesc("\u663E\u793A\u6700\u8FD1\u51E0\u4E2A\u6708\u7684\u56FE\u8868\uFF081-24\uFF09").addText((text) => text.setPlaceholder("12").setValue(this.plugin.settings.monthCount.toString()).onChange(async (value) => {
+      const num = parseInt(value);
+      if (!isNaN(num) && num >= 1 && num <= 24) {
+        this.plugin.settings.monthCount = num;
+        await this.plugin.saveSettings();
+      }
+    }));
+    new import_obsidian4.Setting(containerEl).setName("7\u5929\u56FE\u8868\u5929\u6570").setDesc("\u663E\u793A\u6700\u8FD1\u51E0\u5929\u7684\u56FE\u8868\uFF083-30\uFF09").addText((text) => text.setPlaceholder("7").setValue(this.plugin.settings.dayCount.toString()).onChange(async (value) => {
+      const num = parseInt(value);
+      if (!isNaN(num) && num >= 3 && num <= 30) {
+        this.plugin.settings.dayCount = num;
+        await this.plugin.saveSettings();
+      }
+    }));
+    new import_obsidian4.Setting(containerEl).setName("\u5F85\u529E\u770B\u677F\u9ED8\u8BA4\u5C55\u5F00\u6570").setDesc("\u9ED8\u8BA4\u5C55\u5F00\u524DN\u4E2A\u6587\u4EF6\u7684\u4EFB\u52A1\uFF081-10\uFF09").addText((text) => text.setPlaceholder("3").setValue(this.plugin.settings.maxOpen.toString()).onChange(async (value) => {
+      const num = parseInt(value);
+      if (!isNaN(num) && num >= 1 && num <= 10) {
+        this.plugin.settings.maxOpen = num;
+        await this.plugin.saveSettings();
+      }
+    }));
+  }
+};
+
+// main.ts
+var VIEW_TYPE = "note-dashboard";
+var DashboardView = class extends import_obsidian5.ItemView {
   constructor(leaf, plugin) {
     super(leaf);
     this.cachedData = null;
@@ -932,7 +1032,7 @@ var DashboardView = class extends import_obsidian4.ItemView {
     }
   }
 };
-var NoteDashboardPlugin = class extends import_obsidian4.Plugin {
+var NoteDashboardPlugin = class extends import_obsidian5.Plugin {
   constructor() {
     super(...arguments);
     this.refreshTimer = null;
@@ -961,18 +1061,11 @@ var NoteDashboardPlugin = class extends import_obsidian4.Plugin {
       }
     });
     this.addSettingTab(new NoteDashboardSettingTab(this.app, this));
-    this.registerEvent(
-      this.app.vault.on("modify", () => this.scheduleRefresh())
-    );
-    this.registerEvent(
-      this.app.vault.on("create", () => this.scheduleRefresh())
-    );
-    this.registerEvent(
-      this.app.vault.on("delete", () => this.scheduleRefresh())
-    );
-    this.registerEvent(
-      this.app.vault.on("rename", () => this.scheduleRefresh())
-    );
+    for (const evt of ["modify", "create", "delete", "rename"]) {
+      this.registerEvent(
+        this.app.vault.on(evt, () => this.scheduleRefresh())
+      );
+    }
     this.app.workspace.onLayoutReady(() => {
       if (!this.app.workspace.getLeavesOfType(VIEW_TYPE).length) {
         this.activateView();
@@ -1024,73 +1117,5 @@ var NoteDashboardPlugin = class extends import_obsidian4.Plugin {
     if (leaf) {
       workspace.revealLeaf(leaf);
     }
-  }
-};
-var NoteDashboardSettingTab = class extends import_obsidian4.PluginSettingTab {
-  constructor(app, plugin) {
-    super(app, plugin);
-    this.plugin = plugin;
-  }
-  display() {
-    const { containerEl } = this;
-    containerEl.empty();
-    containerEl.createEl("h2", { text: "\u7B14\u8BB0\u770B\u677F\u8BBE\u7F6E" });
-    new import_obsidian4.Setting(containerEl).setName("\u914D\u8272\u65B9\u6848").setDesc("\u9009\u62E9\u770B\u677F\u7684\u914D\u8272\u4E3B\u9898").addDropdown((dropdown) => {
-      Object.keys(COLOR_SCHEMES).forEach((scheme) => {
-        dropdown.addOption(scheme, scheme);
-      });
-      dropdown.setValue(this.plugin.settings.colorScheme);
-      dropdown.onChange(async (value) => {
-        this.plugin.settings.colorScheme = value;
-        await this.plugin.saveSettings();
-      });
-    });
-    new import_obsidian4.Setting(containerEl).setName("\u6392\u9664\u6587\u4EF6\u5939").setDesc("\u8FD9\u4E9B\u6587\u4EF6\u5939\u4E0B\u7684\u7B14\u8BB0\u4E0D\u8BA1\u5165\u7EDF\u8BA1\uFF08\u7528\u9017\u53F7\u5206\u9694\uFF09").addText((text) => text.setPlaceholder("\u9644\u4EF6, \u6A21\u677F, copilot").setValue(this.plugin.settings.exclude.join(", ")).onChange(async (value) => {
-      this.plugin.settings.exclude = value.split(",").map((s) => s.trim()).filter((s) => s);
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian4.Setting(containerEl).setName("\u6210\u957F\u8BA1\u5212\u8DEF\u5F84").setDesc("\u76F8\u5BF9\u8DEF\u5F84\uFF0C\u7559\u7A7A\u9690\u85CF\u8FDB\u5EA6\u6761").addText((text) => text.setPlaceholder("planning/\u6210\u957F\u8BA1\u5212.md").setValue(this.plugin.settings.planPath).onChange(async (value) => {
-      this.plugin.settings.planPath = value;
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian4.Setting(containerEl).setName("\u70ED\u529B\u56FE\u5468\u6570").setDesc("\u663E\u793A\u6700\u8FD1\u591A\u5C11\u5468\u7684\u70ED\u529B\u56FE\uFF0810-104\uFF09").addText((text) => text.setPlaceholder("54").setValue(this.plugin.settings.heatWeeks.toString()).onChange(async (value) => {
-      const num = parseInt(value);
-      if (!isNaN(num) && num >= 10 && num <= 104) {
-        this.plugin.settings.heatWeeks = num;
-        await this.plugin.saveSettings();
-      }
-    }));
-    new import_obsidian4.Setting(containerEl).setName("\u6587\u4EF6\u5939\u6392\u884C\u6570\u91CF").setDesc("\u663E\u793A\u524DN\u4E2A\u6587\u4EF6\u5939\uFF081-50\uFF09").addText((text) => text.setPlaceholder("5").setValue(this.plugin.settings.folderTopN.toString()).onChange(async (value) => {
-      const num = parseInt(value);
-      if (!isNaN(num) && num >= 1 && num <= 50) {
-        this.plugin.settings.folderTopN = num;
-        await this.plugin.saveSettings();
-      }
-    }));
-    new import_obsidian4.Setting(containerEl).setName("\u5F85\u529E\u6807\u7B7E").setDesc("\u542B\u8FD9\u4E9B\u6807\u7B7E\u7684\u4EFB\u52A1\u6807\u8BB0\u4E3A\u91CD\u8981/\u7D27\u6025\uFF08\u7528\u9017\u53F7\u5206\u9694\uFF09").addText((text) => text.setPlaceholder("#urgent, #important, #doing").setValue(this.plugin.settings.taskTags.join(", ")).onChange(async (value) => {
-      this.plugin.settings.taskTags = value.split(",").map((s) => s.trim()).filter((s) => s);
-      await this.plugin.saveSettings();
-    }));
-    new import_obsidian4.Setting(containerEl).setName("\u6708\u5EA6\u56FE\u8868\u6708\u6570").setDesc("\u663E\u793A\u6700\u8FD1\u51E0\u4E2A\u6708\u7684\u56FE\u8868\uFF081-24\uFF09").addText((text) => text.setPlaceholder("12").setValue(this.plugin.settings.monthCount.toString()).onChange(async (value) => {
-      const num = parseInt(value);
-      if (!isNaN(num) && num >= 1 && num <= 24) {
-        this.plugin.settings.monthCount = num;
-        await this.plugin.saveSettings();
-      }
-    }));
-    new import_obsidian4.Setting(containerEl).setName("7\u5929\u56FE\u8868\u5929\u6570").setDesc("\u663E\u793A\u6700\u8FD1\u51E0\u5929\u7684\u56FE\u8868\uFF083-30\uFF09").addText((text) => text.setPlaceholder("7").setValue(this.plugin.settings.dayCount.toString()).onChange(async (value) => {
-      const num = parseInt(value);
-      if (!isNaN(num) && num >= 3 && num <= 30) {
-        this.plugin.settings.dayCount = num;
-        await this.plugin.saveSettings();
-      }
-    }));
-    new import_obsidian4.Setting(containerEl).setName("\u5F85\u529E\u770B\u677F\u9ED8\u8BA4\u5C55\u5F00\u6570").setDesc("\u9ED8\u8BA4\u5C55\u5F00\u524DN\u4E2A\u6587\u4EF6\u7684\u4EFB\u52A1\uFF081-10\uFF09").addText((text) => text.setPlaceholder("3").setValue(this.plugin.settings.maxOpen.toString()).onChange(async (value) => {
-      const num = parseInt(value);
-      if (!isNaN(num) && num >= 1 && num <= 10) {
-        this.plugin.settings.maxOpen = num;
-        await this.plugin.saveSettings();
-      }
-    }));
   }
 };

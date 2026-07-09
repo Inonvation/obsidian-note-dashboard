@@ -4,6 +4,7 @@ import { countWords } from './stats/word-count';
 export interface DashboardData {
     allFiles: TFile[];
     totalWords: number;
+    fileWords: Map<string, number>;
     dateWords: Map<string, number>;
     dateCount: Map<string, number>;
     todayWords: number;
@@ -48,6 +49,7 @@ export async function collectData(
     const dateCount = new Map<string, number>();
     const folderMap = new Map<string, { words: number; notes: number }>();
     let totalWords = 0;
+    const fileWords = new Map<string, number>();
 
     const now = moment();
     const todayStr = now.format('YYYY-MM-DD');
@@ -56,40 +58,52 @@ export async function collectData(
 
     const allTasks: TaskItem[] = [];
 
-    for (const file of allFiles) {
-        const content = await vault.cachedRead(file);
-        const words = countWords(content);
-        totalWords += words;
+    // 批量并行读取，每批 50 个文件
+    const BATCH_SIZE = 50;
+    const batches: TFile[][] = [];
+    for (let i = 0; i < allFiles.length; i += BATCH_SIZE) {
+        batches.push(allFiles.slice(i, i + BATCH_SIZE));
+    }
+    for (const batch of batches) {
+        const results = await Promise.all(batch.map(async (file) => {
+            const content = await vault.cachedRead(file);
+            const words = countWords(content);
+            return { file, content, words };
+        }));
+        for (const { file, content, words } of results) {
+            totalWords += words;
+            fileWords.set(file.path, words);
 
-        const fileDate = moment(file.stat.mtime).format('YYYY-MM-DD');
-        dateWords.set(fileDate, (dateWords.get(fileDate) || 0) + words);
-        dateCount.set(fileDate, (dateCount.get(fileDate) || 0) + 1);
-        uniqueDays.add(fileDate);
+            const fileDate = moment(file.stat.mtime).format('YYYY-MM-DD');
+            dateWords.set(fileDate, (dateWords.get(fileDate) || 0) + words);
+            dateCount.set(fileDate, (dateCount.get(fileDate) || 0) + 1);
+            uniqueDays.add(fileDate);
 
-        if (fileDate === todayStr) {
-            todayWords += words;
-        }
-
-        const folderPath = file.parent?.path || '';
-        if (!folderMap.has(folderPath)) {
-            folderMap.set(folderPath, { words: 0, notes: 0 });
-        }
-        const fd = folderMap.get(folderPath)!;
-        fd.words += words;
-        fd.notes += 1;
-
-        const lines = content.split('\n');
-        lines.forEach((line, idx) => {
-            const match = line.match(/^\s*[-*+] \[([ xX])\] (.+)/);
-            if (match) {
-                allTasks.push({
-                    path: file.path,
-                    line: idx + 1,
-                    text: match[2],
-                    completed: /[xX]/.test(match[1]),
-                });
+            if (fileDate === todayStr) {
+                todayWords += words;
             }
-        });
+
+            const folderPath = file.parent?.path || '';
+            if (!folderMap.has(folderPath)) {
+                folderMap.set(folderPath, { words: 0, notes: 0 });
+            }
+            const fd = folderMap.get(folderPath)!;
+            fd.words += words;
+            fd.notes += 1;
+
+            const lines = content.split('\n');
+            lines.forEach((line, idx) => {
+                const match = line.match(/^\s*[-*+] \[([ xX])\] (.+)/);
+                if (match) {
+                    allTasks.push({
+                        path: file.path,
+                        line: idx + 1,
+                        text: match[2],
+                        completed: /[xX]/.test(match[1]),
+                    });
+                }
+            });
+        }
     }
 
     const folderData: FolderData[] = [...folderMap.entries()]
@@ -101,23 +115,31 @@ export async function collectData(
         }))
         .sort((a, b) => b.words - a.words);
 
+    // streak — 用纯 Date 减少 moment 开销
     let streak = 0;
-    const today = moment().startOf('day');
+    const streakD = new Date();
+    streakD.setHours(0, 0, 0, 0);
     for (let i = 0; i < 365; i++) {
-        const d = today.clone().subtract(i, 'days').format('YYYY-MM-DD');
+        const d = streakD.getFullYear() + '-' + String(streakD.getMonth() + 1).padStart(2, '0') + '-' + String(streakD.getDate()).padStart(2, '0');
         if (dateWords.has(d)) {
             streak++;
+            streakD.setDate(streakD.getDate() - 1);
         } else if (i > 0) {
             break;
+        } else {
+            streakD.setDate(streakD.getDate() - 1);
         }
     }
 
-    const monthStart = moment().startOf('month');
+    // monthActive — 同上用纯 Date
+    const nowM = new Date();
+    const monthStart = new Date(nowM.getFullYear(), nowM.getMonth(), 1);
+    const daysInMonth = new Date(nowM.getFullYear(), nowM.getMonth() + 1, 0).getDate();
     let monthActive = 0;
-    const daysInMonth = monthStart.daysInMonth();
     for (let i = 0; i < daysInMonth; i++) {
-        const d = monthStart.clone().add(i, 'days').format('YYYY-MM-DD');
+        const d = monthStart.getFullYear() + '-' + String(monthStart.getMonth() + 1).padStart(2, '0') + '-' + String(monthStart.getDate()).padStart(2, '0');
         if (dateWords.has(d)) monthActive++;
+        monthStart.setDate(monthStart.getDate() + 1);
     }
 
     let planContent: string | null = null;
@@ -138,6 +160,7 @@ export async function collectData(
     return {
         allFiles,
         totalWords,
+        fileWords,
         dateWords,
         dateCount,
         todayWords,

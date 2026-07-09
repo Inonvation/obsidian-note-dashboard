@@ -47,7 +47,7 @@ export function renderRanking(data: DashboardData, scheme: any, folderTopN: numb
         .map(f => ({
             name: f.name.replace('.md', ''),
             path: f.path,
-            words: 0,
+            words: data.fileWords?.get(f.path) || 0,
             notes: 1,
         }))
         .sort((a, b) => b.words - a.words);
