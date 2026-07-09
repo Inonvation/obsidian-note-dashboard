@@ -12,14 +12,9 @@ cssclass:
 ---
 
 <style>
-/* 在 DataviewJS 执行之前就隐藏属性面板，消除首次渲染闪烁 */
-/* cssclass: nd-dashboard 会加到 .markdown-preview-view 上 */
-.markdown-preview-view.nd-dashboard>.metadata-container,
-.markdown-preview-view.nd-dashboard>.frontmatter,
-.markdown-preview-view.nd-dashboard>.metadata-content,
-.markdown-preview-view.nd-dashboard>.property-panel,
+/* 兜底：隐藏属性面板（主隐藏由 CSS Snippet nd-hide-properties 实现） */
+/* 注意：.metadata-container 是 .markdown-preview-section 的兄弟，不是子代，所以用空格选择器 */
 .markdown-preview-view.nd-dashboard .metadata-container,
-.markdown-preview-view.nd-dashboard .frontmatter,
 .markdown-preview-view.nd-dashboard .metadata-content,
 .markdown-preview-view.nd-dashboard .property-panel {
   display: none !important;
