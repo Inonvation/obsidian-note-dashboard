@@ -45,7 +45,7 @@ npm run build
 ### Dataview 版本
 
 1. 安装 [Dataview](https://github.com/blacksmithgu/obsidian-dataview) 插件
-2. 将 `dataview/note-dashboard.md` 复制到你的 vault
+2. 将 `dataview/📊-我的笔记看板.md` 复制到你的 vault
 3. 打开该文件，选择 "Dataview JS" 语言
 
 ## Configuration
@@ -67,16 +67,17 @@ npm run build
 
 ```
 obsidian-note-dashboard/
-├── plugin/                    # Plugin 版本源码
-│   ├── src/
+├── plugin/                    # Plugin 版本源码（TypeScript）
+│   ├── src/                   #   源码目录
 │   ├── main.ts
 │   ├── manifest.json
 │   ├── styles.css
 │   └── package.json
 ├── dataview/                  # DataviewJS 版本
-│   └── note-dashboard.md
-└── .github/workflows/
-    └── release.yml            # 自动发布脚本
+│   └── 📊-我的笔记看板.md     #   单文件看板，v3 完整版
+├── .github/workflows/
+│   └── release.yml            # 自动发版（插件版 + Dataview 版分别打包）
+└── README.md
 ```
 
 ## Development
