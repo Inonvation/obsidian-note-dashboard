@@ -27,7 +27,7 @@ __export(main_exports, {
   default: () => NoteDashboardPlugin
 });
 module.exports = __toCommonJS(main_exports);
-var import_obsidian5 = require("obsidian");
+var import_obsidian4 = require("obsidian");
 
 // src/data.ts
 var import_obsidian = require("obsidian");
@@ -37,8 +37,8 @@ function countWords(content) {
   if (!content)
     return 0;
   let t = content.replace(/^---[\s\S]*?---\n*/, "").replace(/```[\s\S]*?```/g, "").replace(/`[^`\n]+`/g, "").replace(/!\[\[[^\]\n]*\]\]/g, "").replace(/\[\[([^\]|#\n^]+)(?:[#|][^\]]*)?\]\]/g, "$1").replace(/\[([^\]\n]*)\]\([^)\n]+\)/g, "$1").replace(/([\*_]{1,3})([^\*_]*?)\1/g, "$2").replace(/^#+\s*/gm, "").replace(/^[\s>*+-]\s*/gm, "").replace(/^\d+\.\s*/gm, "");
-  const cjk = (t.match(/[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/g) || []).length;
-  const other = t.replace(/[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/g, " ").split(/\s+/).filter((w) => w).length;
+  const cjk = (t.match(/\p{Script=Han}/gu) || []).length;
+  const other = t.replace(/\p{Script=Han}/gu, " ").split(/\s+/).filter((w) => w).length;
   return cjk + other;
 }
 function fmtNum(n) {
@@ -52,6 +52,7 @@ function fmtNum(n) {
 }
 
 // src/data.ts
+var wordCountCache = /* @__PURE__ */ new Map();
 async function collectData(vault, exclude, planPath, taskTags) {
   var _a;
   const allFiles = vault.getMarkdownFiles().filter((f) => {
@@ -75,6 +76,10 @@ async function collectData(vault, exclude, planPath, taskTags) {
   }
   for (const batch of batches) {
     const results = await Promise.all(batch.map(async (file) => {
+      const cached = wordCountCache.get(file.path);
+      if (cached && cached.mtime === file.stat.mtime) {
+        return { file, content: "", words: cached.words };
+      }
       const content = await vault.cachedRead(file);
       const words = countWords(content);
       return { file, content, words };
@@ -82,6 +87,7 @@ async function collectData(vault, exclude, planPath, taskTags) {
     for (const { file, content, words } of results) {
       totalWords += words;
       fileWords.set(file.path, words);
+      wordCountCache.set(file.path, { mtime: file.stat.mtime, words });
       const fileDate = (0, import_obsidian.moment)(file.stat.mtime).format("YYYY-MM-DD");
       dateWords.set(fileDate, (dateWords.get(fileDate) || 0) + words);
       dateCount.set(fileDate, (dateCount.get(fileDate) || 0) + 1);
@@ -208,14 +214,13 @@ function renderStatsCards(data, scheme) {
 }
 
 // src/components/heatmap.ts
-var import_obsidian2 = require("obsidian");
 var DAYS = ["\u65E5", "\u4E00", "\u4E8C", "\u4E09", "\u56DB", "\u4E94", "\u516D"];
 function renderHeatmap(data, scheme, heatWeeks, heatLevels) {
   const S = 13, G = 2, R = 2, PT = 20, MH = 18, MB = 4, LW = 22;
   const W = heatWeeks;
-  const now = (0, import_obsidian2.moment)();
-  const end = now.toDate();
-  const start = (0, import_obsidian2.moment)(end).subtract((W - 1) * 7 + (6 - end.getDay()), "days").toDate();
+  const now = /* @__PURE__ */ new Date();
+  const end = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const start = new Date(end.getTime() - ((W - 1) * 7 + (6 - end.getDay())) * 24 * 60 * 60 * 1e3);
   const level = (words) => {
     if (words >= heatLevels[2])
       return 4;
@@ -235,9 +240,9 @@ function renderHeatmap(data, scheme, heatWeeks, heatLevels) {
   };
   const mMap = /* @__PURE__ */ new Map();
   for (let c = 0; c < W; c++) {
-    const d = (0, import_obsidian2.moment)(start).add(c * 7, "days");
-    if (d.date() <= 7) {
-      mMap.set(c, d.format("M\u6708"));
+    const d = new Date(start.getTime() + c * 7 * 24 * 60 * 60 * 1e3);
+    if (d.getDate() <= 7) {
+      mMap.set(c, d.getMonth() + 1 + "\u6708");
     }
   }
   const cellDelay = (c) => `${c * 15}ms`;
@@ -257,12 +262,12 @@ function renderHeatmap(data, scheme, heatWeeks, heatLevels) {
   for (let r = 0; r < 7; r++) {
     hm += `<div style="display:flex;gap:${G}px;margin-bottom:${G}px;">`;
     for (let c = 0; c < W; c++) {
-      const d = (0, import_obsidian2.moment)(start).add(c * 7 + r, "days");
-      const k = d.format("YYYY-MM-DD");
+      const d = new Date(start.getTime() + (c * 7 + r) * 24 * 60 * 60 * 1e3);
+      const k = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
       const words = data.dateWords.get(k) || 0;
       const cnt = data.dateCount.get(k) || 0;
       const lv = level(words);
-      const tip = cnt ? `${d.month() + 1}\u6708${d.date()}\u65E5 \xB7 ${cnt}\u7BC7 \xB7 ${fmtNum(words)}\u8BCD` : `${d.month() + 1}\u6708${d.date()}\u65E5`;
+      const tip = cnt ? `${d.getMonth() + 1}\u6708${d.getDate()}\u65E5 \xB7 ${cnt}\u7BC7 \xB7 ${fmtNum(words)}\u8BCD` : `${d.getMonth() + 1}\u6708${d.getDate()}\u65E5`;
       hm += `<div class="nd-heat-col" style="width:${S}px;height:${S}px;border-radius:${R}px;flex-shrink:0;background:${clr(lv)};transition:background .15s;animation-delay:${cellDelay(c)}" title="${tip}" data-l="${lv}"></div>`;
     }
     hm += "</div>";
@@ -278,12 +283,12 @@ function renderHeatmap(data, scheme, heatWeeks, heatLevels) {
 }
 
 // src/components/chart.ts
-var import_obsidian3 = require("obsidian");
+var import_obsidian2 = require("obsidian");
 function renderChart(data, scheme, monthCount, dayCount) {
-  const now = (0, import_obsidian3.moment)();
+  const now = (0, import_obsidian2.moment)();
   const monthRows = [];
   for (let i = monthCount - 1; i >= 0; i--) {
-    const m = (0, import_obsidian3.moment)().subtract(i, "months");
+    const m = (0, import_obsidian2.moment)().subtract(i, "months");
     let words = 0;
     const daysInMonth = m.daysInMonth();
     for (let d = 1; d <= daysInMonth; d++) {
@@ -298,7 +303,7 @@ function renderChart(data, scheme, monthCount, dayCount) {
   }
   const dayRows = [];
   for (let i = dayCount - 1; i >= 0; i--) {
-    const d = (0, import_obsidian3.moment)().subtract(i, "days");
+    const d = (0, import_obsidian2.moment)().subtract(i, "days");
     const key = d.format("YYYY-MM-DD");
     dayRows.push({
       label: d.format("M/D"),
@@ -312,98 +317,78 @@ function renderChart(data, scheme, monthCount, dayCount) {
   let html = '<div class="nd-card nd-pad nd-anim nd-anim-2">';
   html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">';
   html += '<span style="font-size:14px;font-weight:600;">\u{1F4CA} \u6708\u5EA6/7\u5929\u56FE\u8868</span>';
-  html += `<div id="${toggleId}" style="position:relative;display:flex;align-items:center;background:var(--background-secondary);border-radius:20px;padding:2px;cursor:pointer;border:1px solid var(--background-modifier-border);font-size:11px;font-weight:500;overflow:hidden;flex-shrink:0;user-select:none;height:26px;min-width:120px;box-sizing:border-box;">`;
+  html += `<div id="${toggleId}" class="nd-chart-toggle" style="position:relative;display:flex;align-items:center;background:var(--background-secondary);border-radius:20px;padding:2px;cursor:pointer;border:1px solid var(--background-modifier-border);font-size:11px;font-weight:500;overflow:hidden;flex-shrink:0;user-select:none;height:26px;min-width:120px;box-sizing:border-box;">`;
   html += `<div style="position:absolute;top:2px;left:2px;width:calc(50% - 2px);height:calc(100% - 4px);border-radius:16px;background:var(--interactive-accent);transition:left .3s cubic-bezier(.4,0,.2,1);z-index:1;box-shadow:0 1px 3px rgba(0,0,0,.15);" data-ind></div>`;
-  html += `<span data-view="day" style="position:relative;z-index:2;display:flex;align-items:center;justify-content:center;flex:1;height:100%;color:#fff;white-space:nowrap;transition:color .25s ease;padding:0 10px;">\u8FD17\u5929</span>`;
-  html += `<span data-view="month" style="position:relative;z-index:2;display:flex;align-items:center;justify-content:center;flex:1;height:100%;color:var(--text-muted);white-space:nowrap;transition:color .25s ease;padding:0 10px;">\u6708\u5EA6</span>`;
+  html += `<span data-view="day" class="nd-chart-tab" style="position:relative;z-index:2;display:flex;align-items:center;justify-content:center;flex:1;height:100%;color:#fff;white-space:nowrap;transition:color .25s ease;padding:0 10px;">\u8FD17\u5929</span>`;
+  html += `<span data-view="month" class="nd-chart-tab" style="position:relative;z-index:2;display:flex;align-items:center;justify-content:center;flex:1;height:100%;color:var(--text-muted);white-space:nowrap;transition:color .25s ease;padding:0 10px;">\u6708\u5EA6</span>`;
   html += `</div></div>`;
-  html += `<div id="${dayPaneId}"></div>`;
-  html += `<div id="${monthPaneId}" style="display:none;"></div>`;
+  html += `<div id="${dayPaneId}" class="nd-chart-pane" data-chart-type="day" data-chart-data='${JSON.stringify(dayRows)}' data-bar0="${scheme.bar[0]}" data-bar1="${scheme.bar[1]}" data-primary="${scheme.primary}"></div>`;
+  html += `<div id="${monthPaneId}" class="nd-chart-pane" data-chart-type="month" data-chart-data='${JSON.stringify(monthRows)}' data-bar0="${scheme.bar[0]}" data-bar1="${scheme.bar[1]}" data-primary="${scheme.primary}" style="display:none;"></div>`;
   html += "</div>";
-  html += `<script>
-(function(){
-var dayData=${JSON.stringify(dayRows)};
-var monthData=${JSON.stringify(monthRows)};
-var bar0='${scheme.bar[0]}';
-var bar1='${scheme.bar[1]}';
-var primary='${scheme.primary}';
-
-function renderPane(el,data){
-    var maxW=Math.max.apply(null,data.map(function(r){return r.words}).concat([1]));
-    var h=120;
-    var niceStep=Math.pow(10,Math.floor(Math.log10(maxW/4)));
-    var cs=[niceStep,niceStep*2,niceStep*5,niceStep*10];
-    var step=cs[0];
-    for(var i=0;i<cs.length;i++){if(cs[i]*4>=maxW){step=cs[i];break;}}
-    var yMax=step*4;
-    var s='<div style="display:flex;align-items:stretch;">';
-    s+='<div style="flex-shrink:0;min-width:22px;display:flex;flex-direction:column;justify-content:space-between;padding:0 5px 4px 0;height:'+h+'px;">';
-    for(var t=4;t>=0;t--)s+='<div style="font-size:9px;color:var(--text-faint);text-align:right;line-height:1;">'+(t*step).toLocaleString()+'</div>';
-    s+='</div><div style="flex:1;min-width:0;"><div style="display:flex;align-items:flex-end;gap:2px;height:'+h+'px;">';
-    data.forEach(function(r,i){
-        var pct=yMax>0?Math.max(1,r.words/yMax*100):1;
-        var c=r.isCurrent?bar0:bar1;
-        s+='<div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;flex:1 1 0;height:100%;">';
-        s+='<div class="nd-chart-bar" data-h="'+pct+'" style="width:75%;max-width:36px;height:0%;border-radius:5px 5px 2px 2px;background:'+c+';cursor:pointer;transition:height 1.2s cubic-bezier(.25,.46,.45,.94);position:relative;">';
-        s+='<div class="nd-chart-bar-num" style="position:absolute;bottom:100%;left:0;right:0;display:flex;justify-content:center;pointer-events:none;margin-bottom:2px;opacity:0;transition:opacity .6s ease .8s;"><span style="font-size:8px;font-weight:700;white-space:nowrap;color:var(--text-muted);">'+r.words.toLocaleString()+'</span></div>';
-        s+='</div><span style="font-size:9px;color:'+(r.isCurrent?primary:'var(--text-muted)')+';margin-top:3px;white-space:nowrap;line-height:1;font-weight:'+(r.isCurrent?700:400)+';">'+r.label+'</span></div>';
-    });
-    s+='</div></div></div>';
-    s+='<div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-top:6px;font-size:10px;color:var(--text-muted);">';
-    s+='<span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:3px;background:'+bar0+';display:inline-block;"></span> \u5F53\u524D</span>';
-    s+='<span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:3px;background:'+bar1+';display:inline-block;"></span> \u5176\u4ED6</span></div>';
-    el.innerHTML=s;
-    requestAnimationFrame(function(){
-        requestAnimationFrame(function(){
-            el.querySelectorAll('.nd-chart-bar').forEach(function(b){b.style.height=b.dataset.h+'%'});
-            el.querySelectorAll('.nd-chart-bar-num').forEach(function(n){n.style.opacity='1'});
-        });
-    });
-}
-
-function animBars(el){
-    el.querySelectorAll('.nd-chart-bar').forEach(function(b){b.style.transition='none';b.style.height='0%'});
-    el.querySelectorAll('.nd-chart-bar-num').forEach(function(n){n.style.opacity='0'});
-    requestAnimationFrame(function(){
-        requestAnimationFrame(function(){
-            el.querySelectorAll('.nd-chart-bar').forEach(function(b){b.style.transition='height 1.2s cubic-bezier(.25,.46,.45,.94)';b.style.height=b.dataset.h+'%'});
-            el.querySelectorAll('.nd-chart-bar-num').forEach(function(n){n.style.opacity='1'});
-        });
-    });
-}
-
-var dayPane=document.getElementById('${dayPaneId}');
-var monthPane=document.getElementById('${monthPaneId}');
-if(dayPane)renderPane(dayPane,dayData);
-
-var toggle=document.getElementById('${toggleId}');
-if(toggle){
-    var ind=toggle.querySelector('[data-ind]');
-    var spans=toggle.querySelectorAll('span[data-view]');
-    var cur='day';
-    spans.forEach(function(sp){
-        sp.addEventListener('click',function(){
-            var v=this.dataset.view;
-            if(v===cur)return;
-            cur=v;
-            if(ind)ind.style.left=v==='month'?'calc(50%)':'2px';
-            spans.forEach(function(s){s.style.color=s===sp?'#fff':'var(--text-muted)'});
-            if(v==='month'){
-                if(!monthPane.dataset.loaded){monthPane.dataset.loaded='1';renderPane(monthPane,monthData)}
-                dayPane.style.display='none';
-                monthPane.style.display='block';
-                animBars(monthPane);
-            }else{
-                monthPane.style.display='none';
-                dayPane.style.display='block';
-                animBars(dayPane);
-            }
-        });
-    });
-}
-})();
-<\/script>`;
   return html;
+}
+function renderChartPane(el, data, bar0, bar1, primary) {
+  const maxW = Math.max(...data.map((r) => r.words), 1);
+  const h = 120;
+  const niceStep = Math.pow(10, Math.floor(Math.log10(maxW / 4)));
+  const cs = [niceStep, niceStep * 2, niceStep * 5, niceStep * 10];
+  let step = cs[0];
+  for (let i = 0; i < cs.length; i++) {
+    if (cs[i] * 4 >= maxW) {
+      step = cs[i];
+      break;
+    }
+  }
+  const yMax = step * 4;
+  let s = '<div style="display:flex;align-items:stretch;">';
+  s += '<div style="flex-shrink:0;min-width:22px;display:flex;flex-direction:column;justify-content:space-between;padding:0 5px 4px 0;height:' + h + 'px;">';
+  for (let t = 4; t >= 0; t--) {
+    s += '<div style="font-size:9px;color:var(--text-faint);text-align:right;line-height:1;">' + (t * step).toLocaleString() + "</div>";
+  }
+  s += '</div><div style="flex:1;min-width:0;"><div style="display:flex;align-items:flex-end;gap:2px;height:' + h + 'px;">';
+  data.forEach((r) => {
+    const pct = yMax > 0 ? Math.max(1, r.words / yMax * 100) : 1;
+    const c = r.isCurrent ? bar0 : bar1;
+    s += '<div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;flex:1 1 0;height:100%;">';
+    s += '<div class="nd-chart-bar" data-h="' + pct + '" style="width:75%;max-width:36px;height:0%;border-radius:5px 5px 2px 2px;background:' + c + ';cursor:pointer;transition:height 1.2s cubic-bezier(.25,.46,.45,.94);position:relative;">';
+    s += '<div class="nd-chart-bar-num" style="position:absolute;bottom:100%;left:0;right:0;display:flex;justify-content:center;pointer-events:none;margin-bottom:2px;opacity:0;transition:opacity .6s ease .8s;"><span style="font-size:8px;font-weight:700;white-space:nowrap;color:var(--text-muted);">' + r.words.toLocaleString() + "</span></div>";
+    s += '</div><span style="font-size:9px;color:' + (r.isCurrent ? primary : "var(--text-muted)") + ";margin-top:3px;white-space:nowrap;line-height:1;font-weight:" + (r.isCurrent ? 700 : 400) + ';">' + r.label + "</span></div>";
+  });
+  s += "</div></div></div>";
+  s += '<div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-top:6px;font-size:10px;color:var(--text-muted);">';
+  s += '<span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:3px;background:' + bar0 + ';display:inline-block;"></span> \u5F53\u524D</span>';
+  s += '<span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:3px;background:' + bar1 + ';display:inline-block;"></span> \u5176\u4ED6</span></div>';
+  el.innerHTML = s;
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      el.querySelectorAll(".nd-chart-bar").forEach((b) => {
+        b.style.height = b.dataset.h + "%";
+      });
+      el.querySelectorAll(".nd-chart-bar-num").forEach((n) => {
+        n.style.opacity = "1";
+      });
+    });
+  });
+}
+function animChartBars(el) {
+  el.querySelectorAll(".nd-chart-bar").forEach((b) => {
+    b.style.transition = "none";
+    b.style.height = "0%";
+  });
+  el.querySelectorAll(".nd-chart-bar-num").forEach((n) => {
+    n.style.opacity = "0";
+  });
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      el.querySelectorAll(".nd-chart-bar").forEach((b) => {
+        b.style.transition = "height 1.2s cubic-bezier(.25,.46,.45,.94)";
+        b.style.height = b.dataset.h + "%";
+      });
+      el.querySelectorAll(".nd-chart-bar-num").forEach((n) => {
+        n.style.opacity = "1";
+      });
+    });
+  });
 }
 
 // src/components/ranking.ts
@@ -768,8 +753,8 @@ var DEFAULT_SETTINGS = {
 };
 
 // src/setting-tab.ts
-var import_obsidian4 = require("obsidian");
-var NoteDashboardSettingTab = class extends import_obsidian4.PluginSettingTab {
+var import_obsidian3 = require("obsidian");
+var NoteDashboardSettingTab = class extends import_obsidian3.PluginSettingTab {
   constructor(app, plugin) {
     super(app, plugin);
     this.plugin = plugin;
@@ -778,7 +763,7 @@ var NoteDashboardSettingTab = class extends import_obsidian4.PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
     containerEl.createEl("h2", { text: "\u7B14\u8BB0\u770B\u677F\u8BBE\u7F6E" });
-    new import_obsidian4.Setting(containerEl).setName("\u914D\u8272\u65B9\u6848").setDesc("\u9009\u62E9\u770B\u677F\u7684\u914D\u8272\u4E3B\u9898").addDropdown((dropdown) => {
+    new import_obsidian3.Setting(containerEl).setName("\u914D\u8272\u65B9\u6848").setDesc("\u9009\u62E9\u770B\u677F\u7684\u914D\u8272\u4E3B\u9898").addDropdown((dropdown) => {
       Object.keys(COLOR_SCHEMES).forEach((scheme) => {
         dropdown.addOption(scheme, scheme);
       });
@@ -788,50 +773,64 @@ var NoteDashboardSettingTab = class extends import_obsidian4.PluginSettingTab {
         await this.plugin.saveSettings();
       });
     });
-    new import_obsidian4.Setting(containerEl).setName("\u6392\u9664\u6587\u4EF6\u5939").setDesc("\u8FD9\u4E9B\u6587\u4EF6\u5939\u4E0B\u7684\u7B14\u8BB0\u4E0D\u8BA1\u5165\u7EDF\u8BA1\uFF08\u7528\u9017\u53F7\u5206\u9694\uFF09").addText((text) => text.setPlaceholder("\u9644\u4EF6, \u6A21\u677F, copilot").setValue(this.plugin.settings.exclude.join(", ")).onChange(async (value) => {
+    new import_obsidian3.Setting(containerEl).setName("\u6392\u9664\u6587\u4EF6\u5939").setDesc("\u8FD9\u4E9B\u6587\u4EF6\u5939\u4E0B\u7684\u7B14\u8BB0\u4E0D\u8BA1\u5165\u7EDF\u8BA1\uFF08\u7528\u9017\u53F7\u5206\u9694\uFF09").addText((text) => text.setPlaceholder("\u9644\u4EF6, \u6A21\u677F, copilot").setValue(this.plugin.settings.exclude.join(", ")).onChange(async (value) => {
       this.plugin.settings.exclude = value.split(",").map((s) => s.trim()).filter((s) => s);
       await this.plugin.saveSettings();
     }));
-    new import_obsidian4.Setting(containerEl).setName("\u6210\u957F\u8BA1\u5212\u8DEF\u5F84").setDesc("\u76F8\u5BF9\u8DEF\u5F84\uFF0C\u7559\u7A7A\u9690\u85CF\u8FDB\u5EA6\u6761").addText((text) => text.setPlaceholder("planning/\u6210\u957F\u8BA1\u5212.md").setValue(this.plugin.settings.planPath).onChange(async (value) => {
+    new import_obsidian3.Setting(containerEl).setName("\u6210\u957F\u8BA1\u5212\u8DEF\u5F84").setDesc("\u76F8\u5BF9\u8DEF\u5F84\uFF0C\u7559\u7A7A\u9690\u85CF\u8FDB\u5EA6\u6761").addText((text) => text.setPlaceholder("planning/\u6210\u957F\u8BA1\u5212.md").setValue(this.plugin.settings.planPath).onChange(async (value) => {
       this.plugin.settings.planPath = value;
       await this.plugin.saveSettings();
     }));
-    new import_obsidian4.Setting(containerEl).setName("\u70ED\u529B\u56FE\u5468\u6570").setDesc("\u663E\u793A\u6700\u8FD1\u591A\u5C11\u5468\u7684\u70ED\u529B\u56FE\uFF0810-104\uFF09").addText((text) => text.setPlaceholder("54").setValue(this.plugin.settings.heatWeeks.toString()).onChange(async (value) => {
+    new import_obsidian3.Setting(containerEl).setName("\u70ED\u529B\u56FE\u5468\u6570").setDesc("\u663E\u793A\u6700\u8FD1\u591A\u5C11\u5468\u7684\u70ED\u529B\u56FE\uFF0810-104\uFF09").addText((text) => text.setPlaceholder("54").setValue(this.plugin.settings.heatWeeks.toString()).onChange(async (value) => {
       const num = parseInt(value);
       if (!isNaN(num) && num >= 10 && num <= 104) {
         this.plugin.settings.heatWeeks = num;
         await this.plugin.saveSettings();
       }
     }));
-    new import_obsidian4.Setting(containerEl).setName("\u6587\u4EF6\u5939\u6392\u884C\u6570\u91CF").setDesc("\u663E\u793A\u524DN\u4E2A\u6587\u4EF6\u5939\uFF081-50\uFF09").addText((text) => text.setPlaceholder("5").setValue(this.plugin.settings.folderTopN.toString()).onChange(async (value) => {
+    new import_obsidian3.Setting(containerEl).setName("\u6587\u4EF6\u5939\u6392\u884C\u6570\u91CF").setDesc("\u663E\u793A\u524DN\u4E2A\u6587\u4EF6\u5939\uFF081-50\uFF09").addText((text) => text.setPlaceholder("5").setValue(this.plugin.settings.folderTopN.toString()).onChange(async (value) => {
       const num = parseInt(value);
       if (!isNaN(num) && num >= 1 && num <= 50) {
         this.plugin.settings.folderTopN = num;
         await this.plugin.saveSettings();
       }
     }));
-    new import_obsidian4.Setting(containerEl).setName("\u5F85\u529E\u6807\u7B7E").setDesc("\u542B\u8FD9\u4E9B\u6807\u7B7E\u7684\u4EFB\u52A1\u6807\u8BB0\u4E3A\u91CD\u8981/\u7D27\u6025\uFF08\u7528\u9017\u53F7\u5206\u9694\uFF09").addText((text) => text.setPlaceholder("#urgent, #important, #doing").setValue(this.plugin.settings.taskTags.join(", ")).onChange(async (value) => {
+    new import_obsidian3.Setting(containerEl).setName("\u5F85\u529E\u6807\u7B7E").setDesc("\u542B\u8FD9\u4E9B\u6807\u7B7E\u7684\u4EFB\u52A1\u6807\u8BB0\u4E3A\u91CD\u8981/\u7D27\u6025\uFF08\u7528\u9017\u53F7\u5206\u9694\uFF09").addText((text) => text.setPlaceholder("#urgent, #important, #doing").setValue(this.plugin.settings.taskTags.join(", ")).onChange(async (value) => {
       this.plugin.settings.taskTags = value.split(",").map((s) => s.trim()).filter((s) => s);
       await this.plugin.saveSettings();
     }));
-    new import_obsidian4.Setting(containerEl).setName("\u6708\u5EA6\u56FE\u8868\u6708\u6570").setDesc("\u663E\u793A\u6700\u8FD1\u51E0\u4E2A\u6708\u7684\u56FE\u8868\uFF081-24\uFF09").addText((text) => text.setPlaceholder("12").setValue(this.plugin.settings.monthCount.toString()).onChange(async (value) => {
+    new import_obsidian3.Setting(containerEl).setName("\u6708\u5EA6\u56FE\u8868\u6708\u6570").setDesc("\u663E\u793A\u6700\u8FD1\u51E0\u4E2A\u6708\u7684\u56FE\u8868\uFF081-24\uFF09").addText((text) => text.setPlaceholder("12").setValue(this.plugin.settings.monthCount.toString()).onChange(async (value) => {
       const num = parseInt(value);
       if (!isNaN(num) && num >= 1 && num <= 24) {
         this.plugin.settings.monthCount = num;
         await this.plugin.saveSettings();
       }
     }));
-    new import_obsidian4.Setting(containerEl).setName("7\u5929\u56FE\u8868\u5929\u6570").setDesc("\u663E\u793A\u6700\u8FD1\u51E0\u5929\u7684\u56FE\u8868\uFF083-30\uFF09").addText((text) => text.setPlaceholder("7").setValue(this.plugin.settings.dayCount.toString()).onChange(async (value) => {
+    new import_obsidian3.Setting(containerEl).setName("7\u5929\u56FE\u8868\u5929\u6570").setDesc("\u663E\u793A\u6700\u8FD1\u51E0\u5929\u7684\u56FE\u8868\uFF083-30\uFF09").addText((text) => text.setPlaceholder("7").setValue(this.plugin.settings.dayCount.toString()).onChange(async (value) => {
       const num = parseInt(value);
       if (!isNaN(num) && num >= 3 && num <= 30) {
         this.plugin.settings.dayCount = num;
         await this.plugin.saveSettings();
       }
     }));
-    new import_obsidian4.Setting(containerEl).setName("\u5F85\u529E\u770B\u677F\u9ED8\u8BA4\u5C55\u5F00\u6570").setDesc("\u9ED8\u8BA4\u5C55\u5F00\u524DN\u4E2A\u6587\u4EF6\u7684\u4EFB\u52A1\uFF081-10\uFF09").addText((text) => text.setPlaceholder("3").setValue(this.plugin.settings.maxOpen.toString()).onChange(async (value) => {
+    new import_obsidian3.Setting(containerEl).setName("\u5F85\u529E\u770B\u677F\u9ED8\u8BA4\u5C55\u5F00\u6570").setDesc("\u9ED8\u8BA4\u5C55\u5F00\u524DN\u4E2A\u6587\u4EF6\u7684\u4EFB\u52A1\uFF081-10\uFF09").addText((text) => text.setPlaceholder("3").setValue(this.plugin.settings.maxOpen.toString()).onChange(async (value) => {
       const num = parseInt(value);
       if (!isNaN(num) && num >= 1 && num <= 10) {
         this.plugin.settings.maxOpen = num;
+        await this.plugin.saveSettings();
+      }
+    }));
+    new import_obsidian3.Setting(containerEl).setName("\u4F30\u8BA1\u9608\u503C").setDesc("\u5B57\u6570\u8D85\u8FC7\u6B64\u503C\u89C6\u4E3A\u957F\u6587\uFF08\u7528\u4E8E\u7EDF\u8BA1\uFF09").addText((text) => text.setPlaceholder("200").setValue(this.plugin.settings.estThreshold.toString()).onChange(async (value) => {
+      const num = parseInt(value);
+      if (!isNaN(num) && num >= 0) {
+        this.plugin.settings.estThreshold = num;
+        await this.plugin.saveSettings();
+      }
+    }));
+    new import_obsidian3.Setting(containerEl).setName("\u4F30\u8BA1\u7CFB\u6570").setDesc("\u6BCF\u5206\u949F\u9605\u8BFB\u5B57\u6570\uFF08\u7528\u4E8E\u9605\u8BFB\u65F6\u95F4\u4F30\u7B97\uFF09").addText((text) => text.setPlaceholder("4").setValue(this.plugin.settings.estCoeff.toString()).onChange(async (value) => {
+      const num = parseInt(value);
+      if (!isNaN(num) && num >= 1) {
+        this.plugin.settings.estCoeff = num;
         await this.plugin.saveSettings();
       }
     }));
@@ -840,7 +839,7 @@ var NoteDashboardSettingTab = class extends import_obsidian4.PluginSettingTab {
 
 // main.ts
 var VIEW_TYPE = "note-dashboard";
-var DashboardView = class extends import_obsidian5.ItemView {
+var DashboardView = class extends import_obsidian4.ItemView {
   constructor(leaf, plugin) {
     super(leaf);
     this.cachedData = null;
@@ -927,7 +926,12 @@ var DashboardView = class extends import_obsidian5.ItemView {
           break;
       }
     }
+    const scrollTop = container.scrollTop;
+    const scrollLeft = container.scrollLeft;
     container.innerHTML = html;
+    container.scrollTop = scrollTop;
+    container.scrollLeft = scrollLeft;
+    this.initChartPanes(container);
     requestAnimationFrame(() => {
       container.querySelectorAll(".nd-anim").forEach((el, i) => {
         el.style.animationDelay = `${i * 0.08}s`;
@@ -946,6 +950,17 @@ var DashboardView = class extends import_obsidian5.ItemView {
     this.clickHandler = (e) => this.handleClick(e, container);
     container.addEventListener("click", this.clickHandler);
   }
+  initChartPanes(container) {
+    const dayPane = container.querySelector('.nd-chart-pane[data-chart-type="day"]');
+    if (dayPane && !dayPane.dataset.loaded) {
+      const data = JSON.parse(dayPane.dataset.chartData || "[]");
+      const bar0 = dayPane.dataset.bar0 || "";
+      const bar1 = dayPane.dataset.bar1 || "";
+      const primary = dayPane.dataset.primary || "";
+      renderChartPane(dayPane, data, bar0, bar1, primary);
+      dayPane.dataset.loaded = "1";
+    }
+  }
   handleClick(e, container) {
     var _a;
     const target = e.target;
@@ -955,6 +970,43 @@ var DashboardView = class extends import_obsidian5.ItemView {
       if (path) {
         this.app.workspace.openLinkText(path, "", false);
       }
+    }
+    const chartTab = target.closest(".nd-chart-tab");
+    if (chartTab) {
+      const view = chartTab.getAttribute("data-view");
+      const toggle = chartTab.closest(".nd-chart-toggle");
+      if (!toggle)
+        return;
+      const ind = toggle.querySelector("[data-ind]");
+      const tabs = toggle.querySelectorAll(".nd-chart-tab");
+      const dayPane = container.querySelector('.nd-chart-pane[data-chart-type="day"]');
+      const monthPane = container.querySelector('.nd-chart-pane[data-chart-type="month"]');
+      if (!dayPane || !monthPane)
+        return;
+      if (ind) {
+        ind.style.left = view === "month" ? "calc(50%)" : "2px";
+      }
+      tabs.forEach((tab) => {
+        tab.style.color = tab === chartTab ? "#fff" : "var(--text-muted)";
+      });
+      if (view === "month") {
+        if (!monthPane.dataset.loaded) {
+          const data = JSON.parse(monthPane.dataset.chartData || "[]");
+          const bar0 = monthPane.dataset.bar0 || "";
+          const bar1 = monthPane.dataset.bar1 || "";
+          const primary = monthPane.dataset.primary || "";
+          renderChartPane(monthPane, data, bar0, bar1, primary);
+          monthPane.dataset.loaded = "1";
+        }
+        dayPane.style.display = "none";
+        monthPane.style.display = "block";
+        animChartBars(monthPane);
+      } else {
+        monthPane.style.display = "none";
+        dayPane.style.display = "block";
+        animChartBars(dayPane);
+      }
+      return;
     }
     const rankTab = target.closest(".nd-rank-tab");
     if (rankTab) {
@@ -1032,7 +1084,7 @@ var DashboardView = class extends import_obsidian5.ItemView {
     }
   }
 };
-var NoteDashboardPlugin = class extends import_obsidian5.Plugin {
+var NoteDashboardPlugin = class extends import_obsidian4.Plugin {
   constructor() {
     super(...arguments);
     this.refreshTimer = null;
