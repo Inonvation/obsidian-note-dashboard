@@ -3,15 +3,14 @@ export function computeStreak(dateWords: Map<string, number>): number {
   let streak = 0;
   const d = new Date();
   d.setHours(0, 0, 0, 0);
-  for (let i = 0; i < 365; i++) {
+  // Start from today, go backwards until we find an inactive day
+  while (true) {
     const key = formatDate(d);
     if (dateWords.has(key)) {
       streak++;
       d.setDate(d.getDate() - 1);
-    } else if (i > 0) {
-      break;
     } else {
-      d.setDate(d.getDate() - 1);
+      break;
     }
   }
   return streak;
