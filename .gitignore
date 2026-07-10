@@ -1,27 +1,30 @@
-# 构建输出
+﻿# Build output
 *.js.map
 plugin/main.js
 
-# 依赖
+# Dependencies
 node_modules/
 
 # IDE
 .vscode/
 .idea/
 
-# 系统文件
+# System files
 .DS_Store
 Thumbs.db
 
-# 日志
+# Logs
 *.log
 
-# 本地配置
+# Local config
 .env
 .env.local
 
-# Obsidian 插件目录
+# Obsidian plugin directory
 .obsidian/
 
-# 参考文件
+# Reference files
 参考/
+
+# Local dev tooling
+.opencode/

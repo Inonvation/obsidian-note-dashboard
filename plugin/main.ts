@@ -1,4 +1,4 @@
-import { ItemView, Plugin, TFile, Vault, WorkspaceLeaf } from 'obsidian';
+﻿import { ItemView, Plugin, TFile, Vault, WorkspaceLeaf } from 'obsidian';
 import { collectData, DashboardData } from './src/data';
 import { renderStatsCards } from './src/components/stats-cards';
 import { renderHeatmap } from './src/components/heatmap';
@@ -11,13 +11,16 @@ import { COLOR_SCHEMES } from './src/color-schemes';
 import { NoteDashboardSettings } from './src/types';
 import { DEFAULT_SETTINGS } from './src/settings';
 import { NoteDashboardSettingTab } from './src/setting-tab';
+import { registerChartToggle } from './src/components/chart-handler';
+import { registerFileNavigation } from './src/components/navigation-handler';
+import { registerRankTabs } from './src/components/ranking-handler';
+import { registerFolderToggle, registerTaskCheckbox } from './src/components/tasks-board-handler';
 
 const VIEW_TYPE = "note-dashboard";
 
 class DashboardView extends ItemView {
     private plugin: NoteDashboardPlugin;
     private cachedData: DashboardData | null = null;
-    private clickHandler: ((e: MouseEvent) => void) | null = null;
     private container: HTMLElement | null = null;
 
     constructor(leaf: WorkspaceLeaf, plugin: NoteDashboardPlugin) {
@@ -46,10 +49,6 @@ class DashboardView extends ItemView {
     }
 
     async onClose() {
-        if (this.container && this.clickHandler) {
-            this.container.removeEventListener('click', this.clickHandler);
-            this.clickHandler = null;
-        }
         this.container = null;
         this.cachedData = null;
     }
@@ -80,12 +79,12 @@ class DashboardView extends ItemView {
         for (const section of settings.sectionOrder) {
             switch (section) {
                 case 'heat':
-                    html += '<div data-section="heat"><div class="nd-title">🔥 近一年贡献热力图</div>';
+                    html += '<div data-section=\"heat\"><div class=\"nd-title\">\\uD83D\\uDD1F 近一年贡献热力图</div>';
                     html += renderHeatmap(data, scheme, settings.heatWeeks, settings.heatLevels);
                     html += '</div>';
                     break;
                 case 'stats':
-                    html += '<div data-section="stats"><div class="nd-hr"></div><div class="nd-title">📈 统计总览</div>';
+                    html += '<div data-section=\"stats\"><div class=\"nd-hr\"></div><div class=\"nd-title\">\\uD83D\\uDCF1 统计总览</div>';
                     html += renderStatsCards(data, scheme);
                     html += '</div>';
                     break;
@@ -93,7 +92,7 @@ class DashboardView extends ItemView {
                     html += renderChart(data, scheme, settings.monthCount, settings.dayCount);
                     break;
                 case 'rank':
-                    html += '<div data-section="rank">';
+                    html += '<div data-section=\"rank\">';
                     html += renderRanking(data, scheme, settings.folderTopN);
                     html += '</div>';
                     break;
@@ -106,29 +105,26 @@ class DashboardView extends ItemView {
                     html += renderRecentEdits(data);
                     break;
                 case 'tasks':
-                    html += '<div data-section="tasks"><div class="nd-hr"></div>';
+                    html += '<div data-section=\"tasks\"><div class=\"nd-hr\"></div>';
                     html += renderTasksBoard(data, scheme, settings.taskTags, settings.maxOpen, this.app);
                     html += '</div>';
                     break;
             }
         }
 
-        // Save scroll positions before updating
         const scrollTop = container.scrollTop;
         const scrollLeft = container.scrollLeft;
-        
+
         container.innerHTML = html;
-        
-        // Restore scroll positions
+
         container.scrollTop = scrollTop;
         container.scrollLeft = scrollLeft;
-        
-        // Initialize chart panes
+
         this.initChartPanes(container);
 
         requestAnimationFrame(() => {
             container.querySelectorAll('.nd-anim').forEach((el, i) => {
-                (el as HTMLElement).style.animationDelay = `${i * 0.08}s`;
+                (el as HTMLElement).style.animationDelay = i * 0.08 + 's';
             });
             setTimeout(() => {
                 container.querySelectorAll('.nd-bar-fill').forEach(el => el.classList.add('nd-in'));
@@ -140,153 +136,20 @@ class DashboardView extends ItemView {
             }
         });
 
-        if (this.clickHandler) {
-            container.removeEventListener('click', this.clickHandler);
-        }
-        this.clickHandler = (e: MouseEvent) => this.handleClick(e, container);
-        container.addEventListener('click', this.clickHandler);
+        // Register event handlers (uses event delegation, safe to re-register)
+        registerChartToggle(container, this.app);
+        registerFileNavigation(container, (path) => this.app.workspace.openLinkText(path, '', false));
+        registerRankTabs(container);
+        registerFolderToggle(container);
+        registerTaskCheckbox(container, this.app.vault, () => { this.cachedData = null; });
     }
 
     private initChartPanes(container: HTMLElement) {
-        // Render day pane by default
-        const dayPane = container.querySelector('.nd-chart-pane[data-chart-type="day"]') as HTMLElement;
+        const dayPane = container.querySelector('.nd-chart-pane[data-chart-type=\"day\"]') as HTMLElement;
         if (dayPane && !dayPane.dataset.loaded) {
             const data = JSON.parse(dayPane.dataset.chartData || '[]');
-            const bar0 = dayPane.dataset.bar0 || '';
-            const bar1 = dayPane.dataset.bar1 || '';
-            const primary = dayPane.dataset.primary || '';
-            renderChartPane(dayPane, data, bar0, bar1, primary);
+            renderChartPane(dayPane, data, dayPane.dataset.bar0 || '', dayPane.dataset.bar1 || '', dayPane.dataset.primary || '');
             dayPane.dataset.loaded = '1';
-        }
-    }
-
-    private handleClick(e: MouseEvent, container: HTMLElement) {
-        const target = e.target as HTMLElement;
-        const link = target.closest('[data-nd-link]');
-        if (link) {
-            const path = link.getAttribute('data-nd-link');
-            if (path) {
-                this.app.workspace.openLinkText(path, '', false);
-            }
-        }
-
-        // Handle chart toggle
-        const chartTab = target.closest('.nd-chart-tab');
-        if (chartTab) {
-            const view = chartTab.getAttribute('data-view');
-            const toggle = chartTab.closest('.nd-chart-toggle');
-            if (!toggle) return;
-            
-            const ind = toggle.querySelector('[data-ind]') as HTMLElement;
-            const tabs = toggle.querySelectorAll('.nd-chart-tab');
-            const dayPane = container.querySelector('.nd-chart-pane[data-chart-type="day"]') as HTMLElement;
-            const monthPane = container.querySelector('.nd-chart-pane[data-chart-type="month"]') as HTMLElement;
-            
-            if (!dayPane || !monthPane) return;
-            
-            // Update toggle indicator
-            if (ind) {
-                ind.style.left = view === 'month' ? 'calc(50%)' : '2px';
-            }
-            
-            // Update tab colors
-            tabs.forEach(tab => {
-                (tab as HTMLElement).style.color = tab === chartTab ? '#fff' : 'var(--text-muted)';
-            });
-            
-            // Switch panes
-            if (view === 'month') {
-                if (!monthPane.dataset.loaded) {
-                    const data = JSON.parse(monthPane.dataset.chartData || '[]');
-                    const bar0 = monthPane.dataset.bar0 || '';
-                    const bar1 = monthPane.dataset.bar1 || '';
-                    const primary = monthPane.dataset.primary || '';
-                    renderChartPane(monthPane, data, bar0, bar1, primary);
-                    monthPane.dataset.loaded = '1';
-                }
-                dayPane.style.display = 'none';
-                monthPane.style.display = 'block';
-                animChartBars(monthPane);
-            } else {
-                monthPane.style.display = 'none';
-                dayPane.style.display = 'block';
-                animChartBars(dayPane);
-            }
-            return;
-        }
-
-        const rankTab = target.closest('.nd-rank-tab');
-        if (rankTab) {
-            const targetId = rankTab.getAttribute('data-target');
-            const otherId = rankTab.getAttribute('data-other');
-            if (targetId) {
-                const targetEl = container.querySelector(`#${CSS.escape(targetId)}`);
-                if (targetEl) (targetEl as HTMLElement).style.display = '';
-            }
-            if (otherId) {
-                const otherEl = container.querySelector(`#${CSS.escape(otherId)}`);
-                if (otherEl) (otherEl as HTMLElement).style.display = 'none';
-            }
-            const tabs = rankTab.parentElement?.querySelectorAll('.nd-rank-tab');
-            tabs?.forEach(tab => {
-                tab.classList.remove('nd-rank-tab-active');
-                (tab as HTMLElement).style.background = 'transparent';
-                (tab as HTMLElement).style.color = 'var(--text-muted)';
-                (tab as HTMLElement).style.borderColor = 'var(--background-modifier-border)';
-            });
-            rankTab.classList.add('nd-rank-tab-active');
-            (rankTab as HTMLElement).style.background = 'var(--interactive-accent)';
-            (rankTab as HTMLElement).style.color = '#fff';
-            (rankTab as HTMLElement).style.borderColor = 'var(--interactive-accent)';
-            return;
-        }
-
-        const fh = target.closest('.nd-fh');
-        if (fh) {
-            const tid = fh.getAttribute('data-target');
-            const c = tid ? container.querySelector(`#${CSS.escape(tid)}`) : null;
-            const a = tid ? container.querySelector(`#${CSS.escape(tid)}-a`) : null;
-            if (!c) return;
-            const isOpen = c.getAttribute('data-open') === '1';
-            c.classList.toggle('nd-show', !isOpen);
-            if (a) (a as HTMLElement).style.transform = isOpen ? '' : 'rotate(90deg)';
-            (fh as HTMLElement).style.borderBottom = isOpen ? '1px solid transparent' : '1px solid var(--background-modifier-border)';
-            c.setAttribute('data-open', isOpen ? '0' : '1');
-            fh.setAttribute('data-open', isOpen ? '0' : '1');
-        }
-
-        const cb = target.closest('.nd-cb');
-        if (cb) {
-            e.stopPropagation();
-            const row = cb.closest('.nd-tr');
-            const path = cb.getAttribute('data-path');
-            const line = parseInt(cb.getAttribute('data-line') || '0');
-            if (!row || !path || !line) return;
-
-            cb.textContent = '✅';
-            (cb as HTMLElement).style.color = '#22c55e';
-
-            setTimeout(async () => {
-                try {
-                    const file = this.app.vault.getAbstractFileByPath(path);
-                    if (file) {
-                        let content = await this.app.vault.read(file);
-                        content = content.replace(/\r\n/g, '\n');
-                        const lines = content.split('\n');
-                        const li = line - 1;
-                        if (li >= 0 && li < lines.length) {
-                            lines[li] = lines[li].replace(/^(\s*[-*+]\s*)\[\s\](\s*)/, '$1[x]$2');
-                            await this.app.vault.modify(file, lines.join('\n'));
-                        }
-                    }
-                    row.remove();
-                    this.cachedData = null;
-                } catch (err) {
-                    console.error('mark task failed:', err);
-                    cb.textContent = '⬜';
-                    (cb as HTMLElement).style.color = '';
-                }
-            }, 300);
         }
     }
 }
@@ -325,8 +188,7 @@ export default class NoteDashboardPlugin extends Plugin {
 
         this.addSettingTab(new NoteDashboardSettingTab(this.app, this));
 
-        // 合并 vault 事件注册
-        for (const evt of ['modify', 'create', 'delete', 'rename']) {
+        for (const evt of ['modify', 'create', 'delete', 'rename'] as const) {
             this.registerEvent(
                 (this.app.vault as Vault).on(evt, () => this.scheduleRefresh())
             );
