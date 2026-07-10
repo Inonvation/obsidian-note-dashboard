@@ -1,4 +1,4 @@
-﻿import { Vault } from 'obsidian';
+import { Vault } from 'obsidian';
 
 export function registerFolderToggle(container: HTMLElement): void {
     container.addEventListener('click', (e: MouseEvent) => {
@@ -44,7 +44,7 @@ export function registerTaskCheckbox(container: HTMLElement, vault: Vault, onCac
                     const lines = content.split('\n');
                     const li = line - 1;
                     if (li >= 0 && li < lines.length) {
-                        lines[li] = lines[li].replace(/^(\s*[-*+]\s*)\[\s\](\s*)/, '[x]');
+                        lines[li] = lines[li].replace(/^(\s*[-*+]\s*)\[\s\](\s*)/, '$1[x]$2');
                         await vault.modify(file as any, lines.join('\n'));
                     }
                 }
